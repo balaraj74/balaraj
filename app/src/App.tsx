@@ -27,6 +27,9 @@ import {
   Terminal,
   Server,
   Flame,
+  Twitter,
+  Instagram,
+  Database,
 } from 'lucide-react';
 import './App.css';
 
@@ -1555,8 +1558,14 @@ function ContactSection() {
             <div className="space-y-4">
               {[
                 { icon: Mail, label: 'Email (Preferred)', value: 'balarajr483@gmail.com', href: 'mailto:balarajr483@gmail.com', subtext: 'Response time: within 24 hours' },
-                { icon: Github, label: 'GitHub', value: 'github.com/balaraj74', href: 'https://github.com/balaraj74', subtext: 'Projects & Contributions' },
                 { icon: Linkedin, label: 'LinkedIn', value: 'linkedin.com/in/balaraj-r-209a67330', href: 'https://www.linkedin.com/in/balaraj-r-209a67330/', subtext: 'Experience & Network' },
+                { icon: Github, label: 'GitHub', value: 'github.com/balaraj74', href: 'https://github.com/balaraj74', subtext: 'Projects & Contributions' },
+                { icon: Twitter, label: 'X (Twitter)', value: 'x.com/Balaraj__r', href: 'https://x.com/Balaraj__r', subtext: 'Tech & Updates' },
+                { icon: Database, label: 'Kaggle', value: 'kaggle.com/balarajr', href: 'https://www.kaggle.com/balarajr', subtext: 'Data Science & Notebooks' },
+                { icon: Brain, label: 'Hugging Face', value: 'huggingface.co/balarajr', href: 'https://huggingface.co/balarajr', subtext: 'AI Models & Datasets' },
+                { icon: Code2, label: 'Google Dev', value: 'g.dev/balarajr', href: 'https://g.dev/balarajr', subtext: 'Developer Profile' },
+                { icon: Award, label: 'Google Skills', value: 'skills.google', href: 'https://www.skills.google/public_profiles/7e29917e-8bd6-41e6-8149-0795ae63c97b', subtext: 'Certifications' },
+                { icon: Instagram, label: 'Instagram', value: 'instagram.com/balaraj.__r', href: 'https://www.instagram.com/balaraj.__r/', subtext: 'Personal' },
                 { icon: Terminal, label: 'Devpost', value: 'devpost.com/balarajr', href: 'https://devpost.com/balarajr', subtext: 'Hackathon Portfolio' },
               ].map((contact) => (
                 <a key={contact.label} href={contact.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group p-3 -ml-3 rounded-2xl hover:bg-white/5 transition-all duration-300">
@@ -1695,6 +1704,8 @@ function Footer() {
             {[
               { icon: Github, href: 'https://github.com/balaraj74' },
               { icon: Linkedin, href: 'https://www.linkedin.com/in/balaraj-r-209a67330/' },
+              { icon: Twitter, href: 'https://x.com/Balaraj__r' },
+              { icon: Instagram, href: 'https://www.instagram.com/balaraj.__r/' },
               { icon: Mail, href: 'mailto:balarajr483@gmail.com' },
             ].map((s, i) => (
               <a
