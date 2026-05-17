@@ -796,7 +796,10 @@ function ProjectsSection() {
       borderColor: 'border-emerald-500/30',
       accentColor: 'text-emerald-400',
       image: '/projects/service-ml.jpg', // Using existing placeholder image
-      metrics: ['On-device Inference', 'Offline Mode Ready']
+      metrics: [
+        { label: 'Inference', value: 'On-device' },
+        { label: 'Network', value: 'Offline-ready' }
+      ]
     },
     {
       title: 'CareerLens',
