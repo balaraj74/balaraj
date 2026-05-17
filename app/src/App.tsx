@@ -1,4 +1,9 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import ProjectPage from './pages/ProjectPage';
+import BlogPage from './pages/BlogPage';
+import BlogsIndex from './pages/BlogsIndex';
 import {
   ArrowRight,
   Github,
@@ -132,12 +137,19 @@ function Navigation() {
     { id: 'experience', label: 'Journey' },
     { id: 'achievements', label: 'Awards' },
     { id: 'contact', label: 'Contact' },
+    { id: 'blogs', label: 'Blog', route: '/blogs' },
   ];
 
+  const navigate = useNavigate();
+  const location = useLocation();
   const scrollToSection = useCallback((id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    if (location.pathname !== '/') {
+      navigate('/#' + id);
+    } else {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    }
     setMenuOpen(false);
-  }, []);
+  }, [navigate, location]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -179,7 +191,7 @@ function Navigation() {
             {navLinks.map((link) => (
               <button
                 key={link.id}
-                onClick={() => scrollToSection(link.id)}
+                onClick={() => link.route ? navigate(link.route) : scrollToSection(link.id)}
                 className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${
                   activeSection === link.id
                     ? 'text-violet-400 bg-violet-500/10'
@@ -219,7 +231,7 @@ function Navigation() {
             {navLinks.map((link) => (
               <button
                 key={link.id}
-                onClick={() => scrollToSection(link.id)}
+                onClick={() => link.route ? navigate(link.route) : scrollToSection(link.id)}
                 className={`w-full text-left px-4 py-3 text-sm font-medium rounded-xl transition-all ${
                   activeSection === link.id
                     ? 'text-cyan-400 bg-cyan-500/10'
@@ -1763,9 +1775,21 @@ function Footer() {
 }
 
 // ─── App ──────────────────────────────────────────────────────────────────────
-function App() {
+function HomePage() {
+  const location = useLocation();
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }), 100);
+    }
+  }, [location]);
+  
   return (
     <div className="min-h-screen bg-[#050d1a] text-white">
+      <Helmet>
+        <title>Balaraj R | AI/ML Engineer | Full Stack Developer</title>
+        <meta name="description" content="Portfolio of Balaraj R (Balu), AI/ML engineer and hackathon winner building healthcare, agriculture, and intelligent AI systems." />
+      </Helmet>
       <CursorDot />
       <Navigation />
       <HeroSection />
@@ -1777,6 +1801,17 @@ function App() {
       <ContactSection />
       <Footer />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/projects/:id" element={<ProjectPage />} />
+      <Route path="/blogs" element={<BlogsIndex />} />
+      <Route path="/blogs/:slug" element={<BlogPage />} />
+    </Routes>
   );
 }
 
