@@ -31,7 +31,6 @@ import {
   Instagram,
   Database,
 } from 'lucide-react';
-import VaidyaOS from './components/VaidyaOS';
 import './App.css';
 
 // ─── Utility Hook ──────────────────────────────────────────────────────────────
@@ -785,6 +784,21 @@ function ProjectsSection() {
 
   const featuredProjects = [
     {
+      title: 'VaidyaOS',
+      emoji: '🩺',
+      badge: 'Flagship AI Healthcare OS',
+      description: 'Advanced AI healthcare platform for intelligent, real-time, multilingual medical assistance using on-device edge AI and offline capabilities via lightweight GGUF models.',
+      thinking: 'Offline-first architecture with Edge AI inference & Llama.cpp',
+      tech: ['React Native', 'Gemma', 'Llama.cpp', 'Firebase', '+4 more'],
+      github: 'https://github.com/balaraj74/VaidyaOS',
+      demo: 'https://roaring-valkyrie-042963.netlify.app/VaidyaOS.apk',
+      color: 'from-emerald-600/20 to-teal-600/10',
+      borderColor: 'border-emerald-500/30',
+      accentColor: 'text-emerald-400',
+      image: '/projects/service-ml.jpg', // Using existing placeholder image
+      metrics: ['On-device Inference', 'Offline Mode Ready']
+    },
+    {
       title: 'CareerLens',
       emoji: '🎯',
       badge: '🥇 Google Gen AI Exchange — National Winner',
@@ -909,11 +923,6 @@ function ProjectsSection() {
           <p className="text-white/50 mt-6 max-w-2xl mx-auto text-lg">
             Here's proof that I build real-world systems with impact, performance, and architecture in mind.
           </p>
-        </div>
-
-        {/* VOS Flagship Project Component */}
-        <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-          <VaidyaOS />
         </div>
 
         {/* Featured Projects */}
