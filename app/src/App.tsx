@@ -1555,20 +1555,19 @@ function ContactSection() {
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
-                { icon: Mail, label: 'Email (Preferred)', value: 'balarajr483@gmail.com', href: 'mailto:balarajr483@gmail.com', subtext: 'Response time: within 24 hours' },
-                { icon: Linkedin, label: 'LinkedIn', value: 'linkedin.com/in/balaraj-r-209a67330', href: 'https://www.linkedin.com/in/balaraj-r-209a67330/', subtext: 'Experience & Network' },
-                { icon: Github, label: 'GitHub', value: 'github.com/balaraj74', href: 'https://github.com/balaraj74', subtext: 'Projects & Contributions' },
-                { icon: Twitter, label: 'X (Twitter)', value: 'x.com/Balaraj__r', href: 'https://x.com/Balaraj__r', subtext: 'Tech & Updates' },
-                { icon: Database, label: 'Kaggle', value: 'kaggle.com/balarajr', href: 'https://www.kaggle.com/balarajr', subtext: 'Data Science & Notebooks' },
-                { icon: Brain, label: 'Hugging Face', value: 'huggingface.co/balarajr', href: 'https://huggingface.co/balarajr', subtext: 'AI Models & Datasets' },
-                { icon: Code2, label: 'Google Dev', value: 'g.dev/balarajr', href: 'https://g.dev/balarajr', subtext: 'Developer Profile' },
+                { icon: Mail, label: 'Email', value: 'balarajr483@gmail.com', href: 'mailto:balarajr483@gmail.com', subtext: 'Within 24 hrs' },
+                { icon: Linkedin, label: 'LinkedIn', value: 'linkedin.com/in/balaraj-r-209a67330', href: 'https://www.linkedin.com/in/balaraj-r-209a67330/', subtext: 'Experience' },
+                { icon: Github, label: 'GitHub', value: 'github.com/balaraj74', href: 'https://github.com/balaraj74', subtext: 'Code & PRs' },
+                { icon: Twitter, label: 'X (Twitter)', value: 'x.com/Balaraj__r', href: 'https://x.com/Balaraj__r', subtext: 'Tech Updates' },
+                { icon: Database, label: 'Kaggle', value: 'kaggle.com/balarajr', href: 'https://www.kaggle.com/balarajr', subtext: 'Data Science' },
+                { icon: Brain, label: 'Hugging Face', value: 'huggingface.co/balarajr', href: 'https://huggingface.co/balarajr', subtext: 'AI Models' },
+                { icon: Code2, label: 'Google Dev', value: 'g.dev/balarajr', href: 'https://g.dev/balarajr', subtext: 'Dev Profile' },
                 { icon: Award, label: 'Google Skills', value: 'skills.google', href: 'https://www.skills.google/public_profiles/7e29917e-8bd6-41e6-8149-0795ae63c97b', subtext: 'Certifications' },
                 { icon: Instagram, label: 'Instagram', value: 'instagram.com/balaraj.__r', href: 'https://www.instagram.com/balaraj.__r/', subtext: 'Personal' },
-                { icon: Terminal, label: 'Devpost', value: 'devpost.com/balarajr', href: 'https://devpost.com/balarajr', subtext: 'Hackathon Portfolio' },
               ].map((contact) => (
-                <a key={contact.label} href={contact.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group p-3 -ml-3 rounded-2xl hover:bg-white/5 transition-all duration-300">
+                <a key={contact.label} href={contact.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group p-2 rounded-2xl hover:bg-white/5 transition-all duration-300">
                   <div className="w-12 h-12 glass shadow-lg rounded-xl flex items-center justify-center border border-white/5 group-hover:border-cyan-500/50 group-hover:bg-cyan-500/10 transition-all duration-300 group-hover:scale-110">
                     <contact.icon className="w-5 h-5 text-white/50 group-hover:text-cyan-400 transition-colors" />
                   </div>
