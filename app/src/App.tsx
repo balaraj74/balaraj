@@ -795,7 +795,7 @@ function ProjectsSection() {
       color: 'from-emerald-600/20 to-teal-600/10',
       borderColor: 'border-emerald-500/30',
       accentColor: 'text-emerald-400',
-      image: '/projects/service-ml.jpg', // Using existing placeholder image
+      image: '/projects/vaidyaos_banner.png',
       metrics: [
         { label: 'Inference', value: 'On-device' },
         { label: 'Network', value: 'Offline-ready' }
