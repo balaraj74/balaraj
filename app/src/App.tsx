@@ -31,6 +31,7 @@ import {
   Instagram,
   Database,
 } from 'lucide-react';
+import VaidyaOS from './components/VaidyaOS';
 import './App.css';
 
 // ─── Utility Hook ──────────────────────────────────────────────────────────────
@@ -603,7 +604,7 @@ function SkillsSection() {
             { name: 'FastAPI', icon: 'fastapi', color: 'hover:text-[#009688] hover:border-[#009688]/30' },
             { name: 'Node.js', icon: 'nodedotjs', color: 'hover:text-[#5FA04E] hover:border-[#5FA04E]/30' },
             { name: 'PostgreSQL', icon: 'postgresql', color: 'hover:text-[#4169E1] hover:border-[#4169E1]/30' }
-          ].map((tech, idx) => (
+          ].map((tech) => (
             <div key={tech.name} className={`flex flex-col items-center justify-center gap-3 p-4 glass rounded-2xl border border-white/5 transition-all duration-300 group hover:-translate-y-1 ${tech.color}`}>
               <img src={`https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/${tech.icon}.svg`} alt={tech.name} className="w-10 h-10 opacity-60 group-hover:opacity-100 transition-opacity filter invert group-hover:filter-none" />
               <span className="text-xs font-bold text-white/50 group-hover:text-current transition-colors tracking-wider uppercase">{tech.name}</span>
@@ -908,6 +909,11 @@ function ProjectsSection() {
           <p className="text-white/50 mt-6 max-w-2xl mx-auto text-lg">
             Here's proof that I build real-world systems with impact, performance, and architecture in mind.
           </p>
+        </div>
+
+        {/* VOS Flagship Project Component */}
+        <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+          <VaidyaOS />
         </div>
 
         {/* Featured Projects */}
