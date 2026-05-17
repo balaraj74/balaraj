@@ -301,7 +301,7 @@ function HeroSection() {
                   <ArrowRight className="w-4 h-4" />
                 </div>
              </button>
-             <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 border-2 border-white/20 text-white font-black px-6 py-3 sm:px-8 sm:py-4 rounded-xl shadow-none hover:bg-white/10 hover:border-cyan-400/50 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] active:scale-95 transition-all duration-300 uppercase tracking-widest text-xs sm:text-sm w-full sm:w-auto justify-center">
+             <a href="https://drive.google.com/file/d/1eHgU1BzPQ1m0DxUQqf0EbmLVZ-jRKAYk/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 border-2 border-white/20 text-white font-black px-6 py-3 sm:px-8 sm:py-4 rounded-xl shadow-none hover:bg-white/10 hover:border-cyan-400/50 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] active:scale-95 transition-all duration-300 uppercase tracking-widest text-xs sm:text-sm w-full sm:w-auto justify-center">
                 Download Resume
              </a>
           </div>
@@ -484,7 +484,7 @@ function AboutSection() {
                 <Github className="mr-2 w-4 h-4 group-hover:scale-110 transition-transform" />
                 View GitHub
               </a>
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="btn-secondary group">
+              <a href="https://drive.google.com/file/d/1eHgU1BzPQ1m0DxUQqf0EbmLVZ-jRKAYk/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="btn-secondary group">
                 <FileText className="mr-2 w-4 h-4 group-hover:scale-110 transition-transform" />
                 View Resume
               </a>
@@ -1581,7 +1581,7 @@ function ContactSection() {
 
             {/* Resume Button */}
             <div className="pt-4">
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-cyan-500/10 border border-white/10 hover:border-cyan-500/30 rounded-xl text-white font-medium transition-all duration-300 group shadow-lg">
+              <a href="https://drive.google.com/file/d/1eHgU1BzPQ1m0DxUQqf0EbmLVZ-jRKAYk/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-cyan-500/10 border border-white/10 hover:border-cyan-500/30 rounded-xl text-white font-medium transition-all duration-300 group shadow-lg">
                 <FileText className="w-5 h-5 text-cyan-400 group-hover:-translate-y-1 transition-transform" />
                 <span>Download Resume</span>
               </a>
