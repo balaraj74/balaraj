@@ -30,6 +30,7 @@ import {
   Twitter,
   Instagram,
   Database,
+  Activity,
 } from 'lucide-react';
 import './App.css';
 
@@ -1130,12 +1131,31 @@ function ExperienceSection() {
 
   const timeline = [
     {
+      category: 'Flagship Project',
+      type: 'Architecture & AI',
+      icon: Activity,
+      title: 'VaidyaOS Engineering & Deployment',
+      org: 'Independent AI Healthcare Initiative',
+      period: 'MAY 2026 – Present',
+      color: 'border-[#10b981]/50 bg-[#10b981]/10 text-[#10b981]',
+      blobColor: 'bg-[#10b981]',
+      points: [
+        'Architected and engineered a comprehensive, privacy-first healthcare AI platform running directly on-device using quantized GGUF models.',
+        'Developed full offline medical intelligence capabilities alongside cloud-synced fallback APIs, ensuring zero-latency, highly available clinical insights.'
+      ],
+      impact: [
+        'ON-DEVICE AI',
+        'OFFLINE-FIRST',
+        'Llama.cpp'
+      ]
+    },
+    {
       category: 'Hackathon',
       type: 'Competition',
       icon: Flame,
       title: 'Meta PyTorch OpenEnv Grand Finale',
       org: 'Meta',
-      period: 'APR 2025',
+      period: 'APR 2026',
       color: 'border-[#ef4444]/50 bg-[#ef4444]/10 text-[#ef4444]',
       blobColor: 'bg-[#ef4444]',
       points: [
