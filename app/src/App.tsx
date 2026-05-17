@@ -26,6 +26,7 @@ import {
   ArrowUpRight,
   Terminal,
   Server,
+  Flame,
 } from 'lucide-react';
 import './App.css';
 
@@ -154,7 +155,7 @@ function Navigation() {
 
   return (
     <nav
-      className={`fixed top-4 left-1/2 -translate-x-1/2 w-[96%] max-w-[1400px] z-40 transition-all duration-300 rounded-[2rem] ${
+      className={`fixed top-4 left-1/2 -translate-x-1/2 w-[96%] max-w-[1400px] z-50 transition-all duration-300 rounded-[2rem] ${
         scrolled
           ? 'bg-[#0f172a]/80 backdrop-blur-lg border border-white/10 shadow-2xl'
           : 'bg-[#0f172a]/40 backdrop-blur-md border border-white/5'
@@ -170,7 +171,7 @@ function Navigation() {
           </div>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
               <button
                 key={link.id}
@@ -191,14 +192,14 @@ function Navigation() {
               href="https://github.com/balaraj74"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden md:flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 text-white text-sm font-medium hover:bg-white/10 transition-all duration-300"
+              className="hidden lg:flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 text-white text-sm font-medium hover:bg-white/10 transition-all duration-300"
             >
               <Github className="w-4 h-4" />
               GitHub
             </a>
             {/* Mobile Menu Toggle */}
             <button
-              className="md:hidden p-2 text-white/70 hover:text-white"
+              className="lg:hidden p-2 text-white/70 hover:text-white"
               onClick={() => setMenuOpen((o) => !o)}
             >
               {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -209,7 +210,7 @@ function Navigation() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-[#0a0f1a]/95 backdrop-blur-3xl border-t border-white/10 rounded-b-[2rem] overflow-hidden absolute w-full left-0 top-full mt-2">
+        <div className="lg:hidden bg-[#0a0f1a]/95 backdrop-blur-3xl border-t border-white/10 rounded-b-[2rem] overflow-hidden absolute w-full left-0 top-full mt-2">
           <div className="px-4 py-4 space-y-1">
             {navLinks.map((link) => (
               <button
@@ -283,6 +284,11 @@ function HeroSection() {
             Architecting scalable event-driven infrastructure and robust multi-agent systems.
           </p>
           
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 mt-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-[10px] sm:text-xs font-bold tracking-widest uppercase shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+            <Trophy className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+            2× National Hackathon Winner
+          </div>
+          
           <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto relative">
              <button className="group flex items-center gap-4 bg-[#e0e1dd] text-[#1a1a1a] font-black px-6 py-3 sm:px-8 sm:py-4 rounded-xl overflow-hidden relative shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:bg-cyan-400 hover:text-white hover:scale-105 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(6,182,212,0.6)] active:scale-95 transition-all duration-300 uppercase tracking-widest text-xs sm:text-sm w-full sm:w-auto justify-center" onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}>
                 {/* Button shine effect */}
@@ -299,7 +305,7 @@ function HeroSection() {
         </div>
 
         {/* Floating Right Content */}
-        <div className={`absolute right-4 sm:right-8 lg:right-12 top-1/3 sm:top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-end text-right gap-12 transition-all duration-700 delay-500 pointer-events-auto z-40 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
+        <div className={`absolute right-4 sm:right-8 lg:right-12 top-1/3 sm:top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-end text-right gap-12 transition-all duration-700 delay-500 pointer-events-auto z-20 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
             
             {/* Review/Intro Style Block */}
             <div className="max-w-[280px] w-full text-left">
@@ -342,9 +348,9 @@ function HeroSection() {
             
         </div>
 
-        {/* Center Character Portrait */}
-        <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] xl:max-w-[1100px] h-[100%] flex items-end justify-center pointer-events-none transition-all duration-1000 delay-200 z-50 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-24'}`}>
-           <img src="/image1.png" alt="Balaraj" className="w-full h-[95%] object-contain object-bottom drop-shadow-[0_-20px_50px_rgba(6,182,212,0.15)] brightness-110" />
+        {/* Character Portrait */}
+        <div className={`absolute bottom-0 left-0 right-0 mx-auto w-[85%] sm:w-[480px] lg:w-[620px] xl:w-[820px] h-[100%] flex items-end justify-center pointer-events-none transition-all duration-1000 delay-200 z-30 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-24'}`}>
+           <img src="/image1.png" alt="Balaraj" className="mb-4 lg:mb-8 w-full h-[95%] object-contain object-bottom drop-shadow-[0_-20px_50px_rgba(6,182,212,0.15)] brightness-110 origin-bottom scale-[1.05]" />
            {/* Dark Gradient Overlay at the bottom to blend the image beautifully */}
            <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[#050d1a] via-[#050d1a]/80 to-transparent pointer-events-none" />
         </div>
@@ -427,7 +433,7 @@ function AboutSection() {
 
               {/* Floating stat */}
               <div className="absolute -bottom-6 -right-6 glass-strong rounded-2xl p-5 border border-violet-500/20">
-                <div className="text-4xl font-black text-violet-400">2nd</div>
+                <div className="text-4xl font-black text-violet-400">1st</div>
                 <div className="text-white/60 text-sm">Year BTech<br />CSE · AI & ML</div>
               </div>
             </div>
@@ -448,7 +454,7 @@ function AboutSection() {
 
             <div className={`space-y-4 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <p className="text-white/65 text-lg leading-relaxed">
-                I'm a 2nd-year B.Tech CSE student at <strong className="text-white">PES University</strong> specializing in AI & ML. I build and deploy production-grade AI systems, including <strong className="text-violet-400">CareerLens</strong> (40,000+ LOC, 32 services) and <strong className="text-violet-400">AgriSence</strong> (GCP-based ML platform with 400+ commits).
+                I'm a 1st-year B.Tech CSE student at <strong className="text-white">PES University</strong> specializing in AI & ML. I build and deploy production-grade AI systems, including <strong className="text-violet-400">CareerLens</strong> (40,000+ LOC, 32 services) and <strong className="text-violet-400">AgriSence</strong> (GCP-based ML platform with 400+ commits).
               </p>
               <p className="text-white/50 leading-relaxed">
                 I'm a <strong className="text-white">National-level hackathon winner</strong> with <strong className="text-emerald-400">₹2.75L+</strong> in prizes—most notably securing a flagship victory in the <strong className="gradient-text-cyan">Google GenAI Hackathon</strong>. I hold 35+ top-tier certifications across multi-cloud infrastructure and cybersecurity, and actively shape open-source ecosystems with merged contributions to <strong className="text-white">Ubuntu, Pandas, and NumPy</strong> (GitHub Pull Shark ×2).
@@ -570,6 +576,38 @@ function SkillsSection() {
           </p>
         </div>
 
+        {/* Tech Logo Grid */}
+        <div className={`mb-20 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          {[
+            // Row 1: AI/ML
+            { name: 'Python', icon: 'python', color: 'hover:text-[#3776AB] hover:border-[#3776AB]/30' },
+            { name: 'PyTorch', icon: 'pytorch', color: 'hover:text-[#EE4C2C] hover:border-[#EE4C2C]/30' },
+            { name: 'TensorFlow', icon: 'tensorflow', color: 'hover:text-[#FF6F00] hover:border-[#FF6F00]/30' },
+            { name: 'Gemini', icon: 'googlegemini', color: 'hover:text-[#8E75B2] hover:border-[#8E75B2]/30' },
+            { name: 'LangChain', icon: 'langchain', color: 'hover:text-[#121212] hover:bg-white/5 hover:border-white/30' },
+            { name: 'Google ADK', icon: 'google', color: 'hover:text-[#4285F4] hover:border-[#4285F4]/30' },
+            // Row 2: Cloud
+            { name: 'Google Cloud', icon: 'googlecloud', color: 'hover:text-[#4285F4] hover:border-[#4285F4]/30' },
+            { name: 'Azure', icon: 'microsoftazure', color: 'hover:text-[#0078D4] hover:border-[#0078D4]/30' },
+            { name: 'AWS', icon: 'amazonaws', color: 'hover:text-[#FF9900] hover:border-[#FF9900]/30' },
+            { name: 'Firebase', icon: 'firebase', color: 'hover:text-[#FFCA28] hover:border-[#FFCA28]/30' },
+            { name: 'Docker', icon: 'docker', color: 'hover:text-[#2496ED] hover:border-[#2496ED]/30' },
+            { name: 'Vercel', icon: 'vercel', color: 'hover:text-white hover:border-white/30' },
+            // Row 3: Dev
+            { name: 'TypeScript', icon: 'typescript', color: 'hover:text-[#3178C6] hover:border-[#3178C6]/30' },
+            { name: 'Next.js', icon: 'nextdotjs', color: 'hover:text-white hover:border-white/30' },
+            { name: 'React', icon: 'react', color: 'hover:text-[#61DAFB] hover:border-[#61DAFB]/30' },
+            { name: 'FastAPI', icon: 'fastapi', color: 'hover:text-[#009688] hover:border-[#009688]/30' },
+            { name: 'Node.js', icon: 'nodedotjs', color: 'hover:text-[#5FA04E] hover:border-[#5FA04E]/30' },
+            { name: 'PostgreSQL', icon: 'postgresql', color: 'hover:text-[#4169E1] hover:border-[#4169E1]/30' }
+          ].map((tech, idx) => (
+            <div key={tech.name} className={`flex flex-col items-center justify-center gap-3 p-4 glass rounded-2xl border border-white/5 transition-all duration-300 group hover:-translate-y-1 ${tech.color}`}>
+              <img src={`https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/${tech.icon}.svg`} alt={tech.name} className="w-10 h-10 opacity-60 group-hover:opacity-100 transition-opacity filter invert group-hover:filter-none" />
+              <span className="text-xs font-bold text-white/50 group-hover:text-current transition-colors tracking-wider uppercase">{tech.name}</span>
+            </div>
+          ))}
+        </div>
+
         {/* 4 Main Capability Cards */}
         <div className="grid lg:grid-cols-2 gap-8">
           {skillCategories.map((category, catIndex) => (
@@ -609,7 +647,7 @@ function SkillsSection() {
                 <span className="text-white/30 text-[10px] font-bold uppercase tracking-widest block mb-3">Core Stack</span>
                 <div className="flex flex-wrap gap-2">
                   {category.techStack.map((tech, idx) => (
-                    <span key={idx} className={`text-xs font-semibold px-3 py-1 rounded-full border bg-opacity-20 backdrop-blur-sm ${category.badgeBg}`}>
+                    <span key={idx} className={`text-xs font-semibold px-3 py-1 rounded-full border bg-opacity-20 backdrop-blur-sm whitespace-nowrap ${category.badgeBg}`}>
                       {tech}
                     </span>
                   ))}
@@ -710,22 +748,22 @@ function SkillsSection() {
           </div>
 
           {/* What Sets Me Apart */}
-          <div className={`glass rounded-3xl p-8 border border-white/5 hover:border-amber-500/30 hover:shadow-[0_0_40px_rgba(251,191,36,0.15)] transition-all duration-700 group relative md:col-span-2 lg:col-span-1 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '1100ms' }}>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-amber-500/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2 group-hover:bg-amber-500/20 transition-colors duration-700 pointer-events-none" />
+          <div className={`glass rounded-3xl p-8 border border-white/5 hover:border-blue-500/30 hover:shadow-[0_0_40px_rgba(59,130,246,0.15)] transition-all duration-700 group relative md:col-span-2 lg:col-span-1 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '1100ms' }}>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2 group-hover:bg-blue-500/20 transition-colors duration-700 pointer-events-none" />
             <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3 relative z-10">
-              <Sparkles className="w-6 h-6 text-amber-400" /> Real-World Impact
+              <Sparkles className="w-6 h-6 text-blue-400" /> Real-World Impact
             </h3>
             <ul className="space-y-6 text-white/70 text-sm relative z-10">
               <li className="flex items-start gap-4 group/list">
-                <CheckCircle2 className="w-6 h-6 text-amber-500 mt-0 shrink-0 group-hover/list:scale-110 transition-transform" />
+                <CheckCircle2 className="w-6 h-6 text-blue-500 mt-0 shrink-0 group-hover/list:scale-110 transition-transform" />
                 <span className="leading-relaxed text-base"><strong className="text-white font-semibold">National-Level Winner:</strong> Secured ₹2.75L+ in hackathon victories, proving ability to ideate, build, and pitch under extreme 24-48 hour pressure.</span>
               </li>
               <li className="flex items-start gap-4 group/list">
-                <CheckCircle2 className="w-6 h-6 text-amber-500 mt-0 shrink-0 group-hover/list:scale-110 transition-transform" />
+                <CheckCircle2 className="w-6 h-6 text-blue-500 mt-0 shrink-0 group-hover/list:scale-110 transition-transform" />
                 <span className="leading-relaxed text-base"><strong className="text-white font-semibold">The Rarest Intersection:</strong> Combining deep AI theory with hardened Full-Stack architectures and Security engineering layers.</span>
               </li>
               <li className="flex items-start gap-4 group/list">
-                <CheckCircle2 className="w-6 h-6 text-amber-500 mt-0 shrink-0 group-hover/list:scale-110 transition-transform" />
+                <CheckCircle2 className="w-6 h-6 text-blue-500 mt-0 shrink-0 group-hover/list:scale-110 transition-transform" />
                 <span className="leading-relaxed text-base"><strong className="text-white font-semibold">Self-Driven Builder:</strong> Capable of taking a completely ambiguous concept and shipping a globally scalable 1.0 iteration independently.</span>
               </li>
             </ul>
@@ -750,7 +788,7 @@ function ProjectsSection() {
         'Built an AI-powered career platform that analyzes resumes, identifies skill gaps, and generates personalized career paths. Designed as a microservices system and deployed for real-world usage.',
       thinking: 'Event-driven microservices architecture with parallel embedding queues',
       tech: ['Next.js 15', 'TypeScript', 'Gemini 1.5 Pro', 'Cloud Functions', '+4 more'],
-      github: 'https://github.com/balaraj74/CareerLens',
+      github: 'https://github.com/balaraj74/careerlens',
       demo: 'https://careerlens--careerlens-1.us-central1.hosted.app',
       color: 'from-cyan-500/15 to-blue-500/8',
       borderColor: 'border-cyan-500/25',
@@ -909,7 +947,7 @@ function ProjectsSection() {
                   
                   <div className="flex flex-wrap items-center gap-2 mb-6">
                     {project.tech.map((tech) => (
-                      <span key={tech} className="px-3 py-1.5 text-xs bg-white/5 text-white/70 rounded-lg border border-white/10 font-medium">
+                      <span key={tech} className="px-3 py-1.5 text-xs bg-white/5 text-white/70 rounded-lg border border-white/10 font-medium whitespace-nowrap">
                         {tech}
                       </span>
                     ))}
@@ -982,7 +1020,7 @@ function ProjectsSection() {
                   
                   <div className="flex flex-wrap gap-1.5">
                     {project.tech.map((tech) => (
-                      <span key={tech} className="px-2 py-1 text-[10px] font-medium tracking-wide bg-white/5 text-white/60 rounded-md border border-white/5">
+                      <span key={tech} className="px-2 py-1 text-[10px] font-medium tracking-wide bg-white/5 text-white/60 rounded-md border border-white/5 whitespace-nowrap">
                         {tech}
                       </span>
                     ))}
@@ -1070,6 +1108,24 @@ function ExperienceSection() {
   const { ref, isVisible } = useInView(0.15);
 
   const timeline = [
+    {
+      category: 'Hackathon',
+      type: 'Competition',
+      icon: Flame,
+      title: 'Meta PyTorch OpenEnv Grand Finale',
+      org: 'Meta',
+      period: 'APR 2025',
+      color: 'border-[#ef4444]/50 bg-[#ef4444]/10 text-[#ef4444]',
+      blobColor: 'bg-[#ef4444]',
+      points: [
+        'Cleared Round 1 from 52,000+ registered developers.',
+        'Selected for the Grand Finale in Bangalore — one of the most competitive ML hackathons globally.'
+      ],
+      impact: [
+        'ARCHITECTURE',
+        'ML SYSTEMS'
+      ]
+    },
     {
       category: 'Scale',
       type: 'System Architecture',
@@ -1253,6 +1309,12 @@ function HackathonStatCounter({ stat, isVisible, delayMs }: { stat: any; isVisib
     } else {
       formattedCount = count.toLocaleString('en-IN');
     }
+  } else if (stat.type === 'shortK' && count > 0) {
+    if (count >= 1000) {
+      formattedCount = Math.floor(count / 1000) + 'K';
+    } else {
+      formattedCount = count.toString();
+    }
   }
 
   return (
@@ -1277,9 +1339,10 @@ function AchievementsSection() {
   const { ref, isVisible } = useInView(0.15);
 
   const hackathonStats = [
-    { label: 'Hackathons | Wins', value: 10, suffix: '+', icon: Trophy, color: 'text-amber-400', bgFilter: 'bg-amber-500' },
+    { label: '2 National Wins · 8+ Competitions', value: 10, suffix: '+', icon: Trophy, color: 'text-blue-400', bgFilter: 'bg-blue-500' },
     { label: 'Prize Money Won', value: 275000, prefix: '₹', suffix: '+', type: 'currency', icon: Sparkles, color: 'text-emerald-400', bgFilter: 'bg-emerald-500' },
-    { label: 'National Finalist', value: 2, icon: Award, color: 'text-purple-400', bgFilter: 'bg-purple-500' },
+    { label: '2× NATIONAL WINNER', value: 2, icon: Award, color: 'text-purple-400', bgFilter: 'bg-purple-500' },
+    { label: 'META PYTORCH HACKATHON | GRAND FINALE', value: 52000, type: 'shortK', suffix: '+', icon: Flame, color: 'text-[#ef4444]', bgFilter: 'bg-[#ef4444]' },
     { label: 'Certifications (AI, Cloud, Security)', value: 35, suffix: '+', icon: CheckCircle2, color: 'text-cyan-400', bgFilter: 'bg-cyan-500' },
   ];
 
@@ -1299,7 +1362,7 @@ function AchievementsSection() {
         </div>
 
         {/* Impact Numbers */}
-        <div className="grid grid-cols-1 md:grid-cols-2 mt-4 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 mt-4 lg:grid-cols-5 gap-6 mb-12">
           {hackathonStats.map((stat, idx) => (
             <HackathonStatCounter key={stat.label} stat={stat} isVisible={isVisible} delayMs={idx * 150 + 200} />
           ))}
@@ -1314,7 +1377,7 @@ function AchievementsSection() {
 
         {/* Tier 1: Major Awards */}
         <div className={`grid md:grid-cols-2 gap-8 mb-24 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="rounded-3xl p-8 border border-amber-500/30 hover:border-amber-400 flex flex-col items-start text-left group relative overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_50px_rgba(251,191,36,0.15)] bg-[#0a0515]">
+          <div className="rounded-3xl p-8 border border-blue-500/30 hover:border-blue-400 flex flex-col items-start text-left group relative overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_50px_rgba(59,130,246,0.15)] bg-[#0a0515]">
             {/* Background Image Layer */}
             <div className="absolute inset-0 z-0">
                <div 
@@ -1329,15 +1392,15 @@ function AchievementsSection() {
                <div className="absolute inset-0 bg-gradient-to-r from-[#0a0515] via-[#0a0515]/60 to-[#0a0515]/20" />
             </div>
 
-            <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 blur-[80px] rounded-full pointer-events-none group-hover:bg-amber-500/20 transition-colors duration-500 z-0" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-[80px] rounded-full pointer-events-none group-hover:bg-blue-500/20 transition-colors duration-500 z-0" />
 
-            <div className="w-14 h-14 rounded-2xl bg-[#0a0515]/80 backdrop-blur-md border border-amber-500/30 flex items-center justify-center mb-6 z-10 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_15px_rgba(251,191,36,0.2)]">
-               <Trophy className="w-7 h-7 text-amber-400 drop-shadow-[0_0_10px_rgba(251,191,36,0.8)]" />
+            <div className="w-14 h-14 rounded-2xl bg-[#0a0515]/80 backdrop-blur-md border border-blue-500/30 flex items-center justify-center mb-6 z-10 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_15px_rgba(59,130,246,0.2)]">
+               <Trophy className="w-7 h-7 text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
             </div>
             
             <div className="relative z-10 flex flex-col items-start mt-auto">
                <h3 className="text-2xl font-bold text-white mb-2 drop-shadow-md">Google Gen AI Exchange</h3>
-               <p className="text-amber-400 text-xs font-bold uppercase tracking-widest mb-4 px-3 py-1.5 rounded-full border border-amber-400/30 bg-[#0a0515]/80 backdrop-blur-md inline-block shadow-lg">🥇 National Winner</p>
+               <p className="text-blue-400 text-xs font-bold uppercase tracking-widest mb-4 px-3 py-1.5 rounded-full border border-blue-400/30 bg-[#0a0515]/80 backdrop-blur-md inline-block shadow-lg">NATIONAL WINNER</p>
                <p className="text-white/80 leading-relaxed font-medium">
                  Built an AI-driven clinical orchestration system. Selected among top teams nationwide for innovation, robust technical architecture, and real-world applicability.
                </p>
@@ -1481,11 +1544,20 @@ function ContactSection() {
               <span className="text-white/40 text-sm">Based in Bengaluru, open to remote opportunities.</span>
             </p>
 
+            <div className="inline-flex items-center gap-3 px-4 py-2 mt-4 rounded-2xl glass border border-[#FFA116]/30 bg-[#FFA116]/5 mb-6 group cursor-default shadow-[0_0_20px_rgba(255,161,22,0.1)]">
+              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/leetcode.svg" alt="LeetCode" className="w-5 h-5 filter invert opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none" />
+              <div>
+                <div className="text-[#FFA116] font-bold text-sm leading-tight">LeetCode 200+</div>
+                <div className="text-white/40 text-[10px] uppercase tracking-wider">Problems Solved</div>
+              </div>
+            </div>
+
             <div className="space-y-4">
               {[
                 { icon: Mail, label: 'Email (Preferred)', value: 'balarajr483@gmail.com', href: 'mailto:balarajr483@gmail.com', subtext: 'Response time: within 24 hours' },
                 { icon: Github, label: 'GitHub', value: 'github.com/balaraj74', href: 'https://github.com/balaraj74', subtext: 'Projects & Contributions' },
                 { icon: Linkedin, label: 'LinkedIn', value: 'linkedin.com/in/balaraj-r-209a67330', href: 'https://www.linkedin.com/in/balaraj-r-209a67330/', subtext: 'Experience & Network' },
+                { icon: Terminal, label: 'Devpost', value: 'devpost.com/balarajr', href: 'https://devpost.com/balarajr', subtext: 'Hackathon Portfolio' },
               ].map((contact) => (
                 <a key={contact.label} href={contact.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group p-3 -ml-3 rounded-2xl hover:bg-white/5 transition-all duration-300">
                   <div className="w-12 h-12 glass shadow-lg rounded-xl flex items-center justify-center border border-white/5 group-hover:border-cyan-500/50 group-hover:bg-cyan-500/10 transition-all duration-300 group-hover:scale-110">
@@ -1535,7 +1607,7 @@ function ContactSection() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="w-full px-4 py-3.5 bg-[#0a0515]/50 border border-white/10 rounded-xl text-white placeholder-white/20 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/50 transition-all hover:bg-[#0a0515]/80"
-                      placeholder="Balaraj R"
+                      placeholder="Your Name"
                       required
                     />
                   </div>
@@ -1607,7 +1679,7 @@ function Footer() {
               <span className="text-violet-400">R</span>
               <span className="text-white/30 text-sm font-normal ml-1">· Portfolio</span>
             </div>
-            <p className="text-white/35 text-sm">© 2025 Balaraj R. All rights reserved.</p>
+            <p className="text-white/35 text-sm">© 2026 Balaraj R. All rights reserved.</p>
           </div>
 
           <div className="flex items-center gap-2 text-white/30 text-sm">
