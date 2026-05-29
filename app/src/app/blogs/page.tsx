@@ -1,36 +1,43 @@
 import Link from 'next/link';
 import { ArrowLeft, BookOpen } from 'lucide-react';
 import type { Metadata } from 'next';
+import {
+  blogPosts,
+  blogSchema,
+  breadcrumbSchema,
+  buildMetadata,
+  safeJsonLd,
+  staticSeo,
+} from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: "Engineering Blog | Balaraj R",
-  description: "Read articles about Edge AI, Healthcare AI, Multi-agent workflows, and Full-Stack System Architecture by Balaraj R.",
-  keywords: "AI Blog, Edge AI, Next.js, FastAPI, Microservices, Balaraj R",
-  alternates: {
-    canonical: "https://balaraj.vercel.app/blogs",
-  },
-};
+export const metadata: Metadata = buildMetadata(staticSeo.blogs);
 
-const blogs = [
-  {
-    slug: 'edge-ai-healthcare',
-    title: 'Offline-First Edge AI in Healthcare',
-    excerpt: 'How running LLMs locally on-device changes the game for privacy and latency in medical triage.',
-    date: 'May 17, 2026',
-    readTime: '5 min read'
-  },
-  {
-    slug: 'event-driven-microservices-ai',
-    title: 'Scaling AI with Event-Driven Microservices',
-    excerpt: 'Lessons learned building a 32-microservice architecture for CareerLens using Gemini and GCP.',
-    date: 'April 22, 2026',
-    readTime: '8 min read'
-  }
-];
+const blogs = Object.values(blogPosts).map((post) => ({
+  slug: post.slug,
+  title: post.title,
+  excerpt: post.description,
+  date: post.displayDate,
+  readTime: post.readTime,
+}));
 
 export default function BlogsIndex() {
   return (
     <div className="min-h-screen bg-[#050d1a] text-white py-20 px-4 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: safeJsonLd({
+            "@context": "https://schema.org",
+            "@graph": [
+              blogSchema(),
+              breadcrumbSchema([
+                { name: "Home", path: "/" },
+                { name: "Blogs", path: "/blogs" },
+              ]),
+            ],
+          }),
+        }}
+      />
       <div className="max-w-4xl mx-auto">
         <Link href="/" className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 mb-8 transition-colors">
           <ArrowLeft className="w-4 h-4" /> Back Home

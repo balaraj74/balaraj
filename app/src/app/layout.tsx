@@ -1,25 +1,28 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
+import Link from "next/link";
 import "./globals.css";
+import {
+  buildMetadata,
+  personSchema,
+  safeJsonLd,
+  staticSeo,
+  websiteSchema,
+} from "@/lib/seo";
 
-const geistSans = Geist({
+const geistSans = localFont({
+  src: "./fonts/geist-sans.woff2",
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
+const geistMono = localFont({
+  src: "./fonts/geist-mono.woff2",
   variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://balaraj.vercel.app"),
-  title: {
-    template: "%s | Balaraj R",
-    default: "Balaraj R | AI/ML Engineer | Full Stack Developer",
-  },
-  description: "Portfolio of Balaraj R (Balu), AI/ML engineer and hackathon winner.",
-};
+export const metadata: Metadata = buildMetadata(staticSeo.home);
 
 export default function RootLayout({
   children,
@@ -31,7 +34,28 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: safeJsonLd({
+              "@context": "https://schema.org",
+              "@graph": [personSchema(), websiteSchema()],
+            }),
+          }}
+        />
+        <nav aria-label="Portfolio internal links" className="sr-only">
+          <Link href="/">Home</Link>
+          <Link href="/about">About Balaraj R</Link>
+          <Link href="/projects">Projects</Link>
+          <Link href="/projects/vaidyos">VaidyaOS</Link>
+          <Link href="/projects/agrisence">AgriSence</Link>
+          <Link href="/projects/career-lens">Career Lens</Link>
+          <Link href="/blogs">AI Engineering Blog</Link>
+          <Link href="/contact">Contact Balaraj R</Link>
+        </nav>
+        {children}
+      </body>
     </html>
   );
 }

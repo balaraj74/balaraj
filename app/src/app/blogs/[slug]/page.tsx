@@ -3,12 +3,129 @@ import { ArrowLeft } from 'lucide-react';
 import { marked } from 'marked';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import {
+  blogPostingSchema,
+  blogPosts,
+  breadcrumbSchema,
+  buildMetadata,
+  safeJsonLd,
+} from '@/lib/seo';
 
-const blogContent: Record<string, any> = {
+const blogContent: Record<string, string> = {
+  'building-vaidyaos-offline-healthcare-ai-edge-ai': `
+# Building VaidyaOS: Offline Healthcare AI Using Edge AI
+
+Healthcare AI is most useful when it is available at the moment of care. In rural clinics, emergency workflows, and low-connectivity settings, relying on a cloud-only model creates latency, availability, and privacy risks.
+
+VaidyaOS is designed around a different constraint: the system should still assist when the network is unreliable. The core architecture moves inference closer to the user through compact local models and an offline-first application flow.
+
+## System Goals
+
+- Keep sensitive patient context on-device whenever possible.
+- Provide fast first-pass triage support with low latency.
+- Support multilingual interactions for more accessible healthcare workflows.
+- Sync operational data only when connectivity is available.
+
+## Edge AI Architecture
+
+The VaidyaOS workflow starts with a mobile client that captures structured symptoms, patient context, and voice-ready interaction data. A local inference layer runs compact GGUF models through an on-device runtime, while the application layer adds guardrails, prompts, and structured outputs for safer clinical assistance.
+
+This does not replace clinicians. The goal is to support faster intake, clearer summarization, and more resilient decision support in places where cloud dependency is a weakness.
+
+## Why Offline Matters
+
+Offline inference improves three practical dimensions: privacy, latency, and resilience. Patient context does not need to leave the device for every interaction, responses are not blocked by network round trips, and the system remains useful in remote environments.
+
+VaidyaOS is a healthcare AI project, but the same architecture pattern applies to any high-trust domain where availability and privacy matter.
+  `,
+  'how-agrisence-uses-ai-for-crop-disease-detection': `
+# How AgriSence Uses AI for Crop Disease Detection
+
+Crop disease detection is time-sensitive. A delay of even a few days can turn a manageable issue into a major yield loss, especially when farmers lack immediate access to expert agronomy support.
+
+AgriSence approaches this as an AI crop intelligence problem. The system combines crop imagery, user context, weather signals, and multilingual advisory generation to help farmers understand what is happening and what to do next.
+
+## Workflow
+
+1. A farmer captures or uploads a crop image.
+2. The application collects crop, location, and field context.
+3. AI workflows classify visible disease risk and enrich the result with weather-aware reasoning.
+4. The system generates practical next steps in accessible language.
+
+## Why Multilingual Advisory Matters
+
+Detection alone is not enough. A farmer needs a recommendation that is understandable, localized, and actionable. AgriSence prioritizes regional accessibility so the output is closer to a useful field advisory than a raw model prediction.
+
+## Production Considerations
+
+The architecture uses serverless APIs and Firebase-backed persistence to keep the product deployable and scalable. This keeps the frontend responsive while allowing AI workflows to evolve independently behind the API layer.
+  `,
+  'deploying-gguf-models-for-on-device-inference': `
+# Deploying GGUF Models for On-Device Inference
+
+GGUF models make it practical to run compact language models locally with runtimes such as llama.cpp. For products like VaidyaOS, this enables AI assistance without depending on constant cloud connectivity.
+
+## Why GGUF
+
+GGUF is useful for edge deployment because it packages model weights in a format optimized for local inference. Quantized variants can reduce memory and compute requirements, which matters on laptops, mobile devices, and constrained edge environments.
+
+## Deployment Pattern
+
+A practical on-device deployment needs more than a model file. It needs model selection, quantization choice, runtime integration, prompt templates, response parsing, fallback behavior, and update strategy.
+
+The high-level flow is:
+
+1. Choose a compact base model for the domain.
+2. Quantize or select a GGUF variant that fits the target device.
+3. Integrate a local runtime such as llama.cpp.
+4. Wrap inference with structured prompts and output validation.
+5. Ship model updates as versioned, signed bundles.
+
+## Tradeoffs
+
+On-device inference improves privacy and latency, but it also forces tighter thinking around memory, model size, and response quality. The best architecture often combines local inference for critical offline paths with cloud inference for heavier optional workflows.
+  `,
+  'architecture-of-a-multi-agent-ai-platform': `
+# Architecture of a Multi-Agent AI Platform
+
+Multi-agent AI systems become useful when they are treated as distributed systems rather than prompt chains. The hard parts are orchestration, state, retries, cost control, observability, and reliable handoffs between specialized workers.
+
+Career Lens uses this style of architecture to analyze profiles, infer skill gaps, and generate career recommendations through multiple coordinated AI workflows.
+
+## Core Components
+
+- Ingestion services normalize resumes and user context.
+- Embedding workers convert profile data into searchable representations.
+- Recommendation agents evaluate roles, gaps, and career paths.
+- Queue-driven orchestration keeps long-running AI work resilient.
+- The frontend presents results as structured actions, not raw model output.
+
+## Why Events Help
+
+Event-driven design prevents one slow model call from blocking the entire product. Each worker can process a specific task, retry independently, and publish structured output for the next stage.
+
+## Production Lessons
+
+The most important design choice is to keep agent responsibilities narrow. A reliable multi-agent platform depends less on one powerful prompt and more on clear contracts between services.
+  `,
+  'my-journey-building-ai-systems-at-pes-university': `
+# My Journey Building AI Systems at PES University
+
+My work at PES University has focused on building practical AI systems rather than isolated demos. The projects that shaped my portfolio, including VaidyaOS, AgriSence, and Career Lens, each started from a real-world problem and grew into a system architecture challenge.
+
+## What I Focused On
+
+I kept returning to three themes: healthcare AI, agriculture AI, and intelligent decision-support systems. These domains forced me to think about latency, accessibility, privacy, deployment, and user trust.
+
+## Hackathons as Systems Practice
+
+Hackathons gave me a way to test ideas quickly, but the real learning came from turning prototypes into structured products. Winning outcomes mattered, but the deeper value was learning how to scope, build, deploy, and explain complex AI systems under pressure.
+
+## Engineering Direction
+
+The portfolio now reflects the kind of engineering I want to keep doing: AI systems that combine model capability with strong product architecture, clear user value, and production-grade implementation.
+  `,
   'edge-ai-healthcare': {
-    title: 'Offline-First Edge AI in Healthcare',
-    description: 'Running LLMs locally changes the game for privacy and latency in medical triage.',
-    date: '2026-05-17',
     content: `
 # Offline-First Edge AI in Healthcare
 
@@ -21,11 +138,8 @@ By using **Llama.cpp** and optimized GGUF models, we can run inference entirely 
 
 In *VaidyaOS* this approach allowed us to create a robust triage system that doctors can rely on anywhere.
     `
-  },
+  }.content,
   'event-driven-microservices-ai': {
-    title: 'Scaling AI with Event-Driven Microservices',
-    description: 'Lessons learned building a 32-microservice architecture for CareerLens.',
-    date: '2026-04-22',
     content: `
 # Scaling AI with Event-Driven Microservices
 
@@ -40,67 +154,60 @@ We adopted an event-driven architecture using Pub/Sub mechanisms.
 
 This reduced processing time from 30 seconds to under 5 seconds for complex multi-agent workflows.
     `
-  }
+  }.content
 };
 
 export async function generateMetadata(
   props: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
   const params = await props.params;
-  const blog = blogContent[params.slug];
+  const blog = blogPosts[params.slug as keyof typeof blogPosts];
   if (!blog) return { title: 'Not Found' };
 
-  return {
-    title: `${blog.title} | Balaraj R Blog`,
+  return buildMetadata({
+    title: blog.title,
     description: blog.description,
-    alternates: {
-      canonical: `https://balaraj.vercel.app/blogs/${params.slug}`,
-    },
-    openGraph: {
-      title: blog.title,
-      type: "article",
-      url: `https://balaraj.vercel.app/blogs/${params.slug}`,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: blog.title,
-    },
-  };
+    path: blog.path,
+    keywords: blog.keywords,
+    type: "article",
+    publishedTime: blog.date,
+  });
 }
 
 export async function generateStaticParams() {
-  return Object.keys(blogContent).map((slug) => ({
+  return Object.keys(blogPosts).map((slug) => ({
     slug,
   }));
 }
 
 export default async function BlogPage(props: { params: Promise<{ slug: string }> }) {
   const params = await props.params;
-  const blog = blogContent[params.slug];
+  const blog = blogPosts[params.slug as keyof typeof blogPosts];
+  const content = blogContent[params.slug];
 
-  if (!blog) {
+  if (!blog || !content) {
     notFound();
   }
 
-  const htmlContent = marked.parse(blog.content) as string;
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": blog.title,
-    "description": blog.description,
-    "datePublished": blog.date,
-    "author": {
-      "@type": "Person",
-      "name": "Balaraj R"
-    }
-  };
+  const htmlContent = marked.parse(content) as string;
 
   return (
     <div className="min-h-screen bg-[#050d1a] text-white py-20 px-4 sm:px-6 lg:px-8">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: safeJsonLd({
+            "@context": "https://schema.org",
+            "@graph": [
+              blogPostingSchema(blog),
+              breadcrumbSchema([
+                { name: "Home", path: "/" },
+                { name: "Blogs", path: "/blogs" },
+                { name: blog.title, path: blog.path },
+              ]),
+            ],
+          }),
+        }}
       />
 
       <div className="max-w-3xl mx-auto">
