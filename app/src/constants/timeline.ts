@@ -17,6 +17,22 @@ export interface TimelineItem {
 export const TIMELINE_ITEMS: TimelineItem[] = [
   {
     category: 'Flagship Project',
+    type: 'AI Platform Architecture',
+    icon: Activity,
+    title: 'Darwin Engineering & Architecture',
+    org: 'Independent AI Venture',
+    period: 'MAY 5, 2026 – Present',
+    color: 'border-violet-500/50 bg-violet-500/10 text-violet-400',
+    blobColor: 'bg-violet-500',
+    glowColor: 'rgba(139,92,246,0.15)',
+    points: [
+      'Architected a multi-agent AI debate engine enforcing hard constraints to build actionable execution blueprints.',
+      'Designed a sophisticated 3-round evaluation system with autonomous agents evaluating market intelligence and strategic viability.',
+    ],
+    impact: ['MULTI-AGENT AI', 'VERTEX AI', 'FASTAPI'],
+  },
+  {
+    category: 'Flagship Project',
     type: 'Architecture & AI',
     icon: Activity,
     title: 'VaidyaOS Engineering & Deployment',

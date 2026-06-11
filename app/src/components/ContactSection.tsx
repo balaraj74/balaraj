@@ -43,7 +43,7 @@ function ContactInfoPanel({ isInView }: { isInView: boolean }) {
             <span className="text-emerald-400 text-[10px] font-bold uppercase tracking-widest">Open to Collaborations</span>
           </div>
         </div>
-        <h2 className="text-4xl sm:text-5xl font-black text-white leading-tight">
+        <h2 className="text-4xl sm:text-5xl font-serif italic font-medium text-white leading-tight tracking-tight">
           Let&apos;s Build<br />
           <span className="gradient-text-cyan">Scalable AI Systems</span>
         </h2>
@@ -212,8 +212,7 @@ export default function ContactSection() {
   const isInView = useFramerInView(sectionRef, { once: true, margin: '-100px' });
 
   return (
-    <section id="contact" ref={sectionRef} className="relative py-28 bg-[#040010] overflow-hidden">
-      <div className="absolute inset-0 z-0 pointer-events-none" style={{ backgroundImage: "url('/images/bg_contact.png')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', opacity: 0.35 }} />
+    <section id="contact" ref={sectionRef} className="py-24 sm:py-32 relative bg-transparent overflow-hidden">
       <AuroraBackground />
       <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-cyan-500/8 rounded-full blur-[100px] pointer-events-none z-0" />
 

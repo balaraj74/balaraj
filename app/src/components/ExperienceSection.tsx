@@ -83,8 +83,7 @@ export default function ExperienceSection() {
   const isInView = useFramerInView(sectionRef, { once: true, margin: '-100px' });
 
   return (
-    <section id="experience" ref={sectionRef} className="relative py-32 bg-[#040010] overflow-hidden gradient-mesh">
-      <div className="absolute inset-0 z-0 pointer-events-none" style={{ backgroundImage: "url('/images/bg_journey.png')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', opacity: 0.35 }} />
+    <section id="journey" ref={sectionRef} className="py-24 sm:py-32 relative bg-transparent overflow-hidden">
       <AuroraBackground />
 
       {/* Animated vertical line */}
@@ -106,7 +105,7 @@ export default function ExperienceSection() {
           className="text-center mb-24"
         >
           <p className="section-label mx-auto w-fit">Journey</p>
-          <h2 className="text-4xl sm:text-5xl font-black text-white">
+          <h2 className="text-4xl sm:text-5xl font-serif italic font-medium text-white tracking-tight">
             Engineering <span className="gradient-text-cyan">Journey</span>
           </h2>
           <p className="text-white/50 font-medium text-sm sm:text-base mt-6 max-w-2xl mx-auto leading-relaxed px-4">

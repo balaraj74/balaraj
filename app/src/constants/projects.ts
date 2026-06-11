@@ -10,16 +10,16 @@ export interface Project {
   borderColor: string;
   accentColor: string;
   image: string;
+  secondaryImage?: string;
   gradientFrom?: string;
   metrics: string[] | { label: string; value: string }[];
 }
-
 export const FEATURED_PROJECTS: Project[] = [
   {
     title: 'Darwin',
     emoji: '🤖',
     badge: 'AI Executive Board',
-    description: 'A full-stack AI platform that acts as an AI-powered executive board for founders. Features a 3-round debate engine with 5 specialized AI agents enforcing hard constraints to build actionable execution blueprints.',
+    description: 'A full-stack AI platform that acts as an AI-powered executive board for founders. Features a sophisticated 3-round debate engine with 5 specialized AI agents enforcing hard constraints to build actionable execution blueprints. Each agent operates autonomously, synthesizing market intelligence and strategic viability to provide rigorous, unbiased venture validation.',
     thinking: 'Multi-agent structured debate with deterministic constraint overrides',
     tech: ['FastAPI', 'Next.js 14', 'Vertex AI', 'Firebase', '+4 more'],
     github: 'https://github.com/balaraj74/darwin',
@@ -27,6 +27,7 @@ export const FEATURED_PROJECTS: Project[] = [
     borderColor: 'border-violet-500/30',
     accentColor: 'text-violet-400',
     image: '/projects/darwin_showcase.png',
+    secondaryImage: '/projects/darwin_secondary_1781205919112.png',
     gradientFrom: 'from-violet-500/10',
     metrics: [
       { label: 'AI Agents', value: '5 Specialists' },
@@ -38,7 +39,7 @@ export const FEATURED_PROJECTS: Project[] = [
     title: 'VaidyaOS',
     emoji: '🩺',
     badge: 'Flagship AI Healthcare OS',
-    description: 'Advanced AI healthcare platform for intelligent, real-time, multilingual medical assistance using on-device edge AI and offline capabilities via lightweight GGUF models.',
+    description: 'An advanced AI healthcare platform architected for intelligent, real-time, multilingual medical assistance. Employs on-device edge AI and comprehensive offline capabilities via lightweight GGUF models. It bridges the critical gap in remote clinical operations by ensuring persistent medical intelligence without network dependency.',
     thinking: 'Offline-first architecture with Edge AI inference & Llama.cpp',
     tech: ['React Native', 'Gemma', 'Llama.cpp', 'Firebase', '+4 more'],
     github: 'https://github.com/balaraj74/VaidyaOS',
@@ -46,6 +47,7 @@ export const FEATURED_PROJECTS: Project[] = [
     borderColor: 'border-emerald-500/30',
     accentColor: 'text-emerald-400',
     image: '/projects/vaidyaos_banner.png',
+    secondaryImage: '/projects/vaidyaos_secondary_1781205929915.png',
     gradientFrom: 'from-emerald-500/10',
     metrics: [
       { label: 'Inference', value: 'On-device' },
@@ -56,7 +58,7 @@ export const FEATURED_PROJECTS: Project[] = [
     title: 'CareerLens',
     emoji: '🎯',
     badge: '🥇 Google Gen AI Exchange — National Winner',
-    description: 'Built an AI-powered career platform that analyzes resumes, identifies skill gaps, and generates personalized career paths. Designed as a microservices system and deployed for real-world usage.',
+    description: 'A dynamic AI-powered career platform that intelligently analyzes resumes, pinpoints skill gaps, and autonomously generates hyper-personalized career trajectories. Engineered entirely as a robust microservices ecosystem, it efficiently scales heavy embedding workflows using asynchronous queues and Cloud Functions.',
     thinking: 'Event-driven microservices architecture with parallel embedding queues',
     tech: ['Next.js 15', 'TypeScript', 'Gemini 1.5 Pro', 'Cloud Functions', '+4 more'],
     github: 'https://github.com/balaraj74/careerlens',
@@ -64,6 +66,7 @@ export const FEATURED_PROJECTS: Project[] = [
     borderColor: 'border-cyan-500/30',
     accentColor: 'text-cyan-400',
     image: '/projects/career_lens_bg_1776501008387.png',
+    secondaryImage: '/projects/careerlens_secondary_1781205941727.png',
     gradientFrom: 'from-cyan-500/10',
     metrics: [
       { label: 'Lines of Code', value: '40,000+' },
@@ -75,7 +78,7 @@ export const FEATURED_PROJECTS: Project[] = [
     title: 'AgriSence',
     emoji: '🌾',
     badge: '🥇 INFERENTIA 2.0 — Winner',
-    description: 'Developed a real-time AI farming system for crop disease detection and advisory. Integrated ML models with satellite data and multilingual support, deployed on GCP for scalable access.',
+    description: 'A cutting-edge real-time AI farming orchestrator designed for rapid crop disease detection and predictive advisory. Synthesizes computer vision inference with satellite geospatial data to deliver localized, multilingual agricultural insights through a seamlessly scalable serverless GCP architecture.',
     thinking: 'Serverless ML inference pipeline with real-time edge sync',
     tech: ['Next.js 16', 'Gemini 2.0 Flash', 'Firebase', 'Genkit', '+3 more'],
     github: 'https://github.com/balaraj74/AgriSence',
@@ -83,6 +86,7 @@ export const FEATURED_PROJECTS: Project[] = [
     borderColor: 'border-emerald-500/30',
     accentColor: 'text-emerald-400',
     image: '/projects/agrisence_bg_1776501022187.png',
+    secondaryImage: '/projects/agrisence_secondary_1781205954840.png',
     gradientFrom: 'from-emerald-500/10',
     metrics: [
       { label: 'Languages', value: '7 Regional' },

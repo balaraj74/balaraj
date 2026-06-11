@@ -554,6 +554,16 @@ function InteractiveDeck({ certs, onCardClick }: InteractiveDeckProps) {
     setCurrentIndex((prev) => (prev - 1 + certs.length) % certs.length);
   }, [certs.length]);
 
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    if (isHovered || certs.length === 0) return;
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % certs.length);
+    }, 2800);
+    return () => clearInterval(timer);
+  }, [isHovered, certs.length]);
+
   if (certs.length === 0) {
     return <div className="text-center py-20 text-white/30">No certificates in this category.</div>;
   }
@@ -572,7 +582,13 @@ function InteractiveDeck({ certs, onCardClick }: InteractiveDeckProps) {
   return (
     <div className="flex flex-col items-center select-none pt-4">
       {/* 3D Stack Area */}
-      <div className="relative w-full max-w-[420px] h-[340px] sm:h-[380px] flex items-center justify-center mb-8">
+      <div 
+        className="relative w-full max-w-[700px] h-[460px] sm:h-[560px] flex items-center justify-center mb-10"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onTouchStart={() => setIsHovered(true)}
+        onTouchEnd={() => setIsHovered(false)}
+      >
         <AnimatePresence mode="popLayout">
           {visibleCards.map(({ cert, stackIndex }) => {
             const isTop = stackIndex === 0;
@@ -584,7 +600,7 @@ function InteractiveDeck({ certs, onCardClick }: InteractiveDeckProps) {
                   transformOrigin: "bottom center",
                   cursor: isTop ? "grab" : "default",
                 }}
-                className={`absolute w-[92%] sm:w-full max-w-[360px] aspect-[4/3] rounded-3xl border ${cert.borderColor} bg-[#050d1a] overflow-hidden p-3.5 shadow-2xl flex flex-col justify-between`}
+                className={`absolute w-[95%] sm:w-full max-w-[500px] md:max-w-[580px] aspect-[4/3] rounded-3xl border ${cert.borderColor} bg-[#050d1a] overflow-hidden p-4 md:p-5 shadow-2xl flex flex-col justify-between`}
                 initial={{
                   scale: 0.82 + (3 - stackIndex) * 0.04,
                   y: -stackIndex * 16,
@@ -601,11 +617,12 @@ function InteractiveDeck({ certs, onCardClick }: InteractiveDeckProps) {
                     : `0 4px 12px rgba(0, 0, 0, 0.5)`,
                 }}
                 exit={{
-                  x: draggedId === cert.id ? 280 : -280,
+                  y: draggedId ? (draggedId === cert.id ? 0 : 0) : -120,
+                  x: draggedId === cert.id ? 280 : (draggedId ? -280 : 0),
                   opacity: 0,
-                  scale: 0.88,
-                  rotate: draggedId === cert.id ? 15 : -15,
-                  transition: { duration: 0.35, ease: "easeOut" }
+                  scale: draggedId ? 0.88 : 1.15,
+                  rotate: draggedId === cert.id ? 15 : (draggedId ? -15 : 0),
+                  transition: { duration: 0.4, ease: "easeOut" }
                 }}
                 drag={isTop ? "x" : false}
                 dragConstraints={{ left: 0, right: 0 }}
@@ -641,7 +658,7 @@ function InteractiveDeck({ certs, onCardClick }: InteractiveDeckProps) {
                     src={cert.image}
                     alt={cert.title}
                     fill
-                    sizes="(min-width: 640px) 360px, 92vw"
+                    sizes="(min-width: 640px) 580px, 95vw"
                     className="w-full h-full object-contain p-2"
                     draggable={false}
                   />
@@ -702,7 +719,7 @@ function InteractiveDeck({ certs, onCardClick }: InteractiveDeckProps) {
 // ─── Main ─────────────────────────────────────────────────────────────────────
 export default function CertificateGallery() {
   const [activeCategory, setActiveCategory] = useState<Category>('All');
-  const [viewMode, setViewMode] = useState<'grid' | 'deck'>('grid');
+  const [viewMode, setViewMode] = useState<'grid' | 'deck'>('deck');
   const [lightboxCert, setLightboxCert] = useState<Cert | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useFramerInView(sectionRef, { once: true, margin: '-60px' });

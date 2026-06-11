@@ -25,17 +25,31 @@ export default function HomeClient() {
   }, [pathname]);
 
   return (
-    <div className="min-h-screen bg-[#020810] text-white overflow-x-hidden">
-      <CursorDot />
-      <Navigation />
-      <HeroSection />
-      <AboutSection />
-      <SkillsSection />
-      <ProjectsSection />
-      <ExperienceSection />
-      <AchievementsSection />
-      <ContactSection />
-      <Footer />
+    <div className="min-h-screen bg-[#020810] text-white relative">
+      {/* Global Seamless Background */}
+      <div 
+        className="fixed inset-0 z-0 pointer-events-none" 
+        style={{ 
+          backgroundImage: "url('/images/bg_global.png')", 
+          backgroundSize: 'cover', 
+          backgroundPosition: 'center', 
+          opacity: 0.25 
+        }} 
+      />
+      
+      {/* Content wrapper */}
+      <div className="relative z-10">
+        <CursorDot />
+        <Navigation />
+        <HeroSection />
+        <AboutSection />
+        <SkillsSection />
+        <ProjectsSection />
+        <ExperienceSection />
+        <AchievementsSection />
+        <ContactSection />
+        <Footer />
+      </div>
     </div>
   );
 }

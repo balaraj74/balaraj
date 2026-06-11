@@ -34,14 +34,14 @@ function ScrollProgressBar({ progress }: { progress: number }) {
 function Logo({ onClick }: { onClick: () => void }) {
   return (
     <motion.div
-      className="text-lg font-black tracking-tight cursor-pointer select-none shrink-0"
+      className="text-2xl font-serif italic font-medium tracking-tight cursor-pointer flex items-center group pointer-events-auto"
       onClick={onClick}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >
-      <span className="text-white">B</span>
-      <span className="gradient-text-cyan">R</span>
-      <span className="text-white/40 text-xs font-normal ml-1 hidden sm:inline">· Portfolio</span>
+      <span className="text-white">Balaraj</span>
+      <span className="gradient-text-cyan ml-1">R</span>
+      <span className="text-white/40 text-sm font-sans not-italic font-normal ml-2 hidden sm:inline">· Portfolio</span>
     </motion.div>
   );
 }

@@ -10,6 +10,8 @@ import {
   websiteSchema,
 } from "@/lib/seo";
 
+import { Playfair_Display } from "next/font/google";
+
 const geistSans = localFont({
   src: "./fonts/geist-sans.woff2",
   variable: "--font-geist-sans",
@@ -22,6 +24,13 @@ const geistMono = localFont({
   display: "swap",
 });
 
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: "swap",
+  style: ["normal", "italic"],
+});
+
 export const metadata: Metadata = buildMetadata(staticSeo.home);
 
 export default function RootLayout({
@@ -32,7 +41,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <script

@@ -184,8 +184,7 @@ export default function SkillsSection() {
   const isInView = useFramerInView(sectionRef, { once: true, margin: '-100px' });
 
   return (
-    <section id="skills" ref={sectionRef} className="relative py-32 bg-[#040010] overflow-hidden">
-      <div className="absolute inset-0 z-0 pointer-events-none" style={{ backgroundImage: "url('/images/bg_skills.png')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', opacity: 0.35 }} />
+    <section id="skills" ref={sectionRef} className="py-24 sm:py-32 relative bg-transparent overflow-hidden">
       <AuroraBackground />
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-indigo-500/4 rounded-full blur-[120px] pointer-events-none" />
 
@@ -197,7 +196,7 @@ export default function SkillsSection() {
           className="text-center mb-20"
         >
           <p className="section-label mx-auto w-fit">Capabilities</p>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-serif italic font-medium text-white tracking-tight">
             Skills & <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500">Capabilities</span>
           </h2>
           <p className="text-white/45 mt-6 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">

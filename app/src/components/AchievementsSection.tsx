@@ -99,8 +99,7 @@ export default function AchievementsSection() {
   const isInView = useFramerInView(sectionRef, { once: true, margin: '-100px' });
 
   return (
-    <section id="achievements" ref={sectionRef} className="relative py-32 bg-[#050d1a] overflow-hidden">
-      <div className="absolute inset-0 z-0 pointer-events-none" style={{ backgroundImage: "url('/images/bg_awards.png')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', opacity: 0.35 }} />
+    <section id="awards" ref={sectionRef} className="py-24 sm:py-32 relative bg-transparent overflow-hidden">
       <AuroraBackground />
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:80px_80px] opacity-30 pointer-events-none" />
 
@@ -112,7 +111,7 @@ export default function AchievementsSection() {
           className="text-center mb-16"
         >
           <p className="section-label mx-auto w-fit">Impact Metrics</p>
-          <h2 className="text-4xl sm:text-5xl font-black text-white">
+          <h2 className="text-4xl sm:text-5xl font-serif italic font-medium text-white tracking-tight">
             Achievements & <span className="gradient-text-cyan">Impact</span>
           </h2>
           <p className="text-white/50 font-medium text-sm sm:text-base mt-6 max-w-2xl mx-auto leading-relaxed px-4">

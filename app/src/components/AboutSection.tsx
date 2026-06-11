@@ -95,8 +95,7 @@ export default function AboutSection() {
   const isInView = useFramerInView(sectionRef, { once: true, margin: '-100px' });
 
   return (
-    <section id="about" ref={sectionRef} className="relative py-28 bg-[#050d1a] overflow-hidden">
-      <div className="absolute inset-0 z-0 pointer-events-none" style={{ backgroundImage: "url('/images/bg_about.png')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', opacity: 0.35 }} />
+    <section id="about" ref={sectionRef} className="py-24 sm:py-32 relative bg-transparent">
       <AuroraBackground />
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-blue-950/10 to-transparent" />
 
@@ -118,7 +117,7 @@ export default function AboutSection() {
           >
             <motion.div variants={fadeInUp}>
               <p className="section-label">About Me</p>
-              <h2 className="text-4xl sm:text-5xl font-black text-white leading-tight">
+              <h2 className="text-4xl sm:text-5xl font-serif italic font-medium text-white leading-tight tracking-tight">
                 Building AI That<br />
                 <span className="gradient-text-cyan">Ships to Production</span>
               </h2>
