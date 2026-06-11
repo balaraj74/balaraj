@@ -12,6 +12,56 @@ import {
 } from '@/lib/seo';
 
 const blogContent: Record<string, string> = {
+  'building-darwin-ai-executive-board': `
+# Building Darwin: The AI Executive Board for Startup Founders
+
+Most startup advice on the internet is generic. It assumes every founder has the same technical skills, capital, risk tolerance, and network. But in reality, a brilliant B2B SaaS idea that requires a 9-month enterprise sales cycle is a terrible idea for a solo technical founder with a $500 budget and no B2B network.
+
+I built **Darwin** to solve this. Darwin is a full-stack AI platform that acts as an **AI-powered executive board**. Instead of giving generic advice, it builds a *Digital Twin* of the founder, then runs a 3-round structured debate among 5 specialized AI agents (CEO, CFO, CTO, CMO, CPO) to decide if an idea is viable *for that specific founder*.
+
+## The Architecture of a Boardroom
+
+At its core, Darwin is an orchestration problem. How do you get five LLM agents to debate, disagree, and ultimately synthesize a verdict?
+
+I structured the debate engine in three distinct rounds:
+
+1. **Initial Positions (Parallel):** The CEO, CFO, CTO, CMO, and CPO independently evaluate the idea based on the founder's Digital Twin. This step is completely parallelized using \`asyncio.gather\` in FastAPI, ensuring low latency.
+2. **Cross-Examination (Sequential):** Each agent responds to another's position. For example, the optimistic CEO must defend its market sizing against the conservative CFO's capital warnings. The skeptical CTO questions the ambitious CMO's distribution strategy.
+3. **Final Vote (Parallel):** After reviewing the entire debate transcript, each agent casts a final vote and confidence score.
+
+## Hard Constraints vs. Soft Scores
+
+One of the biggest issues with multi-agent systems is that LLMs tend to be overly agreeable. If four agents love an idea, they might convince the fifth to agree, even if the fifth agent identified a critical flaw.
+
+To counter this, Darwin uses **Deterministic Vetoes**. The Decision Synthesizer applies hard constraints that override soft AI scores:
+- **CFO Veto:** If the projected capital runway doesn't reach the first revenue milestone, it's an automatic REJECT.
+- **CTO Veto:** If the founder lacks the required technical skills and has no budget to hire, it's an automatic REJECT.
+- **Time Veto:** If the time-to-market exceeds the founder's strict deadline, it's an automatic REJECT.
+
+Only if the idea survives the hard constraints does the system calculate the weighted soft scores (CEO 25%, CFO 30%, CTO 20%, CMO 15%, CPO 10%).
+
+## The Tech Stack: Scaling the Boardroom
+
+Darwin is built for production, heavily leveraging Google Cloud:
+
+- **Frontend:** Next.js 14 App Router, built with a dark glassmorphism aesthetic to feel like a premium command center.
+- **Backend:** FastAPI (Python 3.12) running asynchronously to handle parallel LLM calls.
+- **AI Infrastructure:** Vertex AI is the primary engine (Gemini 3.1 Pro for deep reasoning, Gemini 3 Flash for fast agent opinions).
+- **Fallback Chain:** To handle rate limits gracefully, I built a 4-level fallback chain that switches from Vertex AI to OpenRouter (free tier) to NVIDIA NIM automatically if quotas are hit.
+- **Persistence:** Firebase Auth for Google Sign-in and Firestore for persisting the Digital Twins and Session Histories.
+- **Deployment:** Containerized via Docker and deployed on Google Cloud Run for auto-scaling from zero to handle intensive debate sessions.
+
+## The Output: Execution Blueprints
+
+When the boardroom votes "PROCEED", Darwin doesn't just say "Good job". It generates an execution package in parallel:
+- A Product Requirements Document (PRD) scoping the exact MVP.
+- A Financial Model constrained to the actual budget.
+- A 7-slide Pitch Deck tailored to the founder's unfair advantage.
+- A Tech Architecture recommendation.
+- An API call to GitLab to automatically scaffold a project board with actionable issues.
+
+Darwin isn't just an LLM wrapper—it's an intelligent decision engine that forces founders to face reality before they write a single line of code.
+  `,
   'building-vaidyaos-offline-healthcare-ai-edge-ai': `
 # Building VaidyaOS: Offline Healthcare AI Using Edge AI
 

@@ -16,6 +16,25 @@ export interface Project {
 
 export const FEATURED_PROJECTS: Project[] = [
   {
+    title: 'Darwin',
+    emoji: '🤖',
+    badge: 'AI Executive Board',
+    description: 'A full-stack AI platform that acts as an AI-powered executive board for founders. Features a 3-round debate engine with 5 specialized AI agents enforcing hard constraints to build actionable execution blueprints.',
+    thinking: 'Multi-agent structured debate with deterministic constraint overrides',
+    tech: ['FastAPI', 'Next.js 14', 'Vertex AI', 'Firebase', '+4 more'],
+    github: 'https://github.com/balaraj74/darwin',
+    demo: 'https://darwin-5dleehg6la-el.a.run.app',
+    borderColor: 'border-violet-500/30',
+    accentColor: 'text-violet-400',
+    image: '/projects/darwin_showcase.png',
+    gradientFrom: 'from-violet-500/10',
+    metrics: [
+      { label: 'AI Agents', value: '5 Specialists' },
+      { label: 'Evaluation', value: '3-Round Debate' },
+      { label: 'Infra', value: 'Cloud Run' },
+    ],
+  },
+  {
     title: 'VaidyaOS',
     emoji: '🩺',
     badge: 'Flagship AI Healthcare OS',

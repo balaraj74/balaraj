@@ -256,6 +256,25 @@ export const projectSeo = {
 } as const;
 
 export const blogPosts = {
+  "building-darwin-ai-executive-board": {
+    slug: "building-darwin-ai-executive-board",
+    path: "/blogs/building-darwin-ai-executive-board",
+    title: "Building Darwin: The AI Executive Board for Startup Founders",
+    description:
+      "A deep dive into Darwin's architecture: a multi-agent system that runs structured debates to build realistic startup execution blueprints.",
+    date: "2026-06-12",
+    displayDate: "June 12, 2026",
+    readTime: "10 min read",
+    keywords: [
+      "Darwin",
+      "AI Executive Board",
+      "Multi-agent AI",
+      "Agent orchestration",
+      "FastAPI",
+      "Vertex AI",
+      "Balaraj R",
+    ],
+  },
   "building-vaidyaos-offline-healthcare-ai-edge-ai": {
     slug: "building-vaidyaos-offline-healthcare-ai-edge-ai",
     path: "/blogs/building-vaidyaos-offline-healthcare-ai-edge-ai",
