@@ -100,33 +100,12 @@ function ContactForm() {
       '0c154582-5b11-42f0-bfa8-c689ccb62a26';
 
     try {
-      let success = false;
-      let errorMsg = '';
+      let isSuccess = false;
+      let failureReason = '';
 
-      // 1. Try server-side Next.js route first
+      // Primary: Direct Web3Forms submission (CORS-friendly, instant delivery)
       try {
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        });
-
-        const contentType = response.headers.get('content-type') || '';
-        if (contentType.includes('application/json')) {
-          const data = await response.json();
-          if (response.ok && data.success !== false) {
-            success = true;
-          } else {
-            errorMsg = data.error || data.message || '';
-          }
-        }
-      } catch {
-        // Fall through to direct Web3Forms endpoint
-      }
-
-      // 2. Direct Web3Forms fallback if server-side route was unavailable or returned non-JSON HTML
-      if (!success) {
-        const directResponse = await fetch('https://api.web3forms.com/submit', {
+        const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -142,33 +121,57 @@ function ContactForm() {
           }),
         });
 
-        const directContentType = directResponse.headers.get('content-type') || '';
-        if (directContentType.includes('application/json')) {
-          const directData = await directResponse.json();
-          if (directResponse.ok && directData && directData.success !== false) {
-            success = true;
+        const contentType = response.headers.get('content-type') || '';
+        if (contentType.includes('application/json')) {
+          const data = await response.json();
+          if (response.ok && data.success !== false) {
+            isSuccess = true;
           } else {
-            errorMsg = directData?.message || errorMsg;
+            failureReason = data?.message || '';
           }
-        } else if (directResponse.ok) {
-          success = true;
+        } else if (response.ok) {
+          isSuccess = true;
+        }
+      } catch {
+        // Fall through to Next.js API route fallback
+      }
+
+      // Secondary Fallback: /api/contact route
+      if (!isSuccess) {
+        try {
+          const apiRes = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData),
+          });
+          const apiContentType = apiRes.headers.get('content-type') || '';
+          if (apiContentType.includes('application/json')) {
+            const apiData = await apiRes.json();
+            if (apiRes.ok && apiData.success !== false) {
+              isSuccess = true;
+            } else {
+              failureReason = apiData?.error || apiData?.message || failureReason;
+            }
+          }
+        } catch {
+          // ignore
         }
       }
 
-      if (success) {
+      if (isSuccess) {
         setSubmitted(true);
         setFormData({ name: '', email: '', message: '' });
       } else {
         throw new Error(
-          errorMsg ||
+          failureReason ||
             'Unable to deliver message right now. Please reach out directly via email at balarajr483@gmail.com.'
         );
       }
     } catch (err: unknown) {
-      const msg =
-        err instanceof Error
-          ? err.message
-          : 'Something went wrong. Please reach out directly via email at balarajr483@gmail.com.';
+      let msg = 'Unable to deliver message right now. Please reach out directly via email at balarajr483@gmail.com.';
+      if (err instanceof Error && err.message && !err.message.includes('<!DOCTYPE') && !err.message.includes('JSON')) {
+        msg = err.message;
+      }
       setErrorMessage(msg);
     } finally {
       setIsSubmitting(false);

@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: '/:path*',
+        source: '/((?!api).*)',
         has: [
           {
             type: 'host',
@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/:path*',
+        source: '/((?!api).*)',
         has: [
           {
             type: 'host',
