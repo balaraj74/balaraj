@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-export const SITE_URL = "https://balaraj.vercel.app";
+export const SITE_URL = "https://balaraj.me";
 export const SITE_NAME = "Balaraj R | AI/ML Engineer";
 export const OWNER_NAME = "Balaraj R";
 export const OWNER_ALT_NAME = "Balu";
