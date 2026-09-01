@@ -2,9 +2,10 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Linkedin, Menu, X } from 'lucide-react';
+import { Github, Linkedin, Menu, X, Search } from 'lucide-react';
 import { EASE_OUT_EXPO, fadeInUp, staggerContainer } from './shared';
 import { ThemeToggle } from './ThemeToggle';
+import { CommandPaletteTrigger } from './CommandPalette';
 
 interface NavLink {
   id: string;
@@ -122,7 +123,24 @@ function MobileMenu({ isOpen, activeSection, onLinkClick }: MobileMenuProps) {
               </motion.button>
             ))}
 
-            <div className="pt-2 mt-2 border-t border-slate-200/80 dark:border-slate-800 flex gap-2">
+            <div className="pt-2 mt-2 border-t border-slate-200/80 dark:border-slate-800 flex flex-col gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  onLinkClick({ id: 'search', label: 'Search' });
+                  window.dispatchEvent(new CustomEvent('open-command-palette'));
+                }}
+                className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl border border-cyan-500/30 bg-cyan-50/50 dark:bg-cyan-950/30 text-xs font-semibold text-cyan-800 dark:text-cyan-300 shadow-sm hover:bg-cyan-100/50 dark:hover:bg-cyan-900/30 transition-colors"
+              >
+                <span className="flex items-center gap-2">
+                  <Search className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+                  <span>Quick Search...</span>
+                </span>
+                <kbd className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-cyan-500/30 text-[10px] font-mono text-cyan-700 dark:text-cyan-300">
+                  ⌘K
+                </kbd>
+              </button>
+              <div className="flex gap-2">
               <a
                 href="https://github.com/balaraj74"
                 target="_blank"
@@ -141,6 +159,7 @@ function MobileMenu({ isOpen, activeSection, onLinkClick }: MobileMenuProps) {
                 <Linkedin className="w-4 h-4 text-[#0A66C2]" />
                 <span>LinkedIn</span>
               </a>
+              </div>
             </div>
           </motion.div>
         </motion.div>
@@ -222,6 +241,7 @@ export function Navigation() {
             <Logo onClick={() => handleLinkClick({ id: 'hero', label: 'Home' })} />
             <DesktopNav activeSection={activeSection} onLinkClick={handleLinkClick} />
             <div className="flex items-center gap-2.5 shrink-0">
+              <CommandPaletteTrigger />
               <ThemeToggle />
               <motion.a
                 href="https://github.com/balaraj74"

@@ -11,6 +11,7 @@ import {
 } from "@/lib/seo";
 import SuppressThreeWarnings from "@/components/SuppressThreeWarnings";
 import { ThemeProvider } from "@/context/ThemeContext";
+import { CommandPalette } from "@/components/CommandPalette";
 
 import { Playfair_Display } from "next/font/google";
 
@@ -85,6 +86,7 @@ export default function RootLayout({
         </nav>
         <SuppressThreeWarnings />
         <ThemeProvider>
+          <CommandPalette />
           {children}
         </ThemeProvider>
       </body>
