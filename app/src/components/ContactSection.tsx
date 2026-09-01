@@ -95,22 +95,80 @@ function ContactForm() {
     setIsSubmitting(true);
     setErrorMessage(null);
 
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+    const accessKey =
+      process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ||
+      '0c154582-5b11-42f0-bfa8-c689ccb62a26';
 
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to send message.');
+    try {
+      let success = false;
+      let errorMsg = '';
+
+      // 1. Try server-side Next.js route first
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+
+        const contentType = response.headers.get('content-type') || '';
+        if (contentType.includes('application/json')) {
+          const data = await response.json();
+          if (response.ok && data.success !== false) {
+            success = true;
+          } else {
+            errorMsg = data.error || data.message || '';
+          }
+        }
+      } catch {
+        // Fall through to direct Web3Forms endpoint
       }
 
-      setSubmitted(true);
-      setFormData({ name: '', email: '', message: '' });
+      // 2. Direct Web3Forms fallback if server-side route was unavailable or returned non-JSON HTML
+      if (!success) {
+        const directResponse = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({
+            access_key: accessKey,
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            message: formData.message.trim(),
+            from_name: 'Balaraj Portfolio',
+            subject: `New Portfolio Message from ${formData.name.trim()}`,
+          }),
+        });
+
+        const directContentType = directResponse.headers.get('content-type') || '';
+        if (directContentType.includes('application/json')) {
+          const directData = await directResponse.json();
+          if (directResponse.ok && directData && directData.success !== false) {
+            success = true;
+          } else {
+            errorMsg = directData?.message || errorMsg;
+          }
+        } else if (directResponse.ok) {
+          success = true;
+        }
+      }
+
+      if (success) {
+        setSubmitted(true);
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        throw new Error(
+          errorMsg ||
+            'Unable to deliver message right now. Please reach out directly via email at balarajr483@gmail.com.'
+        );
+      }
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'Something went wrong. Please try again or reach out directly via email.';
+      const msg =
+        err instanceof Error
+          ? err.message
+          : 'Something went wrong. Please reach out directly via email at balarajr483@gmail.com.';
       setErrorMessage(msg);
     } finally {
       setIsSubmitting(false);

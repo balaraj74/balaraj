@@ -2,14 +2,10 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    const web3FormsKey = process.env.WEB3FORMS_ACCESS_KEY;
-    if (!web3FormsKey) {
-      console.error('Contact API Error: WEB3FORMS_ACCESS_KEY environment variable is not defined.');
-      return NextResponse.json(
-        { error: 'Contact service is not configured. Please contact directly via email.' },
-        { status: 500 }
-      );
-    }
+    const web3FormsKey =
+      process.env.WEB3FORMS_ACCESS_KEY ||
+      process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ||
+      '0c154582-5b11-42f0-bfa8-c689ccb62a26';
 
     const body = await request.json();
     const { name, email, message } = body;
