@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-export const SITE_URL = "https://balaraj.me";
+export const SITE_URL = "https://balaraj.vercel.app";
 export const SITE_NAME = "Balaraj R | AI/ML Engineer";
 export const OWNER_NAME = "Balaraj R";
 export const OWNER_ALT_NAME = "Balu";
@@ -583,6 +583,46 @@ export const blogPosts = {
       "Balaraj R",
     ],
   },
+  "agrisence-ai-agricultural-operating-system": {
+    slug: "agrisence-ai-agricultural-operating-system",
+    path: "/blogs/agrisence-ai-agricultural-operating-system",
+    title: "AgriSence: The AI Operating System for India's 140M Smallholder Farmers",
+    description:
+      "How AgriSence combines multimodal Gemini vision, satellite earth intelligence (Sentinel, Landsat, MODIS), and financial rails to empower 140 million smallholder farming households.",
+    date: "2026-06-15",
+    displayDate: "June 15, 2026",
+    readTime: "12 min read",
+    keywords: [
+      "AgriSence",
+      "AgriOS",
+      "Agricultural Operating System",
+      "Precision Farming",
+      "Earth Intelligence",
+      "Sentinel-2",
+      "Google Cloud Gen AI",
+      "Genkit",
+      "Balaraj R",
+    ],
+  },
+  "taskforze-autonomous-agent-swarm-orchestration": {
+    slug: "taskforze-autonomous-agent-swarm-orchestration",
+    path: "/blogs/taskforze-autonomous-agent-swarm-orchestration",
+    title: "TaskForze: Autonomous Agent Swarm Orchestration with Dynamic Replanning",
+    description:
+      "How TaskForze coordinates distributed autonomous agents using LangGraph topologies, sandboxed tool execution, and deterministic self-healing loops.",
+    date: "2026-06-10",
+    displayDate: "June 10, 2026",
+    readTime: "9 min read",
+    keywords: [
+      "TaskForze",
+      "Autonomous Agents",
+      "Agent Swarm",
+      "LangGraph",
+      "FastAPI",
+      "Self-Healing AI",
+      "Balaraj R",
+    ],
+  },
   "deploying-gguf-models-for-on-device-inference": {
     slug: "deploying-gguf-models-for-on-device-inference",
     path: "/blogs/deploying-gguf-models-for-on-device-inference",
@@ -885,7 +925,12 @@ export function blogSchema() {
   };
 }
 
-export function blogPostingSchema(post: (typeof blogPosts)[BlogSlug]) {
+export function blogPostingSchema(post: {
+  title: string;
+  description: string;
+  path: string;
+  date: string;
+}) {
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -925,6 +970,21 @@ export const sitemapRoutes = [
   { path: "/projects/healthmesh", changeFrequency: "monthly", priority: 0.85 },
   { path: "/projects/cybershield", changeFrequency: "monthly", priority: 0.85 },
   { path: "/blogs", changeFrequency: "weekly", priority: 0.8 },
+  {
+    path: "/blogs/agrisence-ai-agricultural-operating-system",
+    changeFrequency: "weekly",
+    priority: 0.85,
+  },
+  {
+    path: "/blogs/taskforze-autonomous-agent-swarm-orchestration",
+    changeFrequency: "weekly",
+    priority: 0.85,
+  },
+  {
+    path: "/blogs/building-darwin-ai-executive-board",
+    changeFrequency: "weekly",
+    priority: 0.85,
+  },
   {
     path: "/blogs/building-vaidyaos-offline-healthcare-ai-edge-ai",
     changeFrequency: "monthly",

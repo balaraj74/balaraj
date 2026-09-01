@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowLeft, Clock, Calendar, Share2, Sparkles, BookOpen } from 'lucide-react';
 import { marked } from 'marked';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -10,264 +11,231 @@ import {
   buildMetadata,
   safeJsonLd,
 } from '@/lib/seo';
-
-const blogContent: Record<string, string> = {
-  'building-darwin-ai-executive-board': `
-# Building Darwin: The AI Executive Board for Startup Founders
-
-Most startup advice on the internet is generic. It assumes every founder has the same technical skills, capital, risk tolerance, and network. But in reality, a brilliant B2B SaaS idea that requires a 9-month enterprise sales cycle is a terrible idea for a solo technical founder with a $500 budget and no B2B network.
-
-I built **Darwin** to solve this. Darwin is a full-stack AI platform that acts as an **AI-powered executive board**. Instead of giving generic advice, it builds a *Digital Twin* of the founder, then runs a 3-round structured debate among 5 specialized AI agents (CEO, CFO, CTO, CMO, CPO) to decide if an idea is viable *for that specific founder*.
-
-## The Architecture of a Boardroom
-
-At its core, Darwin is an orchestration problem. How do you get five LLM agents to debate, disagree, and ultimately synthesize a verdict?
-
-I structured the debate engine in three distinct rounds:
-
-1. **Initial Positions (Parallel):** The CEO, CFO, CTO, CMO, and CPO independently evaluate the idea based on the founder's Digital Twin. This step is completely parallelized using \`asyncio.gather\` in FastAPI, ensuring low latency.
-2. **Cross-Examination (Sequential):** Each agent responds to another's position. For example, the optimistic CEO must defend its market sizing against the conservative CFO's capital warnings. The skeptical CTO questions the ambitious CMO's distribution strategy.
-3. **Final Vote (Parallel):** After reviewing the entire debate transcript, each agent casts a final vote and confidence score.
-
-## Hard Constraints vs. Soft Scores
-
-One of the biggest issues with multi-agent systems is that LLMs tend to be overly agreeable. If four agents love an idea, they might convince the fifth to agree, even if the fifth agent identified a critical flaw.
-
-To counter this, Darwin uses **Deterministic Vetoes**. The Decision Synthesizer applies hard constraints that override soft AI scores:
-- **CFO Veto:** If the projected capital runway doesn't reach the first revenue milestone, it's an automatic REJECT.
-- **CTO Veto:** If the founder lacks the required technical skills and has no budget to hire, it's an automatic REJECT.
-- **Time Veto:** If the time-to-market exceeds the founder's strict deadline, it's an automatic REJECT.
-
-Only if the idea survives the hard constraints does the system calculate the weighted soft scores (CEO 25%, CFO 30%, CTO 20%, CMO 15%, CPO 10%).
-
-## The Tech Stack: Scaling the Boardroom
-
-Darwin is built for production, heavily leveraging Google Cloud:
-
-- **Frontend:** Next.js 14 App Router, built with a dark glassmorphism aesthetic to feel like a premium command center.
-- **Backend:** FastAPI (Python 3.12) running asynchronously to handle parallel LLM calls.
-- **AI Infrastructure:** Vertex AI is the primary engine (Gemini 3.1 Pro for deep reasoning, Gemini 3 Flash for fast agent opinions).
-- **Fallback Chain:** To handle rate limits gracefully, I built a 4-level fallback chain that switches from Vertex AI to OpenRouter (free tier) to NVIDIA NIM automatically if quotas are hit.
-- **Persistence:** Firebase Auth for Google Sign-in and Firestore for persisting the Digital Twins and Session Histories.
-- **Deployment:** Containerized via Docker and deployed on Google Cloud Run for auto-scaling from zero to handle intensive debate sessions.
-
-## The Output: Execution Blueprints
-
-When the boardroom votes "PROCEED", Darwin doesn't just say "Good job". It generates an execution package in parallel:
-- A Product Requirements Document (PRD) scoping the exact MVP.
-- A Financial Model constrained to the actual budget.
-- A 7-slide Pitch Deck tailored to the founder's unfair advantage.
-- A Tech Architecture recommendation.
-- An API call to GitLab to automatically scaffold a project board with actionable issues.
-
-Darwin isn't just an LLM wrapper—it's an intelligent decision engine that forces founders to face reality before they write a single line of code.
-  `,
-  'building-vaidyaos-offline-healthcare-ai-edge-ai': `
-# Building VaidyaOS: Offline Healthcare AI Using Edge AI
-
-Healthcare AI is most useful when it is available at the moment of care. In rural clinics, emergency workflows, and low-connectivity settings, relying on a cloud-only model creates latency, availability, and privacy risks.
-
-VaidyaOS is designed around a different constraint: the system should still assist when the network is unreliable. The core architecture moves inference closer to the user through compact local models and an offline-first application flow.
-
-## System Goals
-
-- Keep sensitive patient context on-device whenever possible.
-- Provide fast first-pass triage support with low latency.
-- Support multilingual interactions for more accessible healthcare workflows.
-- Sync operational data only when connectivity is available.
-
-## Edge AI Architecture
-
-The VaidyaOS workflow starts with a mobile client that captures structured symptoms, patient context, and voice-ready interaction data. A local inference layer runs compact GGUF models through an on-device runtime, while the application layer adds guardrails, prompts, and structured outputs for safer clinical assistance.
-
-This does not replace clinicians. The goal is to support faster intake, clearer summarization, and more resilient decision support in places where cloud dependency is a weakness.
-
-## Why Offline Matters
-
-Offline inference improves three practical dimensions: privacy, latency, and resilience. Patient context does not need to leave the device for every interaction, responses are not blocked by network round trips, and the system remains useful in remote environments.
-
-VaidyaOS is a healthcare AI project, but the same architecture pattern applies to any high-trust domain where availability and privacy matter.
-  `,
-  'how-agrisence-uses-ai-for-crop-disease-detection': `
-# How AgriSence Uses AI for Crop Disease Detection
-
-Crop disease detection is time-sensitive. A delay of even a few days can turn a manageable issue into a major yield loss, especially when farmers lack immediate access to expert agronomy support.
-
-AgriSence approaches this as an AI crop intelligence problem. The system combines crop imagery, user context, weather signals, and multilingual advisory generation to help farmers understand what is happening and what to do next.
-
-## Workflow
-
-1. A farmer captures or uploads a crop image.
-2. The application collects crop, location, and field context.
-3. AI workflows classify visible disease risk and enrich the result with weather-aware reasoning.
-4. The system generates practical next steps in accessible language.
-
-## Why Multilingual Advisory Matters
-
-Detection alone is not enough. A farmer needs a recommendation that is understandable, localized, and actionable. AgriSence prioritizes regional accessibility so the output is closer to a useful field advisory than a raw model prediction.
-
-## Production Considerations
-
-The architecture uses serverless APIs and Firebase-backed persistence to keep the product deployable and scalable. This keeps the frontend responsive while allowing AI workflows to evolve independently behind the API layer.
-  `,
-  'deploying-gguf-models-for-on-device-inference': `
-# Deploying GGUF Models for On-Device Inference
-
-GGUF models make it practical to run compact language models locally with runtimes such as llama.cpp. For products like VaidyaOS, this enables AI assistance without depending on constant cloud connectivity.
-
-## Why GGUF
-
-GGUF is useful for edge deployment because it packages model weights in a format optimized for local inference. Quantized variants can reduce memory and compute requirements, which matters on laptops, mobile devices, and constrained edge environments.
-
-## Deployment Pattern
-
-A practical on-device deployment needs more than a model file. It needs model selection, quantization choice, runtime integration, prompt templates, response parsing, fallback behavior, and update strategy.
-
-The high-level flow is:
-
-1. Choose a compact base model for the domain.
-2. Quantize or select a GGUF variant that fits the target device.
-3. Integrate a local runtime such as llama.cpp.
-4. Wrap inference with structured prompts and output validation.
-5. Ship model updates as versioned, signed bundles.
-
-## Tradeoffs
-
-On-device inference improves privacy and latency, but it also forces tighter thinking around memory, model size, and response quality. The best architecture often combines local inference for critical offline paths with cloud inference for heavier optional workflows.
-  `,
-  'architecture-of-a-multi-agent-ai-platform': `
-# Architecture of a Multi-Agent AI Platform
-
-Multi-agent AI systems become useful when they are treated as distributed systems rather than prompt chains. The hard parts are orchestration, state, retries, cost control, observability, and reliable handoffs between specialized workers.
-
-Career Lens uses this style of architecture to analyze profiles, infer skill gaps, and generate career recommendations through multiple coordinated AI workflows.
-
-## Core Components
-
-- Ingestion services normalize resumes and user context.
-- Embedding workers convert profile data into searchable representations.
-- Recommendation agents evaluate roles, gaps, and career paths.
-- Queue-driven orchestration keeps long-running AI work resilient.
-- The frontend presents results as structured actions, not raw model output.
-
-## Why Events Help
-
-Event-driven design prevents one slow model call from blocking the entire product. Each worker can process a specific task, retry independently, and publish structured output for the next stage.
-
-## Production Lessons
-
-The most important design choice is to keep agent responsibilities narrow. A reliable multi-agent platform depends less on one powerful prompt and more on clear contracts between services.
-  `,
-  'my-journey-building-ai-systems-at-pes-university': `
-# My Journey Building AI Systems at PES University
-
-My work at PES University has focused on building practical AI systems rather than isolated demos. The projects that shaped my portfolio, including VaidyaOS, AgriSence, and Career Lens, each started from a real-world problem and grew into a system architecture challenge.
-
-## What I Focused On
-
-I kept returning to three themes: healthcare AI, agriculture AI, and intelligent decision-support systems. These domains forced me to think about latency, accessibility, privacy, deployment, and user trust.
-
-## Hackathons as Systems Practice
-
-Hackathons gave me a way to test ideas quickly, but the real learning came from turning prototypes into structured products. Winning outcomes mattered, but the deeper value was learning how to scope, build, deploy, and explain complex AI systems under pressure.
-
-## Engineering Direction
-
-The portfolio now reflects the kind of engineering I want to keep doing: AI systems that combine model capability with strong product architecture, clear user value, and production-grade implementation.
-  `,
-  'edge-ai-healthcare': {
-    content: `
-# Offline-First Edge AI in Healthcare
-
-In traditional AI healthcare applications, patient data is often sent to the cloud. This introduces latency, privacy risks, and a reliance on network connectivity.
-
-By using **Llama.cpp** and optimized GGUF models, we can run inference entirely on-device. This means:
-- **Zero Latency**: No waiting for network requests.
-- **Absolute Privacy**: Patient data never leaves the device.
-- **Offline Resilience**: Works in remote areas without internet.
-
-In *VaidyaOS* this approach allowed us to create a robust triage system that doctors can rely on anywhere.
-    `
-  }.content,
-  'event-driven-microservices-ai': {
-    content: `
-# Scaling AI with Event-Driven Microservices
-
-When building *CareerLens*, we realized that synchronous API calls to LLMs (like Gemini) create massive bottlenecks. 
-
-### The Solution
-We adopted an event-driven architecture using Pub/Sub mechanisms. 
-
-1. **Upload**: User uploads a resume.
-2. **Event**: 'resume.uploaded' event is published.
-3. **Workers**: Multiple microservices pick up the event to extract skills, generate embeddings, and query the LLM concurrently.
-
-This reduced processing time from 30 seconds to under 5 seconds for complex multi-agent workflows.
-    `
-  }.content
-};
+import { BLOG_POSTS } from '@/constants/blogs';
+import { ReadingProgressBar } from '@/components/blog/ReadingProgressBar';
+import { TableOfContents } from '@/components/blog/TableOfContents';
+import { AuthorBioCard } from '@/components/blog/AuthorBioCard';
+import { RelatedPosts } from '@/components/blog/RelatedPosts';
 
 export async function generateMetadata(
   props: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
   const params = await props.params;
-  const blog = blogPosts[params.slug as keyof typeof blogPosts];
-  if (!blog) return { title: 'Not Found' };
+  const post =
+    BLOG_POSTS.find((p) => p.slug === params.slug) ||
+    blogPosts[params.slug as keyof typeof blogPosts];
+
+  if (!post) return { title: 'Not Found | Balaraj R' };
 
   return buildMetadata({
-    title: blog.title,
-    description: blog.description,
-    path: blog.path,
-    keywords: blog.keywords,
-    type: "article",
-    publishedTime: blog.date,
+    title: `${post.title} | Balaraj R Engineering Blog`,
+    description: post.description,
+    path: post.path,
+    keywords: post.keywords,
+    type: 'article',
+    publishedTime: post.date,
   });
 }
 
 export async function generateStaticParams() {
-  return Object.keys(blogPosts).map((slug) => ({
-    slug,
-  }));
+  const slugs = new Set([
+    ...Object.keys(blogPosts),
+    ...BLOG_POSTS.map((p) => p.slug),
+  ]);
+  return Array.from(slugs).map((slug) => ({ slug }));
+}
+
+function renderArticleHtml(rawMarkdown: string): string {
+  // Convert {% embed https://youtu.be/... %} to responsive iframe
+  let content = rawMarkdown.replace(
+    /\{%\s*embed\s+(https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)[^\s]*)\s*%\}/g,
+    `<div class="my-8 aspect-video w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800">
+      <iframe class="w-full h-full" src="https://www.youtube.com/embed/$2" title="YouTube Video Embed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>`
+  );
+
+  // Parse markdown
+  const parsed = marked.parse(content, { async: false }) as string;
+
+  // Add id attributes to h2 and h3 for Table of Contents navigation
+  const withIds = parsed.replace(
+    /<(h[23])>(.*?)<\/\1>/g,
+    (_match, tag, innerText) => {
+      const plainText = innerText.replace(/<[^>]*>/g, '').trim();
+      const id = plainText
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+      return `<${tag} id="${id}">${innerText}</${tag}>`;
+    }
+  );
+
+  return withIds;
 }
 
 export default async function BlogPage(props: { params: Promise<{ slug: string }> }) {
   const params = await props.params;
-  const blog = blogPosts[params.slug as keyof typeof blogPosts];
-  const content = blogContent[params.slug];
+  const post =
+    BLOG_POSTS.find((p) => p.slug === params.slug) ||
+    blogPosts[params.slug as keyof typeof blogPosts];
 
-  if (!blog || !content) {
+  if (!post) {
     notFound();
   }
 
-  const htmlContent = marked.parse(content) as string;
+  const postData = BLOG_POSTS.find((p) => p.slug === params.slug) || {
+    ...post,
+    category: 'System Architecture' as const,
+    gradientTheme: 'cyan' as const,
+    content: (post as { content?: string }).content || `# ${post.title}\n\n${post.description}`,
+    author: {
+      name: 'Balaraj R',
+      role: 'AI Systems Architect & PES University',
+      avatar: '/balaraj_hero.png',
+      github: 'https://github.com/balaraj74',
+      linkedin: 'https://www.linkedin.com/in/balaraj-r-209a67330/',
+      twitter: 'https://x.com/Balaraj__r',
+    },
+  };
+
+  const htmlContent = renderArticleHtml(postData.content);
 
   return (
-    <div className="min-h-screen bg-[#F7F4EE] dark:bg-[#030712] text-slate-900 dark:text-white py-20 px-4 sm:px-6 lg:px-8 transition-colors">
+    <div className="min-h-screen bg-[#F7F4EE] dark:bg-[#030712] text-slate-900 dark:text-white pt-16 pb-28 px-4 sm:px-6 lg:px-8 transition-colors relative">
+      {/* Sticky top reading progress bar */}
+      <ReadingProgressBar />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: safeJsonLd({
             "@context": "https://schema.org",
             "@graph": [
-              blogPostingSchema(blog),
+              blogPostingSchema(post),
               breadcrumbSchema([
                 { name: "Home", path: "/" },
                 { name: "Blogs", path: "/blogs" },
-                { name: blog.title, path: blog.path },
+                { name: post.title, path: post.path },
               ]),
             ],
           }),
         }}
       />
 
-      <div className="max-w-3xl mx-auto">
-        <Link href="/blogs" className="inline-flex items-center gap-2 text-cyan-700 dark:text-cyan-400 hover:text-cyan-600 dark:hover:text-cyan-300 mb-8 transition-colors font-semibold">
-          <ArrowLeft className="w-4 h-4" /> Back to Blog
-        </Link>
-        <div 
-          className="prose dark:prose-invert prose-lg max-w-none prose-a:text-cyan-600 dark:prose-a:text-cyan-400 prose-headings:text-slate-900 dark:prose-headings:text-white text-slate-800 dark:text-slate-200"
-          dangerouslySetInnerHTML={{ __html: htmlContent }} 
-        />
+      <div className="max-w-7xl mx-auto">
+        {/* Navigation Breadcrumb */}
+        <div className="mb-10">
+          <Link
+            href="/blogs"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors group"
+          >
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to All Articles
+          </Link>
+        </div>
+
+        {/* Article Header */}
+        <header className="max-w-4xl mb-14">
+          <div className="flex flex-wrap items-center gap-3 mb-5">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wider bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border border-cyan-500/20">
+              <Sparkles className="w-3 h-3" />
+              {postData.category}
+            </span>
+            <span className="flex items-center gap-1.5 text-xs font-mono text-slate-500 dark:text-slate-400">
+              <Clock className="w-3.5 h-3.5" />
+              {postData.readTime}
+            </span>
+            <span>&bull;</span>
+            <span className="flex items-center gap-1.5 text-xs font-mono text-slate-500 dark:text-slate-400">
+              <Calendar className="w-3.5 h-3.5" />
+              {postData.displayDate}
+            </span>
+          </div>
+
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold tracking-tight text-slate-900 dark:text-white leading-[1.15] mb-6">
+            {postData.title}
+          </h1>
+
+          <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed font-sans max-w-3xl mb-8">
+            {postData.description}
+          </p>
+
+          {/* Author Byline */}
+          <div className="flex items-center justify-between pt-6 border-t border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-3.5">
+              <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-cyan-500/30 bg-slate-100 dark:bg-slate-800 shadow-sm">
+                <Image
+                  src={postData.author.avatar}
+                  alt={postData.author.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-slate-900 dark:text-white">
+                  {postData.author.name}
+                </p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-sans">
+                  {postData.author.role}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 text-xs font-mono text-slate-500 dark:text-slate-400">
+              <span className="hidden sm:inline">Engineering Deep-Dive</span>
+              <BookOpen className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+            </div>
+          </div>
+        </header>
+
+        {/* Main Content Layout with Sticky TOC Sidebar */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Article Body */}
+          <article className="lg:col-span-8 max-w-none">
+            <div
+              className="article-prose max-w-none"
+              dangerouslySetInnerHTML={{ __html: htmlContent }}
+            />
+
+            {/* Author Bio Box */}
+            <AuthorBioCard author={postData.author} />
+
+            {/* Curated Related Posts */}
+            <RelatedPosts currentSlug={params.slug} allPosts={BLOG_POSTS} />
+          </article>
+
+          {/* Sticky Sidebar on Desktop */}
+          <aside className="hidden lg:block lg:col-span-4 sticky top-28 space-y-6">
+            <TableOfContents content={postData.content} />
+
+            <div className="p-5 rounded-2xl glass-card border border-white/60 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 shadow-sm backdrop-blur-md">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-wider uppercase text-slate-500 dark:text-slate-400 mb-3">
+                <Share2 className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+                Share Publication
+              </div>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                Found this technical deep-dive helpful? Share it with your engineering team and network.
+              </p>
+              <div className="flex items-center gap-2">
+                <a
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(postData.title)}&url=${encodeURIComponent(`https://balaraj.me${postData.path}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 py-2 px-3 rounded-xl text-xs font-semibold text-center bg-slate-100 dark:bg-slate-800 hover:bg-cyan-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors"
+                >
+                  Share on X
+                </a>
+                <a
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://balaraj.me${postData.path}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 py-2 px-3 rounded-xl text-xs font-semibold text-center bg-slate-100 dark:bg-slate-800 hover:bg-cyan-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors"
+                >
+                  LinkedIn
+                </a>
+              </div>
+            </div>
+          </aside>
+        </div>
       </div>
     </div>
   );
