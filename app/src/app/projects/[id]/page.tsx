@@ -56,7 +56,7 @@ export default async function ProjectPage(props: { params: Promise<{ id: string 
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F4EE] dark:bg-[#030712] text-slate-900 dark:text-white py-20 px-4 sm:px-6 lg:px-8 transition-colors">
+    <main className="min-h-screen bg-[#F7F4EE] dark:bg-[#030712] text-slate-900 dark:text-white py-20 px-4 sm:px-6 lg:px-8 transition-colors">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
@@ -164,6 +164,6 @@ export default async function ProjectPage(props: { params: Promise<{ id: string 
           )}
         </div>
       </div>
-    </div>
+    </main>
   );
 }

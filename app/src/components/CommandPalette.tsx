@@ -5,14 +5,11 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Search,
-  FolderGit2,
   BookOpen,
-  ExternalLink,
   Layers,
   Sparkles,
   X,
   Award,
-  ArrowRight,
   Rss,
   Github,
   Linkedin,
@@ -45,14 +42,24 @@ export function CommandPalette() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
-        setIsOpen((prev) => !prev);
+        setIsOpen((prev) => {
+          if (!prev) {
+            setQuery('');
+            setSelectedIndex(0);
+          }
+          return !prev;
+        });
       }
       if (e.key === 'Escape') {
         setIsOpen(false);
       }
     };
 
-    const handleCustomOpen = () => setIsOpen(true);
+    const handleCustomOpen = () => {
+      setQuery('');
+      setSelectedIndex(0);
+      setIsOpen(true);
+    };
 
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('open-command-palette', handleCustomOpen);
@@ -63,15 +70,16 @@ export function CommandPalette() {
     };
   }, []);
 
-  // Reset search and selection on open
+  // Sync body scroll with modal visibility
   useEffect(() => {
     if (isOpen) {
-      setQuery('');
-      setSelectedIndex(0);
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isOpen]);
 
   // Build searchable index of items
@@ -195,9 +203,10 @@ export function CommandPalette() {
     );
   }, [query, allItems]);
 
-  useEffect(() => {
+  const handleQueryChange = (val: string) => {
+    setQuery(val);
     setSelectedIndex(0);
-  }, [query]);
+  };
 
   const handleSelect = useCallback(
     (index: number) => {
@@ -247,13 +256,13 @@ export function CommandPalette() {
                 autoFocus
                 placeholder="Search projects, articles, case studies, or type a command..."
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => handleQueryChange(e.target.value)}
                 onKeyDown={handleKeyDown}
                 className="flex-1 bg-transparent border-none outline-none text-base text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 font-sans"
               />
               {query && (
                 <button
-                  onClick={() => setQuery('')}
+                  onClick={() => handleQueryChange('')}
                   className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-md transition-colors"
                   aria-label="Clear Search"
                 >
@@ -358,10 +367,9 @@ export function CommandPaletteTrigger() {
     <button
       onClick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}
       type="button"
-      aria-label="Open Command Palette"
       className="inline-flex items-center gap-2 px-2.5 py-1.5 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-900/80 text-slate-500 dark:text-slate-400 hover:border-cyan-500/40 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all shadow-sm hover:scale-[1.02]"
     >
-      <Search className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+      <Search className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" aria-hidden="true" />
       <span className="hidden sm:inline">Search...</span>
       <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-[10px] font-sans font-semibold">
         ⌘K

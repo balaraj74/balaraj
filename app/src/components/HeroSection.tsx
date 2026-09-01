@@ -190,12 +190,7 @@ export default function HeroSection() {
           </motion.div>
 
           {/* Right Column: Hero Portrait scaled directly to top near navigation bar, seated at bottom-right */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.9, delay: 0.25, ease: EASE_OUT_EXPO }}
-            className="lg:col-span-5 xl:col-span-6 flex justify-center lg:justify-end items-end w-full select-none self-end pointer-events-none relative z-10"
-          >
+          <div className="lg:col-span-5 xl:col-span-6 flex justify-center lg:justify-end items-end w-full select-none self-end pointer-events-none relative z-10">
             <div className="relative flex justify-center lg:justify-end items-end w-full lg:translate-x-8 xl:translate-x-14 2xl:translate-x-20">
               <Image
                 src="/balaraj_hero.png"
@@ -203,11 +198,12 @@ export default function HeroSection() {
                 width={1015}
                 height={911}
                 priority
-                sizes="(min-width: 1024px) 60vw, 100vw"
+                fetchPriority="high"
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-contain object-bottom drop-shadow-[0_20px_45px_rgba(15,23,42,0.16)] h-[clamp(340px,52vh,500px)] lg:h-[clamp(560px,92vh,1080px)] w-auto max-w-none"
               />
             </div>
-          </motion.div>
+          </div>
 
         </div>
       </div>

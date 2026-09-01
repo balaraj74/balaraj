@@ -14,12 +14,12 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('light');
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     try {
       const stored = localStorage.getItem('theme') as Theme | null;
       if (stored === 'dark' || stored === 'light') {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setThemeState(stored);
         if (stored === 'dark') {
           document.documentElement.classList.add('dark');
@@ -34,7 +34,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     } catch {
       // fallback
     }
-    setMounted(true);
   }, []);
 
   const setTheme = (newTheme: Theme) => {

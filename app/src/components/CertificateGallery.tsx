@@ -414,6 +414,7 @@ function Lightbox({ cert, certs, onClose, onPrev, onNext }: {
       {/* Close */}
       <button
         onClick={onClose}
+        aria-label="Close certificate preview"
         className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center transition-colors"
       >
         <X className="w-5 h-5 text-white" />
@@ -423,6 +424,7 @@ function Lightbox({ cert, certs, onClose, onPrev, onNext }: {
       <button
         onClick={(e) => { e.stopPropagation(); onPrev(); }}
         disabled={idx === 0}
+        aria-label="Previous certificate"
         className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center transition-colors disabled:opacity-20"
       >
         <ChevronLeft className="w-6 h-6 text-white" />
@@ -432,6 +434,7 @@ function Lightbox({ cert, certs, onClose, onPrev, onNext }: {
       <button
         onClick={(e) => { e.stopPropagation(); onNext(); }}
         disabled={idx === certs.length - 1}
+        aria-label="Next certificate"
         className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center transition-colors disabled:opacity-20"
       >
         <ChevronRight className="w-6 h-6 text-white" />
@@ -691,6 +694,7 @@ function InteractiveDeck({ certs, onCardClick }: InteractiveDeckProps) {
       <div className="flex items-center gap-5 mt-2">
         <button
           onClick={prevCard}
+          aria-label="Previous certificate"
           className="w-10 h-10 rounded-full bg-white/90 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 hover:border-cyan-500 hover:bg-cyan-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-cyan-700 dark:hover:text-cyan-400 flex items-center justify-center transition-all duration-300 shadow-sm active:scale-95"
         >
           <ChevronLeft className="w-5 h-5" />
@@ -700,6 +704,7 @@ function InteractiveDeck({ certs, onCardClick }: InteractiveDeckProps) {
         </span>
         <button
           onClick={nextCard}
+          aria-label="Next certificate"
           className="w-10 h-10 rounded-full bg-white/90 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 hover:border-cyan-500 hover:bg-cyan-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-cyan-700 dark:hover:text-cyan-400 flex items-center justify-center transition-all duration-300 shadow-sm active:scale-95"
         >
           <ChevronRight className="w-5 h-5" />

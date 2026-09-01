@@ -6,7 +6,7 @@ import { BlogFilterBar } from './BlogFilterBar';
 import { BlogCard } from './BlogCard';
 import { BlogPostData, BlogCategory } from '@/types/blog';
 import { BLOG_CATEGORIES } from '@/constants/blogs';
-import { BookOpen, Sparkles, Inbox } from 'lucide-react';
+import { BookOpen, Inbox } from 'lucide-react';
 
 export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPostData[] }) {
   const [activeCategory, setActiveCategory] = useState<BlogCategory>('All');

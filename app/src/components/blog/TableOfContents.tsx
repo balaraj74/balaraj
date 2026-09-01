@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { AlignLeft } from 'lucide-react';
 
 interface HeadingItem {
@@ -10,14 +10,13 @@ interface HeadingItem {
 }
 
 export function TableOfContents({ content }: { content: string }) {
-  const [headings, setHeadings] = useState<HeadingItem[]>([]);
   const [activeId, setActiveId] = useState<string>('');
 
-  useEffect(() => {
-    // Parse h2 and h3 from markdown text
+  // Parse h2 and h3 from markdown text
+  const headings = useMemo<HeadingItem[]>(() => {
     const lines = content.split('\n');
     const items: HeadingItem[] = [];
-    
+
     lines.forEach((line) => {
       const h2Match = line.match(/^##\s+(.+)$/);
       const h3Match = line.match(/^###\s+(.+)$/);
@@ -33,11 +32,13 @@ export function TableOfContents({ content }: { content: string }) {
       }
     });
 
-    setHeadings(items);
+    return items;
+  }, [content]);
 
+  useEffect(() => {
     // Scroll spy
     const handleScroll = () => {
-      const headingElements = items
+      const headingElements = headings
         .map((item) => document.getElementById(item.id))
         .filter((el): el is HTMLElement => el !== null);
 
@@ -50,15 +51,15 @@ export function TableOfContents({ content }: { content: string }) {
           return;
         }
       }
-      if (items.length > 0 && window.scrollY < 200) {
-        setActiveId(items[0].id);
+      if (headings.length > 0 && window.scrollY < 200) {
+        setActiveId(headings[0].id);
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [content]);
+  }, [headings]);
 
   if (headings.length === 0) return null;
 

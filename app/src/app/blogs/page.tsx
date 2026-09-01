@@ -15,7 +15,7 @@ export const metadata: Metadata = buildMetadata(staticSeo.blogs);
 
 export default function BlogsIndex() {
   return (
-    <div className="min-h-screen bg-[#F7F4EE] dark:bg-[#030712] text-slate-900 dark:text-white pt-16 pb-28 px-4 sm:px-6 lg:px-8 transition-colors">
+    <main className="min-h-screen bg-[#F7F4EE] dark:bg-[#030712] text-slate-900 dark:text-white pt-16 pb-28 px-4 sm:px-6 lg:px-8 transition-colors">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -81,6 +81,6 @@ export default function BlogsIndex() {
         {/* Client Interactive Blog Experience */}
         <BlogIndexClient initialPosts={BLOG_POSTS} />
       </div>
-    </div>
+    </main>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 import { useRef } from 'react';
-import Image from 'next/image';
 import { motion, useInView as useFramerInView } from 'framer-motion';
 import { Trophy, Cpu } from 'lucide-react';
 import { AuroraBackground, fadeInUp, staggerContainer, scaleIn } from './shared';
@@ -24,6 +23,7 @@ function TechLogoGrid({ isInView }: { isInView: boolean }) {
         >
           {tech.icon === 'langchain' ? (
             <svg
+              role="img"
               viewBox="0 0 24 24"
               className="w-8 h-8 opacity-60 group-hover:opacity-100 transition-all duration-300 fill-slate-800 dark:fill-slate-200 group-hover:fill-cyan-600 dark:group-hover:fill-cyan-400"
               aria-label={tech.name}
@@ -32,6 +32,7 @@ function TechLogoGrid({ isInView }: { isInView: boolean }) {
             </svg>
           ) : (
             <span
+              role="img"
               aria-label={tech.name}
               className="w-8 h-8 opacity-60 group-hover:opacity-100 transition-all duration-300 bg-slate-800 dark:bg-slate-200 group-hover:bg-cyan-600 dark:group-hover:bg-cyan-400"
               style={{

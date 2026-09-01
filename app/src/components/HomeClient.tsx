@@ -44,13 +44,15 @@ export default function HomeClient() {
       <div className="relative z-10">
         <CursorDot />
         <Navigation />
-        <HeroSection />
-        <AboutSection />
-        <SkillsSection />
-        <ProjectsSection />
-        <JourneyExperience />
-        <AchievementsSection />
-        <ContactSection />
+        <main id="main-content">
+          <HeroSection />
+          <AboutSection />
+          <SkillsSection />
+          <ProjectsSection />
+          <JourneyExperience />
+          <AchievementsSection />
+          <ContactSection />
+        </main>
         <Footer />
       </div>
     </div>

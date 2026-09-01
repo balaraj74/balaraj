@@ -37,7 +37,6 @@ function Logo({ onClick }: { onClick: () => void }) {
   return (
     <motion.button
       type="button"
-      aria-label="Balaraj R Portfolio Home"
       className="text-2xl font-serif italic font-medium tracking-tight cursor-pointer flex items-center group pointer-events-auto bg-transparent border-0 p-0 text-left"
       onClick={onClick}
       whileHover={{ scale: 1.05 }}

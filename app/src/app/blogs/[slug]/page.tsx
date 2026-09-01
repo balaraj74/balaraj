@@ -47,7 +47,7 @@ export async function generateStaticParams() {
 
 function renderArticleHtml(rawMarkdown: string): string {
   // Convert {% embed https://youtu.be/... %} to responsive iframe
-  let content = rawMarkdown.replace(
+  const content = rawMarkdown.replace(
     /\{%\s*embed\s+(https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)[^\s]*)\s*%\}/g,
     `<div class="my-8 aspect-video w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800">
       <iframe class="w-full h-full" src="https://www.youtube.com/embed/$2" title="YouTube Video Embed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -101,7 +101,7 @@ export default async function BlogPage(props: { params: Promise<{ slug: string }
   const htmlContent = renderArticleHtml(postData.content);
 
   return (
-    <div className="min-h-screen bg-[#F7F4EE] dark:bg-[#030712] text-slate-900 dark:text-white pt-16 pb-28 px-4 sm:px-6 lg:px-8 transition-colors relative">
+    <main className="min-h-screen bg-[#F7F4EE] dark:bg-[#030712] text-slate-900 dark:text-white pt-16 pb-28 px-4 sm:px-6 lg:px-8 transition-colors relative">
       {/* Sticky top reading progress bar */}
       <ReadingProgressBar />
 
@@ -237,6 +237,6 @@ export default async function BlogPage(props: { params: Promise<{ slug: string }
           </aside>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

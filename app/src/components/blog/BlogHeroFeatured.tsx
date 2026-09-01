@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowUpRight, Sparkles, Clock, Calendar, Cpu, Layers } from 'lucide-react';
+import { ArrowUpRight, Clock, Calendar, Cpu, Layers } from 'lucide-react';
 import { BlogPostData } from '@/types/blog';
 
 export function BlogHeroFeatured({ post }: { post: BlogPostData }) {
