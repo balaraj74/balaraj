@@ -2,3 +2,10 @@
 /assets
 /certificate
 node_modules/
+.env*
+.env.local
+.claude/
+.playwright-mcp/
+balaraj74/
+2.png
+generate_resume.py

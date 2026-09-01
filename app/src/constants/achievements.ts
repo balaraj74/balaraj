@@ -55,7 +55,7 @@ export const MAJOR_AWARDS: MajorAward[] = [
     shadowColor: 'rgba(6,182,212,0.2)',
     icon: Award,
     image: 'url(/images/inferential.png)',
-    title: 'Inferential 2.0',
+    title: 'Inferentia 2.0',
     badge: '🥇 1st Place',
     badgeColor: 'text-cyan-400 border-cyan-400/30',
     desc: 'Developed a high-performance system under intense time pressure. Praised for clean system design, scalability, and seamless integration capabilities.',

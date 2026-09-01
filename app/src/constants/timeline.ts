@@ -22,9 +22,9 @@ export const TIMELINE_ITEMS: TimelineItem[] = [
     title: 'Darwin Engineering & Architecture',
     org: 'Independent AI Venture',
     period: 'MAY 5, 2026 – Present',
-    color: 'border-violet-500/50 bg-violet-500/10 text-violet-400',
-    blobColor: 'bg-violet-500',
-    glowColor: 'rgba(139,92,246,0.15)',
+    color: 'border-cyan-500/50 bg-cyan-500/10 text-cyan-400',
+    blobColor: 'bg-cyan-500',
+    glowColor: 'rgba(6,182,212,0.15)',
     points: [
       'Architected a multi-agent AI debate engine enforcing hard constraints to build actionable execution blueprints.',
       'Designed a sophisticated 3-round evaluation system with autonomous agents evaluating market intelligence and strategic viability.',

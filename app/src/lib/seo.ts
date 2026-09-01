@@ -253,7 +253,279 @@ export const projectSeo = {
       ],
     },
   },
-} as const;
+  darwin: {
+    id: "darwin",
+    aliases: ["darwin-ai"],
+    path: "/projects/darwin",
+    title: "Darwin | AI Executive Board for Startup Founders",
+    displayTitle: "Darwin - AI Executive Board & Venture Validation Engine",
+    description:
+      "Darwin acts as an AI-powered executive board for startup founders, featuring a multi-agent debate engine with 5 specialized agents evaluating venture viability.",
+    keywords: [
+      "Darwin",
+      "AI Executive Board",
+      "Multi-Agent AI",
+      "FastAPI",
+      "Vertex AI",
+      "Venture Validation",
+      "Balaraj R",
+    ],
+    content:
+      "Darwin is a full-stack multi-agent AI system designed to act as an executive board for startup founders. It simulates rigorous boardroom debate across 5 specialized AI personas to stress-test business models, financial models, and go-to-market strategies.",
+    github: "https://github.com/balaraj74/darwin",
+    demo: "https://darwin-5dleehg6la-el.a.run.app",
+    image: "/projects/darwin_showcase.png",
+    category: "BusinessApplication",
+    details: {
+      problem:
+        "Founders struggle with biased validation and lack accessible, objective advisory boards to stress-test business ideas and execution plans.",
+      solution:
+        "Darwin orchestrates 5 autonomous AI executive personas across 3 structured debate rounds to critically analyze market fit, unit economics, risks, and execution milestones.",
+      features: [
+        "5 autonomous AI executive specialist agents",
+        "Structured 3-round multi-agent debate engine",
+        "Hard deterministic constraint enforcement",
+        "Actionable blueprint and roadmap generation",
+      ],
+      techStack: ["FastAPI", "Next.js 14", "Vertex AI", "Firebase", "Google Cloud Run"],
+      architecture: [
+        "User submits startup pitch and key parameters",
+        "Orchestrator initiates parallel specialist evaluations (Product, GTM, Finance, Tech, Risk)",
+        "Multi-round adversarial debate synthesizes consensus and reveals risks",
+        "Deterministic formatter produces structured executive blueprint",
+      ],
+      roadmap: [
+        "Add live competitive intelligence feeds",
+        "Integrate automated pitch deck analysis",
+        "Expand investor persona simulations",
+      ],
+      visuals: [
+        {
+          src: "/projects/darwin_showcase.png",
+          alt: "Darwin AI Executive Board interface preview",
+          caption: "Darwin multi-agent debate dashboard",
+        },
+      ],
+    },
+  },
+  omnisence: {
+    id: "omnisence",
+    aliases: ["omni-sence"],
+    path: "/projects/omnisence",
+    title: "OmniSence | Multimodal Spatial AI Engine",
+    displayTitle: "OmniSence - Multimodal Spatial Perception Engine",
+    description:
+      "OmniSence provides real-time multimodal perception, spatial vision analysis, and contextual audio-visual reasoning for intelligent environments.",
+    keywords: [
+      "OmniSence",
+      "Multimodal AI",
+      "Computer Vision",
+      "Spatial Intelligence",
+      "PyTorch",
+      "FastAPI",
+      "Balaraj R",
+    ],
+    content:
+      "OmniSence is a high-throughput multimodal intelligence engine that fuses real-time computer vision with audio stream comprehension to perceive and structure complex ambient environments.",
+    github: "https://github.com/balaraj74/omnisence",
+    demo: "https://omnisence-demo.vercel.app",
+    image: "/projects/omnisence_bg_1776501035325.png",
+    category: "MultimediaApplication",
+    details: {
+      problem:
+        "Single-modality vision models miss critical ambient audio and spatial context needed for rich situational awareness.",
+      solution:
+        "OmniSence combines low-latency neural vision models and audio event detection in a unified spatial reasoning pipeline.",
+      features: [
+        "Real-time object detection and spatial tracking",
+        "Ambient audio classification and event correlation",
+        "Zero-latency edge streaming pipeline",
+        "Spatial coordinate mapping and telemetry export",
+      ],
+      techStack: ["Python", "PyTorch", "FastAPI", "OpenCV", "WebRTC"],
+      architecture: [
+        "High-frame rate video and audio feeds stream into ingestion pipeline",
+        "PyTorch inference models extract spatial vectors and acoustic features",
+        "Correlation engine matches visual anomalies with audio cues",
+        "WebSocket server broadcasts real-time perceptual telemetry to client UI",
+      ],
+      roadmap: [
+        "Add 3D depth point cloud reconstruction",
+        "Optimize models for edge microcontrollers and Jetson Nano",
+        "Introduce multi-camera sensor fusion",
+      ],
+      visuals: [
+        {
+          src: "/projects/omnisence_bg_1776501035325.png",
+          alt: "OmniSence Multimodal Perception Preview",
+          caption: "OmniSence spatial intelligence preview",
+        },
+      ],
+    },
+  },
+  taskforze: {
+    id: "taskforze",
+    aliases: ["task-forze"],
+    path: "/projects/taskforze",
+    title: "TaskForze | Autonomous Agent Swarm Platform",
+    displayTitle: "TaskForze - Autonomous Agent Workflow Orchestration",
+    description:
+      "TaskForze is an autonomous AI agent swarm platform that orchestrates complex task decomposition, tool execution, and self-correcting workflows.",
+    keywords: [
+      "TaskForze",
+      "Autonomous Agents",
+      "Workflow Automation",
+      "LangGraph",
+      "FastAPI",
+      "Balaraj R",
+    ],
+    content:
+      "TaskForze delivers enterprise-grade workflow orchestration by coordinating distributed autonomous agents that dynamically plan, execute, verify, and iterate on complex multi-step technical workflows.",
+    github: "https://github.com/balaraj74/taskforze",
+    demo: "https://taskforze.vercel.app",
+    image: "/projects/taskforze_bg_1776501047462.png",
+    category: "BusinessApplication",
+    details: {
+      problem:
+        "Complex enterprise workflows break down when simple linear scripts fail without self-healing or adaptive replanning.",
+      solution:
+        "TaskForze uses graph-based agent topologies with dynamic replanning, validation checkpoints, and tool retry mechanisms.",
+      features: [
+        "Hierarchical agent swarm coordination",
+        "Deterministic state machine and execution rollback",
+        "Sandboxed Python & CLI tool execution",
+        "Real-time step-by-step progress streaming",
+      ],
+      techStack: ["TypeScript", "Python", "FastAPI", "Redis", "Docker"],
+      architecture: [
+        "User defines high-level goal and security policy",
+        "Lead planner agent decomposes goal into DAG of executable sub-tasks",
+        "Worker agents execute tools in isolated sandbox environments",
+        "Critic agent verifies artifacts and approves or triggers replanning",
+      ],
+      roadmap: [
+        "Add asynchronous human-in-the-loop approval gates",
+        "Expand pre-built SaaS connector marketplace",
+        "Implement persistent memory across multi-day agent runs",
+      ],
+      visuals: [
+        {
+          src: "/projects/taskforze_bg_1776501047462.png",
+          alt: "TaskForze Autonomous Agent Swarm Preview",
+          caption: "TaskForze dynamic agent orchestration workflow",
+        },
+      ],
+    },
+  },
+  healthmesh: {
+    id: "healthmesh",
+    aliases: ["health-mesh"],
+    path: "/projects/healthmesh",
+    title: "HealthMesh v2.0 | Distributed Clinical Telemetry Grid",
+    displayTitle: "HealthMesh v2.0 - Federated Edge Healthcare Telemetry",
+    description:
+      "HealthMesh v2.0 connects distributed healthcare devices with zero-trust federated telemetry, on-device anomaly detection, and end-to-end encryption.",
+    keywords: [
+      "HealthMesh",
+      "Healthcare IoT",
+      "Edge Telemetry",
+      "Zero Trust",
+      "FastAPI",
+      "Balaraj R",
+    ],
+    content:
+      "HealthMesh v2.0 is a distributed medical telemetry network delivering zero-trust patient monitoring, continuous edge vital analysis, and low-latency critical event alerting across clinical facilities.",
+    github: "https://github.com/balaraj74/healthmesh",
+    demo: "https://healthmesh.vercel.app",
+    image: "/projects/healthmesh_bg_1776501063141.png",
+    category: "HealthcareApplication",
+    details: {
+      problem:
+        "Hospital telemetry systems are fragmented and prone to latency delays and security breaches during cross-facility transfers.",
+      solution:
+        "HealthMesh establishes an encrypted, distributed telemetry mesh with edge anomaly detection and zero-trust authentication.",
+      features: [
+        "Zero-trust end-to-end encrypted vital streams",
+        "Edge anomaly detection for cardiac & oxygen anomalies",
+        "Fault-tolerant peer-to-peer sync during outages",
+        "Interactive clinical monitoring dashboard",
+      ],
+      techStack: ["Go", "Python", "WebSockets", "TimescaleDB", "React"],
+      architecture: [
+        "Edge medical sensors stream encrypted vital telemetry",
+        "Edge nodes run real-time anomaly detection heuristics",
+        "Time-series database archives compressed telemetry streams",
+        "Nurse station dashboard renders real-time multi-patient waveforms",
+      ],
+      roadmap: [
+        "Add predictive arrhythmia early-warning models",
+        "Integrate HL7 / FHIR standard hospital EHR exports",
+        "Support wearable BLE clinical device ingestion",
+      ],
+      visuals: [
+        {
+          src: "/projects/healthmesh_bg_1776501063141.png",
+          alt: "HealthMesh Clinical Telemetry Preview",
+          caption: "HealthMesh distributed patient monitoring grid",
+        },
+      ],
+    },
+  },
+  cybershield: {
+    id: "cybershield",
+    aliases: ["cyber-shield"],
+    path: "/projects/cybershield",
+    title: "CyberShield AI | Real-Time Threat Intelligence & Defense",
+    displayTitle: "CyberShield AI - Autonomous Threat Detection & Response",
+    description:
+      "CyberShield AI uses continuous deep packet inspection and behavioural machine learning models to detect zero-day cyber threats in real time.",
+    keywords: [
+      "CyberShield AI",
+      "Cybersecurity",
+      "Threat Detection",
+      "Machine Learning Security",
+      "FastAPI",
+      "Balaraj R",
+    ],
+    content:
+      "CyberShield AI is an intelligent defensive cybersecurity platform that continuously ingests network telemetry and applies real-time behavioural anomaly classifiers to neutralize threat vectors before escalation.",
+    github: "https://github.com/balaraj74/cybershield",
+    demo: "https://cybershield.vercel.app",
+    image: "/projects/cybershield_bg_1776501077227.png",
+    category: "SecurityApplication",
+    details: {
+      problem:
+        "Traditional signature-based firewalls cannot detect novel zero-day attack vectors and sophisticated lateral movement.",
+      solution:
+        "CyberShield AI trains behavioural anomaly classifiers on network telemetry to detect and quarantine zero-day threats in milliseconds.",
+      features: [
+        "Real-time packet flow inspection and protocol decoding",
+        "Behavioural anomaly detection with deep learning",
+        "Automated IP quarantine and firewall rule injection",
+        "Live security operations center (SOC) event map",
+      ],
+      techStack: ["Python", "eBPF", "TensorFlow", "FastAPI", "Next.js"],
+      architecture: [
+        "eBPF hooks capture kernel-level network socket activity",
+        "Streaming pipeline extracts behavioral flow statistics",
+        "TensorFlow model classifies traffic as benign or anomalous",
+        "Automated orchestrator triggers firewall isolation rules",
+      ],
+      roadmap: [
+        "Add MITRE ATT&CK framework mapping for detected events",
+        "Introduce automated threat intelligence feed sharing",
+        "Support Kubernetes cloud-native sidecar enforcement",
+      ],
+      visuals: [
+        {
+          src: "/projects/cybershield_bg_1776501077227.png",
+          alt: "CyberShield Threat Intelligence Preview",
+          caption: "CyberShield AI threat detection dashboard",
+        },
+      ],
+    },
+  },
+};
 
 export const blogPosts = {
   "building-darwin-ai-executive-board": {
@@ -500,6 +772,13 @@ export function buildMetadata({
       images: [imageUrl],
       creator: "@Balaraj__r",
     },
+    icons: {
+      icon: [
+        { url: '/favicon.ico', sizes: 'any' },
+        { url: '/icon.png', type: 'image/png' },
+      ],
+      apple: [{ url: '/apple-icon.png', type: 'image/png' }],
+    },
   };
 }
 
@@ -637,6 +916,11 @@ export const sitemapRoutes = [
   { path: "/projects/vaidyos", changeFrequency: "monthly", priority: 0.85 },
   { path: "/projects/agrisence", changeFrequency: "monthly", priority: 0.85 },
   { path: "/projects/career-lens", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/projects/darwin", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/projects/omnisence", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/projects/taskforze", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/projects/healthmesh", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/projects/cybershield", changeFrequency: "monthly", priority: 0.85 },
   { path: "/blogs", changeFrequency: "weekly", priority: 0.8 },
   {
     path: "/blogs/building-vaidyaos-offline-healthcare-ai-edge-ai",

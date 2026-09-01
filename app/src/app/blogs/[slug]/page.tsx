@@ -242,7 +242,7 @@ export default async function BlogPage(props: { params: Promise<{ slug: string }
   const htmlContent = marked.parse(content) as string;
 
   return (
-    <div className="min-h-screen bg-[#050d1a] text-white py-20 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#F7F4EE] dark:bg-[#030712] text-slate-900 dark:text-white py-20 px-4 sm:px-6 lg:px-8 transition-colors">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -261,11 +261,11 @@ export default async function BlogPage(props: { params: Promise<{ slug: string }
       />
 
       <div className="max-w-3xl mx-auto">
-        <Link href="/blogs" className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 mb-8 transition-colors">
+        <Link href="/blogs" className="inline-flex items-center gap-2 text-cyan-700 dark:text-cyan-400 hover:text-cyan-600 dark:hover:text-cyan-300 mb-8 transition-colors font-semibold">
           <ArrowLeft className="w-4 h-4" /> Back to Blog
         </Link>
         <div 
-          className="prose prose-invert prose-lg max-w-none prose-a:text-cyan-400 prose-headings:text-white"
+          className="prose dark:prose-invert prose-lg max-w-none prose-a:text-cyan-600 dark:prose-a:text-cyan-400 prose-headings:text-slate-900 dark:prose-headings:text-white text-slate-800 dark:text-slate-200"
           dangerouslySetInnerHTML={{ __html: htmlContent }} 
         />
       </div>

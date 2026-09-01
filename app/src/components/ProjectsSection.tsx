@@ -27,22 +27,20 @@ function StickyCard({ project, index, progress }: { project: (typeof FEATURED_PR
         scale,
         transformOrigin: 'top center',
         borderRadius: BR,
-        border: '1.5px solid rgba(255,255,255,0.12)',
-        background: 'linear-gradient(135deg, #0a0f1e 0%, #050d1a 100%)',
         overflow: 'hidden',
         willChange: 'transform',
       }}
-      className="shadow-[0_24px_80px_rgba(0,0,0,0.6)]"
+      className="glass-card border border-white/90 dark:border-white/10 bg-white/85 dark:bg-gradient-to-br dark:from-slate-900/95 dark:to-slate-950/95 shadow-[0_20px_60px_-15px_rgba(15,23,42,0.12)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] backdrop-blur-2xl transition-colors duration-300"
     >
         {/* Accent top line */}
         <div
           className="absolute top-0 left-0 right-0 h-[2px] z-10"
           style={{
             background: `linear-gradient(90deg, transparent, ${
-              project.accentColor.includes('cyan') ? 'rgba(6,182,212,0.8)'
-              : project.accentColor.includes('emerald') ? 'rgba(52,211,153,0.8)'
-              : project.accentColor.includes('violet') ? 'rgba(139,92,246,0.8)'
-              : 'rgba(251,191,36,0.8)'
+              project.accentColor.includes('cyan') ? 'rgba(6,182,212,0.9)'
+              : project.accentColor.includes('emerald') ? 'rgba(16,185,129,0.9)'
+              : project.accentColor.includes('blue') || project.accentColor.includes('sky') ? 'rgba(14,165,233,0.9)'
+              : 'rgba(245,158,11,0.9)'
             }, transparent)`,
           }}
         />
@@ -53,11 +51,10 @@ function StickyCard({ project, index, progress }: { project: (typeof FEATURED_PR
             <div className="flex items-start gap-4 sm:gap-6 min-w-0">
               {/* Number */}
               <span
-                className="font-black leading-none shrink-0 select-none"
+                className="font-black leading-none shrink-0 select-none text-slate-900/10 dark:text-white/10"
                 style={{
                   fontSize: 'clamp(2.5rem, 7vw, 6rem)',
                   lineHeight: 0.85,
-                  color: 'rgba(255,255,255,0.10)',
                   letterSpacing: '-0.04em',
                 }}
               >
@@ -67,18 +64,16 @@ function StickyCard({ project, index, progress }: { project: (typeof FEATURED_PR
               <div className="flex flex-col gap-1 min-w-0">
                 {/* Badge */}
                 <span
-                  className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-widest"
-                  style={{ color: 'rgba(255,255,255,0.4)' }}
+                  className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-cyan-700 dark:text-cyan-400"
                 >
                   <span className="text-base">{project.emoji}</span>
                   {project.badge}
                 </span>
                 {/* Title */}
                 <h3
-                  className="font-black uppercase tracking-tight leading-none"
+                  className="font-black uppercase tracking-tight leading-none text-slate-900 dark:text-white transition-colors"
                   style={{
                     fontSize: 'clamp(1.4rem, 3.5vw, 3rem)',
-                    color: '#e0e1dd',
                   }}
                 >
                   {project.title}
@@ -93,11 +88,9 @@ function StickyCard({ project, index, progress }: { project: (typeof FEATURED_PR
                   href={project.demo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 font-bold uppercase tracking-widest transition-all hover:bg-white/10"
+                  className="inline-flex items-center gap-2 font-bold uppercase tracking-widest transition-all hover:bg-cyan-400 bg-cyan-500 text-slate-950 shadow-sm"
                   style={{
                     borderRadius: '9999px',
-                    border: '1.5px solid rgba(255,255,255,0.25)',
-                    color: '#e0e1dd',
                     padding: 'clamp(8px,1vw,12px) clamp(16px,2vw,28px)',
                     fontSize: 'clamp(0.65rem, 1vw, 0.85rem)',
                     textDecoration: 'none',
@@ -105,7 +98,7 @@ function StickyCard({ project, index, progress }: { project: (typeof FEATURED_PR
                   }}
                 >
                   <ExternalLink style={{ width: '0.9em', height: '0.9em' }} />
-                  Live System
+                  {project.demo.toLowerCase().endsWith('.apk') ? 'Download APK' : 'Live System'}
                 </a>
               )}
               {project.github !== '#' && (
@@ -113,11 +106,9 @@ function StickyCard({ project, index, progress }: { project: (typeof FEATURED_PR
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 font-bold uppercase tracking-widest transition-all hover:bg-white/10"
+                  className="inline-flex items-center gap-2 font-bold uppercase tracking-widest transition-all bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 shadow-sm"
                   style={{
                     borderRadius: '9999px',
-                    border: '1.5px solid rgba(255,255,255,0.12)',
-                    color: 'rgba(255,255,255,0.5)',
                     padding: 'clamp(8px,1vw,12px) clamp(16px,2vw,28px)',
                     fontSize: 'clamp(0.65rem, 1vw, 0.85rem)',
                     textDecoration: 'none',
@@ -132,10 +123,56 @@ function StickyCard({ project, index, progress }: { project: (typeof FEATURED_PR
           </div>
 
           {/* ── Bottom: image grid + description ── */}
-          <div className="flex gap-3 sm:gap-4 flex-1 min-h-0">
-            {/* Left col — 40% — 2 stacked images */}
-            <div style={{ flex: '0 0 40%', display: 'flex', flexDirection: 'column', gap: '12px', minHeight: 0 }}>
-              {/* Top image */}
+          <div className="flex flex-col md:flex-row gap-4 sm:gap-6 flex-1 min-h-0">
+            {/* Main project visual */}
+            <div className="flex-1 flex flex-col min-h-0">
+              <div
+                className="relative overflow-hidden group/img cursor-pointer flex-1 w-full"
+                style={{
+                  borderRadius: BR,
+                  background: '#0a0f1e',
+                  minHeight: '200px',
+                }}
+                onClick={() => {
+                  if (project.demo !== '#') window.open(project.demo, '_blank');
+                  else if (project.github !== '#') window.open(project.github, '_blank');
+                }}
+              >
+                <Image
+                  src={project.image}
+                  alt={`${project.title} visual`}
+                  fill
+                  priority={index === 0}
+                  sizes="(min-width: 1024px) 65vw, 95vw"
+                  className="object-cover object-top transition-transform duration-700 group-hover/img:scale-105"
+                />
+                <div
+                  className="absolute inset-0 transition-opacity duration-300 group-hover/img:opacity-0"
+                  style={{
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%)',
+                  }}
+                />
+              </div>
+
+              {/* Mobile Description */}
+              <div className="md:hidden mt-3 p-3.5 bg-white/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-xs">
+                <p className="text-slate-700 dark:text-slate-300 text-xs font-medium leading-relaxed line-clamp-3">
+                  {project.description}
+                </p>
+                {project.thinking && (
+                  <p className="text-[11px] text-cyan-800 dark:text-cyan-300 font-semibold mt-1.5 line-clamp-2 italic">
+                    💡 {project.thinking}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Right stack: secondary image + desc + metrics */}
+            <div
+              className="hidden md:flex flex-col gap-3 sm:gap-4"
+              style={{ width: 'clamp(300px, 34vw, 540px)', flexShrink: 0 }}
+            >
+              {/* Secondary visual strip */}
               <div
                 style={{
                   borderRadius: BR,
@@ -151,31 +188,25 @@ function StickyCard({ project, index, progress }: { project: (typeof FEATURED_PR
                   alt={`${project.title} preview`}
                   fill
                   sizes="40vw"
-                  className="object-cover opacity-80"
+                  className="object-cover opacity-90"
                 />
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(6,182,212,0.08) 0%, transparent 60%)' }} />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(6,182,212,0.12) 0%, transparent 60%)' }} />
               </div>
 
               {/* Bottom info card */}
               <div
+                className="bg-white/70 dark:bg-slate-900/70 border border-white/90 dark:border-slate-800 shadow-sm flex flex-col justify-between overflow-hidden"
                 style={{
                   borderRadius: BR,
-                  background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.07)',
                   flex: 1,
                   padding: 'clamp(12px, 1.5vw, 20px)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
                   minHeight: 0,
-                  overflow: 'hidden',
                 }}
               >
                 <p
+                  className="text-slate-700 dark:text-slate-300 font-medium leading-relaxed"
                   style={{
-                    color: 'rgba(255,255,255,0.6)',
                     fontSize: 'clamp(0.7rem, 1.1vw, 0.95rem)',
-                    lineHeight: 1.6,
                     overflow: 'hidden',
                     display: '-webkit-box',
                     WebkitLineClamp: 8,
@@ -187,95 +218,63 @@ function StickyCard({ project, index, progress }: { project: (typeof FEATURED_PR
 
                 {/* Architectural Thinking */}
                 {project.thinking && (
-                  <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-                    <p style={{ fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.4)', marginBottom: '6px' }}>Architecture</p>
-                    <p style={{ fontSize: 'clamp(0.7rem, 0.9vw, 0.85rem)', color: 'rgba(255,255,255,0.7)', lineHeight: 1.5, fontStyle: 'italic' }}>
+                  <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-cyan-700 dark:text-cyan-400 mb-1.5">Architecture</p>
+                    <p className="text-slate-800 dark:text-slate-200 leading-snug italic font-medium" style={{ fontSize: 'clamp(0.7rem, 0.9vw, 0.85rem)' }}>
                       {project.thinking}
                     </p>
                   </div>
                 )}
-
-                {/* Tech tags */}
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '16px' }}>
-                  {project.tech.map((t) => (
-                    <span
-                      key={t}
-                      style={{
-                        padding: '3px 10px',
-                        borderRadius: '9999px',
-                        background: 'rgba(255,255,255,0.06)',
-                        border: '1px solid rgba(255,255,255,0.10)',
-                        fontSize: 'clamp(0.6rem, 0.85vw, 0.75rem)',
-                        color: 'rgba(255,255,255,0.55)',
-                        fontWeight: 600,
-                        whiteSpace: 'nowrap',
-                      }}
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
               </div>
             </div>
+          </div>
 
-            {/* Right col — 60% — hero screenshot */}
-            <div style={{ flex: '0 0 60%', position: 'relative', borderRadius: BR, overflow: 'hidden', minHeight: 0 }}>
-              {/* Big background image */}
-              <Image
-                src={project.image}
-                alt={`${project.title} hero`}
-                fill
-                sizes="60vw"
-                className="object-cover"
-                style={{ objectPosition: 'center top' }}
-              />
-              {/* Gradient overlay */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  background: 'linear-gradient(180deg, transparent 30%, rgba(5,13,26,0.85) 100%)',
-                }}
-              />
-
-              {/* Metrics overlay at bottom */}
-              {metrics && metrics.length > 0 && (
-                <div
-                  className="absolute bottom-0 left-0 right-0"
+          {/* ── Footer row: tags + metrics ── */}
+          <div
+            className="flex items-center justify-between gap-4 pt-4 sm:pt-6 mt-4 flex-wrap border-t border-slate-200 dark:border-slate-800"
+          >
+            {/* Tech tags */}
+            <div className="flex gap-1.5 sm:gap-2 flex-wrap items-center">
+              {project.tech.map((t) => (
+                <span
+                  key={t}
+                  className="bg-white/90 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-full font-semibold uppercase tracking-wider shadow-sm"
                   style={{
-                    padding: 'clamp(12px, 2vw, 24px)',
-                    display: 'flex',
-                    gap: 'clamp(12px, 2vw, 24px)',
+                    fontSize: 'clamp(0.6rem, 0.85vw, 0.75rem)',
+                    padding: 'clamp(3px, 0.4vw, 5px) clamp(8px, 1vw, 14px)',
+                    whiteSpace: 'nowrap',
                   }}
                 >
-                  {metrics.map((m) => (
-                    <div key={m.label} style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                      <span
-                        style={{
-                          fontSize: 'clamp(1rem, 2vw, 1.6rem)',
-                          fontWeight: 900,
-                          color: '#ffffff',
-                          letterSpacing: '-0.02em',
-                          lineHeight: 1,
-                        }}
-                      >
-                        {m.value}
-                      </span>
-                      <span
-                        style={{
-                          fontSize: 'clamp(0.55rem, 0.8vw, 0.7rem)',
-                          fontWeight: 700,
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.1em',
-                          color: 'rgba(255,255,255,0.45)',
-                        }}
-                      >
-                        {m.label}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              )}
+                  {t}
+                </span>
+              ))}
             </div>
+
+            {/* Metrics */}
+            {metrics && metrics.length > 0 && (
+              <div className="flex gap-4 sm:gap-8 shrink-0">
+                {metrics.map((m) => (
+                  <div key={m.label} className="flex flex-col gap-0.5">
+                    <span
+                      className="font-black text-slate-900 dark:text-white leading-none tracking-tight transition-colors"
+                      style={{
+                        fontSize: 'clamp(1rem, 2vw, 1.6rem)',
+                      }}
+                    >
+                      {m.value}
+                    </span>
+                    <span
+                      className="text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest"
+                      style={{
+                        fontSize: 'clamp(0.55rem, 0.8vw, 0.7rem)',
+                      }}
+                    >
+                      {m.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </motion.div>
@@ -290,7 +289,7 @@ function OtherProjectsGrid({ isInView }: { isInView: boolean }) {
         initial={{ opacity: 0, y: 24 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7, ease: EASE_OUT_EXPO }}
-        className="text-xl sm:text-2xl font-black uppercase tracking-wider text-white/30 text-center mb-10"
+        className="text-xl sm:text-2xl font-black uppercase tracking-wider text-slate-800 dark:text-slate-100 text-center mb-10 transition-colors"
       >
         More Projects
       </motion.h3>
@@ -304,62 +303,64 @@ function OtherProjectsGrid({ isInView }: { isInView: boolean }) {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 + i * 0.07, ease: EASE_OUT_EXPO }}
               whileHover={{ y: -6 }}
-              style={{
-                borderRadius: 'clamp(16px, 2vw, 28px)',
-                border: '1px solid rgba(255,255,255,0.09)',
-                background: 'linear-gradient(135deg, #0a0f1e 0%, #050d1a 100%)',
-                overflow: 'hidden',
-                display: 'flex',
-                flexDirection: 'column',
-              }}
+              className="glass-card rounded-2xl border border-white/90 dark:border-white/10 bg-white/85 dark:bg-slate-900/85 overflow-hidden flex flex-col shadow-sm hover:border-cyan-500/40 transition-all duration-300"
             >
               {/* Image strip */}
-              <div style={{ height: '140px', position: 'relative', background: '#030812' }}>
+              <div className="h-[140px] relative bg-[#030812]">
                 <Image
                   src={p.image}
                   alt={p.title}
                   fill
                   sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover opacity-50 hover:opacity-70 transition-opacity"
+                  className="object-cover opacity-80 hover:opacity-100 transition-opacity"
                 />
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, #0a0f1e, transparent)' }} />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 <div
-                  className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full"
-                  style={{ background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.10)' }}
+                  className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/85 dark:bg-slate-900/85 backdrop-blur-md border border-white/90 dark:border-slate-700"
                 >
                   <span className="text-sm">{p.emoji}</span>
                 </div>
               </div>
 
               {/* Content */}
-              <div style={{ padding: 'clamp(14px, 2vw, 20px)', flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <div className="p-4 sm:p-5 flex-1 flex flex-col gap-2">
                 <div>
-                  <p style={{ fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.35)', marginBottom: '4px' }}>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-cyan-700 dark:text-cyan-400 mb-1">
                     {p.badge}
                   </p>
-                  <h4 style={{ fontSize: 'clamp(1rem, 1.5vw, 1.2rem)', fontWeight: 900, color: '#e0e1dd', lineHeight: 1.1 }}>
+                  <h4 className="text-base sm:text-lg font-black text-slate-900 dark:text-white leading-tight transition-colors">
                     {p.title}
                   </h4>
                 </div>
-                <p style={{ fontSize: 'clamp(0.7rem, 1vw, 0.82rem)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.55, flex: 1 }}>
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed flex-1 font-medium">
                   {p.description.slice(0, 100)}…
                 </p>
-                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '4px' }}>
+                <div className="flex gap-1.5 flex-wrap mt-1">
                   {metrics.map((m) => (
-                    <span key={m} style={{ fontSize: '0.6rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '6px', padding: '2px 8px' }}>
+                    <span key={m} className="text-[10px] font-semibold uppercase tracking-wider text-slate-800 dark:text-slate-200 bg-white/90 dark:bg-slate-800/90 border border-slate-300 dark:border-slate-700 rounded-md px-2 py-0.5">
                       {m}
                     </span>
                   ))}
                 </div>
-                <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
-                  {p.demo !== '#' && (
+                <div className="flex gap-2 mt-2">
+                  {p.github && p.github !== '#' && (
+                    <a
+                      href={p.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-full border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-[11px] font-bold uppercase tracking-wider shadow-sm transition-colors"
+                    >
+                      <Github className="w-3.5 h-3.5" /> GitHub
+                    </a>
+                  )}
+                  {p.demo && p.demo !== '#' && (
                     <a
                       href={p.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '7px 12px', borderRadius: '9999px', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.7)', fontSize: '0.68rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', textDecoration: 'none', transition: 'background 0.2s' }}
+                      className="flex-1 flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-full border border-cyan-500/40 text-cyan-700 dark:text-cyan-300 bg-cyan-500/10 hover:bg-cyan-500/20 text-[11px] font-bold uppercase tracking-wider shadow-sm transition-colors"
                     >
-                      <ExternalLink style={{ width: '0.8em', height: '0.8em' }} /> Demo
+                      <ExternalLink className="w-3.5 h-3.5" /> Live
                     </a>
                   )}
                 </div>
@@ -395,10 +396,10 @@ export default function ProjectsSection() {
       {/* Ambient glows */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-40 left-1/4 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-40 right-1/4 w-[400px] h-[400px] bg-violet-600/5 rounded-full blur-[100px]" />
+        <div className="absolute bottom-40 right-1/4 w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-[100px]" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-[1700px] w-full mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Section heading */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -407,11 +408,11 @@ export default function ProjectsSection() {
           className="text-center mb-16 sm:mb-20"
         >
           <p className="section-label mx-auto w-fit">Engineering Portfolio</p>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-serif italic font-medium text-white leading-none tracking-tight mt-3">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-serif italic font-medium text-slate-900 dark:text-white leading-none tracking-tight mt-3 transition-colors">
             I design & deploy<br />
             <span className="gradient-text-cyan">complex AI systems</span>
           </h2>
-          <p className="text-white/45 mt-6 max-w-xl mx-auto text-base sm:text-lg leading-relaxed">
+          <p className="text-slate-700 dark:text-slate-300 mt-6 max-w-xl mx-auto text-base sm:text-lg leading-relaxed transition-colors">
             Proof that I build real-world systems with impact, performance, and architecture in mind.
           </p>
         </motion.div>
@@ -425,8 +426,8 @@ export default function ProjectsSection() {
       </div>
 
       {/* Other projects grid seamlessly slides over the final sticky card */}
-      <div className="relative z-20 w-full bg-[#020810] pt-20 pb-24 shadow-[0_-40px_100px_rgba(2,8,16,1)]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-20 w-full bg-transparent pt-20 pb-24">
+        <div className="max-w-[1700px] w-full mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
           <OtherProjectsGrid isInView={isInView} />
         </div>
       </div>

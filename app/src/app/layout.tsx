@@ -9,6 +9,8 @@ import {
   staticSeo,
   websiteSchema,
 } from "@/lib/seo";
+import SuppressThreeWarnings from "@/components/SuppressThreeWarnings";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 import { Playfair_Display } from "next/font/google";
 
@@ -44,6 +46,13 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark');}else{document.documentElement.classList.remove('dark');}}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">
         <script
           type="application/ld+json"
@@ -64,7 +73,10 @@ export default function RootLayout({
           <Link href="/blogs">AI Engineering Blog</Link>
           <Link href="/contact">Contact Balaraj R</Link>
         </nav>
-        {children}
+        <SuppressThreeWarnings />
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

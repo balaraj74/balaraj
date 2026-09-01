@@ -36,22 +36,28 @@ export const scaleIn = {
  * Hook to count up to a target number when visible.
  */
 export function useCountUp(target: number, isVisible: boolean): number {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(target);
+
   useEffect(() => {
     if (!isVisible) return;
-    const step = target / 60;
-    let current = 0;
-    const timer = setInterval(() => {
-      current += step;
-      if (current >= target) {
-        setCount(target);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(current));
+    let startTimestamp: number | null = null;
+    const duration = 1200;
+    let frameId: number;
+
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      setCount(Math.round(ease * target));
+      if (progress < 1) {
+        frameId = requestAnimationFrame(step);
       }
-    }, 16);
-    return () => clearInterval(timer);
+    };
+
+    frameId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frameId);
   }, [isVisible, target]);
+
   return count;
 }
 
@@ -121,42 +127,15 @@ export function CursorDot() {
 }
 
 /**
- * Floating background particle effect field.
+ * Floating background particle effect field (disabled for clean dark aesthetic).
  */
 export function ParticleField() {
-  const particles = Array.from({ length: 40 }, (_, i) => ({
-    id: i,
-    x: `${(i * 3.7 + 5) % 100}%`,
-    y: `${(i * 7.3 + 10) % 100}%`,
-    delay: `${(i * 0.4) % 8}s`,
-    duration: `${6 + (i * 0.4) % 6}s`,
-    size: i % 4 === 0 ? 'w-2 h-2' : i % 3 === 0 ? 'w-1.5 h-1.5' : 'w-1 h-1',
-    opacity: i % 5 === 0 ? 'bg-blue-400/30' : i % 4 === 0 ? 'bg-violet-400/20' : 'bg-cyan-400/20',
-  }));
-
-  return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {particles.map((p) => (
-        <div
-          key={p.id}
-          className={`absolute ${p.size} rounded-full ${p.opacity} animate-float`}
-          style={{ left: p.x, top: p.y, animationDelay: p.delay, animationDuration: p.duration }}
-        />
-      ))}
-    </div>
-  );
+  return null;
 }
 
 /**
- * Rotating radial gradient decorative background.
+ * Decorative background (disabled for clean dark aesthetic).
  */
 export function AuroraBackground() {
-  return (
-    <div className="aurora-bg">
-      <div className="aurora-1" />
-      <div className="aurora-2" />
-      <div className="aurora-3" />
-      <div className="aurora-4" />
-    </div>
-  );
+  return null;
 }

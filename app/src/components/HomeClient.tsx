@@ -7,7 +7,7 @@ import HeroSection from './HeroSection';
 import AboutSection from './AboutSection';
 import SkillsSection from './SkillsSection';
 import ProjectsSection from './ProjectsSection';
-import ExperienceSection from './ExperienceSection';
+import JourneyExperience from './JourneyExperience';
 import AchievementsSection from './AchievementsSection';
 import ContactSection from './ContactSection';
 import Footer from './Footer';
@@ -16,27 +16,30 @@ export default function HomeClient() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.location.hash) {
-      const id = window.location.hash.replace('#', '');
-      setTimeout(() => {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-      }, 200);
-    }
+    if (typeof window === 'undefined') return;
+    const scrollToHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (!hash) return;
+      let attempts = 0;
+      const tryScroll = () => {
+        const el = document.getElementById(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        } else if (attempts < 10) {
+          attempts++;
+          setTimeout(tryScroll, 120);
+        }
+      };
+      tryScroll();
+    };
+
+    scrollToHash();
+    window.addEventListener('hashchange', scrollToHash);
+    return () => window.removeEventListener('hashchange', scrollToHash);
   }, [pathname]);
 
   return (
-    <div className="min-h-screen bg-[#020810] text-white relative">
-      {/* Global Seamless Background */}
-      <div 
-        className="fixed inset-0 z-0 pointer-events-none" 
-        style={{ 
-          backgroundImage: "url('/images/bg_global.png')", 
-          backgroundSize: 'cover', 
-          backgroundPosition: 'center', 
-          opacity: 0.25 
-        }} 
-      />
-      
+    <div className="min-h-screen bg-[#F7F4EE] dark:bg-[#030712] text-slate-900 dark:text-slate-100 relative transition-colors duration-300">
       {/* Content wrapper */}
       <div className="relative z-10">
         <CursorDot />
@@ -45,7 +48,7 @@ export default function HomeClient() {
         <AboutSection />
         <SkillsSection />
         <ProjectsSection />
-        <ExperienceSection />
+        <JourneyExperience />
         <AchievementsSection />
         <ContactSection />
         <Footer />

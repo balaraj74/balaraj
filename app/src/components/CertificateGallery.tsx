@@ -236,9 +236,9 @@ const CERTS: Cert[] = [
     category: 'Hackathon',
     image: '/certificates/finalist-card.jpg',
     badge: 'Round 1 Qualified',
-    badgeColor: 'text-violet-400 border-violet-400/30',
-    borderColor: 'border-violet-500/30 hover:border-violet-400/60',
-    glowColor: 'rgba(139,92,246,0.25)',
+    badgeColor: 'text-cyan-400 border-cyan-400/30',
+    borderColor: 'border-cyan-500/30 hover:border-cyan-400/60',
+    glowColor: 'rgba(6,182,212,0.25)',
   },
   {
     id: 19,
@@ -495,15 +495,13 @@ function CertCard({ cert, index, isInView, onClick }: {
       }}
       whileHover={{ y: -8, scale: 1.025 }}
       onClick={onClick}
-      className={`relative group rounded-2xl border ${cert.borderColor} bg-[#050d1a] overflow-hidden cursor-pointer transition-all duration-300`}
-      onMouseEnter={e => (e.currentTarget.style.boxShadow = `0 20px 50px ${cert.glowColor}`)}
-      onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}
+      className="relative group rounded-2xl border border-white/90 dark:border-white/10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md overflow-hidden cursor-pointer transition-all duration-300 shadow-sm hover:shadow-lg hover:border-cyan-500/40"
     >
       {/* Shimmer sweep */}
-      <div className="absolute top-0 left-0 w-0 h-[2px] bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:w-full transition-all duration-500 z-10 rounded-t-2xl" />
+      <div className="absolute top-0 left-0 w-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent group-hover:w-full transition-all duration-500 z-10 rounded-t-2xl" />
 
       {/* Thumbnail */}
-      <div className="relative overflow-hidden bg-white" style={{ aspectRatio: '4/3' }}>
+      <div className="relative overflow-hidden bg-slate-50 dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800" style={{ aspectRatio: '4/3' }}>
         <Image
           src={cert.image}
           alt={cert.title}
@@ -512,22 +510,22 @@ function CertCard({ cert, index, isInView, onClick }: {
           className="w-full h-full object-contain p-1.5 transition-transform duration-500 group-hover:scale-105"
         />
         {/* Zoom overlay */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 flex items-center justify-center transition-all duration-300">
-          <div className="w-11 h-11 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <ZoomIn className="w-5 h-5 text-white" />
+        <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/30 flex items-center justify-center transition-all duration-300">
+          <div className="w-11 h-11 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-white dark:border-slate-700 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md">
+            <ZoomIn className="w-5 h-5 text-slate-800 dark:text-slate-200" />
           </div>
         </div>
       </div>
 
       {/* Info */}
       <div className="p-3.5">
-        <h3 className="text-white font-bold text-sm leading-tight mb-1 line-clamp-2">{cert.title}</h3>
-        <p className="text-white/40 text-xs mb-3 truncate">{cert.issuer}</p>
+        <h3 className="text-slate-900 dark:text-white font-bold text-sm leading-tight mb-1 line-clamp-2 transition-colors">{cert.title}</h3>
+        <p className="text-slate-600 dark:text-slate-400 text-xs mb-3 truncate font-medium transition-colors">{cert.issuer}</p>
         <div className="flex items-center justify-between">
-          <span className={`px-2 py-0.5 rounded-full border text-[10px] font-bold uppercase tracking-wider ${cert.badgeColor} bg-black/30`}>
+          <span className="px-2 py-0.5 rounded-full border border-slate-200 dark:border-slate-700 text-[10px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 shadow-xs">
             {cert.badge}
           </span>
-          <span className="text-white/30 text-[10px]">{cert.date}</span>
+          <span className="text-slate-500 dark:text-slate-400 text-[10px] font-medium">{cert.date}</span>
         </div>
       </div>
     </motion.div>
@@ -565,7 +563,7 @@ function InteractiveDeck({ certs, onCardClick }: InteractiveDeckProps) {
   }, [isHovered, certs.length]);
 
   if (certs.length === 0) {
-    return <div className="text-center py-20 text-white/30">No certificates in this category.</div>;
+    return <div className="text-center py-20 text-slate-400">No certificates in this category.</div>;
   }
 
   // Determine cards to show in the 3D stack (max visible: 4)
@@ -583,7 +581,7 @@ function InteractiveDeck({ certs, onCardClick }: InteractiveDeckProps) {
     <div className="flex flex-col items-center select-none pt-4">
       {/* 3D Stack Area */}
       <div 
-        className="relative w-full max-w-[700px] h-[460px] sm:h-[560px] flex items-center justify-center mb-10"
+        className="relative w-full max-w-[850px] h-[480px] sm:h-[580px] flex items-center justify-center mb-10"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onTouchStart={() => setIsHovered(true)}
@@ -600,7 +598,7 @@ function InteractiveDeck({ certs, onCardClick }: InteractiveDeckProps) {
                   transformOrigin: "bottom center",
                   cursor: isTop ? "grab" : "default",
                 }}
-                className={`absolute w-[95%] sm:w-full max-w-[500px] md:max-w-[580px] aspect-[4/3] rounded-3xl border ${cert.borderColor} bg-[#050d1a] overflow-hidden p-4 md:p-5 shadow-2xl flex flex-col justify-between`}
+                className="absolute w-[95%] sm:w-full max-w-[560px] md:max-w-[640px] aspect-[4/3] rounded-3xl border border-white/95 dark:border-white/10 bg-white/90 dark:bg-slate-900/95 backdrop-blur-xl overflow-hidden p-4 md:p-5 shadow-xl flex flex-col justify-between"
                 initial={{
                   scale: 0.82 + (3 - stackIndex) * 0.04,
                   y: -stackIndex * 16,
@@ -613,8 +611,8 @@ function InteractiveDeck({ certs, onCardClick }: InteractiveDeckProps) {
                   rotate: isTop ? 0 : (stackIndex % 2 === 0 ? 1.5 : -1.5) * stackIndex,
                   opacity: 1,
                   boxShadow: isTop 
-                    ? `0 20px 50px ${cert.glowColor}` 
-                    : `0 4px 12px rgba(0, 0, 0, 0.5)`,
+                    ? `0 20px 50px rgba(15,23,42,0.15)` 
+                    : `0 4px 12px rgba(15, 23, 42, 0.06)`,
                 }}
                 exit={{
                   y: draggedId ? (draggedId === cert.id ? 0 : 0) : -120,
@@ -653,7 +651,7 @@ function InteractiveDeck({ certs, onCardClick }: InteractiveDeckProps) {
                 }}
               >
                 {/* Image Area */}
-                <div className="relative w-full aspect-[4/3] bg-white rounded-2xl overflow-hidden mb-3.5 group">
+                <div className="relative w-full aspect-[4/3] bg-slate-50 dark:bg-slate-950 rounded-2xl overflow-hidden mb-3.5 group border border-slate-200 dark:border-slate-800">
                   <Image
                     src={cert.image}
                     alt={cert.title}
@@ -663,9 +661,9 @@ function InteractiveDeck({ certs, onCardClick }: InteractiveDeckProps) {
                     draggable={false}
                   />
                   {isTop && (
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                      <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <ZoomIn className="w-4 h-4 text-white" />
+                    <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/30 transition-all duration-300 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border border-white dark:border-slate-700 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md">
+                        <ZoomIn className="w-4 h-4 text-slate-800 dark:text-slate-200" />
                       </div>
                     </div>
                   )}
@@ -673,14 +671,14 @@ function InteractiveDeck({ certs, onCardClick }: InteractiveDeckProps) {
                 {/* Text Area */}
                 <div className="px-1 flex flex-col justify-between flex-grow">
                   <div>
-                    <h4 className="text-white font-bold text-sm line-clamp-1 mb-0.5 leading-tight">{cert.title}</h4>
-                    <p className="text-white/40 text-xs truncate leading-none">{cert.issuer}</p>
+                    <h4 className="text-slate-900 dark:text-white font-bold text-sm line-clamp-1 mb-0.5 leading-tight transition-colors">{cert.title}</h4>
+                    <p className="text-slate-600 dark:text-slate-400 text-xs truncate leading-none font-medium transition-colors">{cert.issuer}</p>
                   </div>
-                  <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-white/5">
-                    <span className={`px-2 py-0.5 rounded-full border text-[10px] font-bold uppercase tracking-wider ${cert.badgeColor} bg-black/30`}>
+                  <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-slate-200 dark:border-slate-800">
+                    <span className="px-2 py-0.5 rounded-full border border-slate-200 dark:border-slate-700 text-[10px] font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-800 shadow-xs">
                       {cert.badge}
                     </span>
-                    <span className="text-white/30 text-[10px]">{cert.date}</span>
+                    <span className="text-slate-500 dark:text-slate-400 text-[10px] font-medium">{cert.date}</span>
                   </div>
                 </div>
               </motion.div>
@@ -693,23 +691,23 @@ function InteractiveDeck({ certs, onCardClick }: InteractiveDeckProps) {
       <div className="flex items-center gap-5 mt-2">
         <button
           onClick={prevCard}
-          className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:border-cyan-500/50 hover:bg-cyan-500/10 text-white/70 hover:text-cyan-400 flex items-center justify-center transition-all duration-300 shadow-md active:scale-95"
+          className="w-10 h-10 rounded-full bg-white/90 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 hover:border-cyan-500 hover:bg-cyan-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-cyan-700 dark:hover:text-cyan-400 flex items-center justify-center transition-all duration-300 shadow-sm active:scale-95"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
-        <span className="text-white/50 text-xs sm:text-sm font-semibold tracking-widest min-w-[70px] text-center">
+        <span className="text-slate-700 dark:text-slate-300 text-xs sm:text-sm font-bold tracking-widest min-w-[70px] text-center">
           {currentIndex + 1} / {certs.length}
         </span>
         <button
           onClick={nextCard}
-          className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:border-cyan-500/50 hover:bg-cyan-500/10 text-white/70 hover:text-cyan-400 flex items-center justify-center transition-all duration-300 shadow-md active:scale-95"
+          className="w-10 h-10 rounded-full bg-white/90 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 hover:border-cyan-500 hover:bg-cyan-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-cyan-700 dark:hover:text-cyan-400 flex items-center justify-center transition-all duration-300 shadow-sm active:scale-95"
         >
           <ChevronRight className="w-5 h-5" />
         </button>
       </div>
       
-      <p className="text-white/35 text-[10px] mt-4 uppercase tracking-widest flex items-center gap-1.5 font-semibold">
-        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+      <p className="text-slate-500 dark:text-slate-400 text-[10px] mt-4 uppercase tracking-widest flex items-center gap-1.5 font-bold">
+        <span className="w-1.5 h-1.5 rounded-full bg-cyan-600 animate-pulse" />
         Swipe card or use controls to browse · click to zoom
       </p>
     </div>
@@ -752,10 +750,10 @@ export default function CertificateGallery() {
         className="text-center mb-10"
       >
         <p className="section-label mx-auto w-fit mb-4">Verified Credentials</p>
-        <h3 className="text-3xl sm:text-4xl font-black text-white mb-3">
+        <h3 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white mb-3 transition-colors">
           Certifications <span className="gradient-text-cyan">Gallery</span>
         </h3>
-        <p className="text-white/50 max-w-xl mx-auto text-sm">
+        <p className="text-slate-600 dark:text-slate-400 max-w-xl mx-auto text-sm font-medium transition-colors">
           {CERTS.length} certifications across AI, Cloud, Security, and Development. Click any to view full resolution.
         </p>
       </motion.div>
@@ -775,13 +773,13 @@ export default function CertificateGallery() {
               onClick={() => setActiveCategory(cat)}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-full border text-sm font-semibold transition-all duration-300 ${
                 activeCategory === cat
-                  ? 'bg-cyan-500/20 border-cyan-400/60 text-cyan-300 shadow-[0_0_20px_rgba(6,182,212,0.2)]'
-                  : 'bg-white/5 border-white/10 text-white/50 hover:text-white hover:border-white/30'
+                  ? 'bg-cyan-500/20 border-cyan-500/50 text-cyan-800 dark:text-cyan-300 shadow-sm'
+                  : 'bg-white/80 dark:bg-slate-900/80 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800'
               }`}
             >
               {CATEGORY_ICONS[cat]}
               {cat}
-              <span className={`ml-0.5 text-xs rounded-full px-1.5 py-0.5 ${activeCategory === cat ? 'bg-cyan-500/30 text-cyan-200' : 'bg-white/10 text-white/40'}`}>
+              <span className={`ml-0.5 text-xs rounded-full px-1.5 py-0.5 ${activeCategory === cat ? 'bg-cyan-500/30 text-cyan-900 dark:text-cyan-200' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'}`}>
                 {count}
               </span>
             </button>
@@ -796,13 +794,13 @@ export default function CertificateGallery() {
         transition={{ duration: 0.5, delay: 0.15 }}
         className="flex justify-center mb-10"
       >
-        <div className="bg-white/5 border border-white/10 p-1 rounded-2xl flex items-center gap-1">
+        <div className="bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 p-1 rounded-2xl flex items-center gap-1 shadow-sm">
           <button
             onClick={() => setViewMode('grid')}
             className={`px-4 py-2 rounded-xl text-xs font-bold tracking-widest uppercase transition-all duration-300 ${
               viewMode === 'grid'
-                ? 'bg-cyan-500 text-black font-black shadow-[0_0_15px_rgba(6,182,212,0.3)]'
-                : 'text-white/50 hover:text-white hover:bg-white/5'
+                ? 'bg-cyan-500 text-slate-950 font-black shadow-sm'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
             }`}
           >
             Grid View
@@ -811,8 +809,8 @@ export default function CertificateGallery() {
             onClick={() => setViewMode('deck')}
             className={`px-4 py-2 rounded-xl text-xs font-bold tracking-widest uppercase transition-all duration-300 ${
               viewMode === 'deck'
-                ? 'bg-cyan-500 text-black font-black shadow-[0_0_15px_rgba(6,182,212,0.3)]'
-                : 'text-white/50 hover:text-white hover:bg-white/5'
+                ? 'bg-cyan-500 text-slate-950 font-black shadow-sm'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
             }`}
           >
             3D Stack Explorer
@@ -828,8 +826,8 @@ export default function CertificateGallery() {
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.98 }}
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5"
             transition={{ duration: 0.25 }}
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"
           >
             {filtered.map((cert, i) => (
               <CertCard
