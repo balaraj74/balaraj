@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ProjectsSection from "@/components/ProjectsSection";
 import {
+  absoluteUrl,
   breadcrumbSchema,
   buildMetadata,
   projectSeo,
@@ -23,7 +24,7 @@ export default function ProjectsPage() {
               {
                 "@type": "CollectionPage",
                 name: staticSeo.projects.title,
-                url: "https://balaraj.vercel.app/projects",
+                url: absoluteUrl("/projects"),
                 description: staticSeo.projects.description,
                 mainEntity: {
                   "@type": "ItemList",
@@ -31,7 +32,7 @@ export default function ProjectsPage() {
                     (project, index) => ({
                       "@type": "ListItem",
                       position: index + 1,
-                      url: `https://balaraj.vercel.app${project.path}`,
+                      url: absoluteUrl(project.path),
                       name: project.title.split("|")[0].trim(),
                     }),
                   ),

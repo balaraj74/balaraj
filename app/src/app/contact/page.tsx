@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import type { Metadata } from 'next';
-import { breadcrumbSchema, buildMetadata, safeJsonLd, staticSeo } from '@/lib/seo';
+import { absoluteUrl, breadcrumbSchema, buildMetadata, safeJsonLd, staticSeo } from '@/lib/seo';
 
 export const metadata: Metadata = buildMetadata(staticSeo.contact);
 
@@ -17,7 +17,7 @@ export default function ContactPage() {
               {
                 "@type": "ContactPage",
                 name: staticSeo.contact.title,
-                url: "https://balaraj.vercel.app/contact",
+                url: absoluteUrl("/contact"),
                 description: staticSeo.contact.description,
               },
               breadcrumbSchema([

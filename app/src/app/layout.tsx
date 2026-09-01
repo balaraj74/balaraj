@@ -49,7 +49,7 @@ export default function RootLayout({
       <head>
         <meta
           name="google-site-verification"
-          content="Pdq86etn28D_kfMkzvOZ_B06dBGHFltpn89l3fW59Mo"
+          content="SueXZDG7fZDSeJhiJ8uIcHmZ2Nrjs4FB64QQe8bB4Kk"
         />
         <script
           dangerouslySetInnerHTML={{

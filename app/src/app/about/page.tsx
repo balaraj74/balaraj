@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import type { Metadata } from 'next';
-import { breadcrumbSchema, buildMetadata, safeJsonLd, staticSeo } from '@/lib/seo';
+import { absoluteUrl, breadcrumbSchema, buildMetadata, safeJsonLd, staticSeo } from '@/lib/seo';
 
 export const metadata: Metadata = buildMetadata(staticSeo.about);
 
@@ -17,7 +17,7 @@ export default function AboutPage() {
               {
                 "@type": "AboutPage",
                 name: staticSeo.about.title,
-                url: "https://balaraj.vercel.app/about",
+                url: absoluteUrl("/about"),
                 description: staticSeo.about.description,
               },
               breadcrumbSchema([

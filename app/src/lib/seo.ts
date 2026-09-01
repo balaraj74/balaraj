@@ -780,7 +780,7 @@ export function buildMetadata({
       apple: [{ url: '/apple-icon.png', type: 'image/png' }],
     },
     verification: {
-      google: 'Pdq86etn28D_kfMkzvOZ_B06dBGHFltpn89l3fW59Mo',
+      google: 'SueXZDG7fZDSeJhiJ8uIcHmZ2Nrjs4FB64QQe8bB4Kk',
     },
   };
 }
