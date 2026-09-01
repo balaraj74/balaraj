@@ -51,6 +51,12 @@ export default function RootLayout({
           name="google-site-verification"
           content="SueXZDG7fZDSeJhiJ8uIcHmZ2Nrjs4FB64QQe8bB4Kk"
         />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Balaraj R | AI Engineering Blog"
+          href="https://balaraj.me/rss.xml"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark');}else{document.documentElement.classList.remove('dark');}}catch(e){}})();`,
