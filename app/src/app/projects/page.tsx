@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import ProjectsSection from "@/components/ProjectsSection";
+import Footer from "@/components/Footer";
+import { Navigation } from "@/components/Navigation";
 import {
   absoluteUrl,
   breadcrumbSchema,
@@ -14,7 +16,7 @@ export const metadata: Metadata = buildMetadata(staticSeo.projects);
 
 export default function ProjectsPage() {
   return (
-    <main className="min-h-screen bg-[#F7F4EE] dark:bg-[#030712] text-slate-900 dark:text-white transition-colors">
+    <main className="min-h-screen bg-[#F7F4EE] dark:bg-[#0c0a09] text-stone-900 dark:text-white transition-colors">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -47,7 +49,9 @@ export default function ProjectsPage() {
           }),
         }}
       />
-      <ProjectsSection />
+      <Navigation />
+      <ProjectsSection headingLevel="h1" />
+      <Footer />
     </main>
   );
 }

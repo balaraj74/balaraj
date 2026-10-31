@@ -64,9 +64,9 @@ export function TableOfContents({ content }: { content: string }) {
   if (headings.length === 0) return null;
 
   return (
-    <nav className="p-5 rounded-2xl glass-card border border-white/60 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 shadow-sm backdrop-blur-md">
-      <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-wider uppercase text-slate-500 dark:text-slate-400 mb-4">
-        <AlignLeft className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+    <nav className="p-5 rounded-2xl glass-card border border-white/60 dark:border-white/10 bg-white/70 dark:bg-stone-900/60 shadow-sm backdrop-blur-md">
+      <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-wider uppercase text-stone-600 dark:text-stone-400 mb-4">
+        <AlignLeft className="w-4 h-4 text-brand-600 dark:text-brand-400" />
         Table of Contents
       </div>
       <ul className="space-y-2 text-sm">
@@ -91,8 +91,8 @@ export function TableOfContents({ content }: { content: string }) {
                 }}
                 className={`block py-1 transition-all text-xs sm:text-sm ${
                   isActive
-                    ? 'text-cyan-600 dark:text-cyan-400 font-semibold translate-x-1'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'text-brand-600 dark:text-brand-400 font-semibold translate-x-1'
+                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white'
                 }`}
               >
                 {item.text}

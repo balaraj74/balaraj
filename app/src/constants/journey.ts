@@ -21,16 +21,16 @@ export interface JourneyStop extends TimelineItem {
  * cyan / blue / emerald / amber / red theme tokens.
  */
 const CATEGORY_HEX: Record<string, string> = {
-  'Flagship Project': '#38bdf8', // sky blue
+  'Flagship Project': '#fbbf24', // sky blue
   Hackathon: '#ef4444', // red
-  Scale: '#06b6d4', // cyan
+  Scale: '#f76616', // cyan
   Architecture: '#f59e0b', // amber
   Systems: '#10b981', // emerald
-  Foundation: '#3b82f6', // blue
+  Foundation: '#f59e0b', // blue
 };
 
 /** Fallback ordered palette in case a new category is added. */
-const FALLBACK_HEX = ['#06b6d4', '#3b82f6', '#38bdf8', '#10b981', '#f59e0b', '#ef4444'];
+const FALLBACK_HEX = ['#f76616', '#f59e0b', '#fbbf24', '#10b981', '#f59e0b', '#ef4444'];
 
 /** Spacing between consecutive milestones in world units. */
 export const STOP_SPACING = 60;

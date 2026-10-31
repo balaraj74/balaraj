@@ -21,6 +21,320 @@ export const BLOG_CATEGORIES = [
 
 export const BLOG_POSTS: BlogPostData[] = [
   {
+    slug: 'engineering-pashu-drishti-offline-first-edge-ai-novabion',
+    path: '/blogs/engineering-pashu-drishti-offline-first-edge-ai-novabion',
+    title: 'Engineering Pashu Drishti: Deploying an Offline-First Edge AI System in the Field at Novabion',
+    description:
+      'How I architected and physically deployed the Phase 1 MVP for Pashu Drishti at Novabion Pvt. Ltd. — an edge-native, zero-cloud AI system for livestock diagnostics built for the remote farming landscapes of Chitradurga.',
+    date: '2026-10-08',
+    displayDate: 'October 8, 2026',
+    readTime: '8 min read',
+    category: 'Edge & On-Device AI',
+    featured: true,
+    spotlight: true,
+    gradientTheme: 'emerald',
+    keywords: [
+      'Pashu Drishti',
+      'Novabion',
+      'Edge AI',
+      'Offline-First AI',
+      'Livestock Diagnostics',
+      'Embedded ML',
+      'Chitradurga Deployment',
+      'Balaraj R',
+    ],
+    author: BLOG_AUTHOR,
+    content: `
+# Engineering Pashu Drishti: Deploying an Offline-First Edge AI System in the Field at Novabion
+
+When you build machine learning systems in an air-conditioned laboratory in Bengaluru, the cloud feels infinite. You have gigabit fiber, elastic AWS or GCP clusters, and millisecond access to the world’s largest foundational models.
+
+Then you take your hardware into rural Chitradurga, stand inside a dairy farming shed where cellular reception drops to absolute zero, and realize: **if your AI cannot function without the internet, it is essentially useless.**
+
+In October 2026, I joined **Novabion Pvt. Ltd.** as a **Project Engineering Intern** under the leadership of Managing Director Girimallikarjuna SMD. My mission was explicit and tactical: execute the Phase 1 MVP of **Pashu Drishti** — an offline-first Edge AI system engineered to bring real-time livestock health monitoring and diagnostics straight to grassroots agricultural environments.
+
+This is the story of how we architected, optimized, and physically deployed Pashu Drishti in the field.
+
+---
+
+## The Core Challenge: Zero-Cloud Livestock Intelligence
+
+Livestock management is the economic lifeline of rural Karnataka. For smallholder farmers, a single diseased cow or late-detected complication can wipe out months of household income. While urban dairy conglomerates can afford connected IoT arrays, rural farmers face stark realities:
+- **No Cellular Connectivity:** Barns and grazing fields are frequently in cellular dead zones.
+- **Extreme Physical Constraints:** Dust, high ambient temperatures, fluctuating local power grids, and unpredictable animal movement.
+- **Latency Sensitivity:** An animal diagnostic assessment needs to occur in real time as the animal is in the corral or examination chute, not queued for an asynchronous cloud batch job hours later.
+
+We needed a system that runs **100% locally on edge compute hardware**, captures visual and thermal telemetry, runs deep learning inference directly on the device, and stores verified records for opportunistic synchronization whenever a network connection is detected.
+
+---
+
+## Architectural Blueprint: The Pashu Drishti Edge Pipeline
+
+Pashu Drishti's edge architecture is separated into three decoupled, high-resilience layers:
+
+\`\`\`
++-------------------------------------------------------------+
+|                     PASHU DRISHTI EDGE STACK                 |
++-------------------------------------------------------------+
+|                                                             |
+|   [ Optical & Thermal Sensor Feeds ]                        |
+|                  │                                          |
+|                  ▼                                          |
+|   [ Ingestion & Frame Preprocessing ] (OpenCV / Zero-Copy)  |
+|                  │                                          |
+|                  ▼                                          |
+|   [ Local On-Device Neural Engine ]                         |
+|     ├── Quantized Feature Extractor (INT8)                  |
+|     ├── Anomaly & Disease Detection Classifier             |
+|     └── Rule-Based Diagnostic Validation Guardrail          |
+|                  │                                          |
+|                  ▼                                          |
+|   [ Embedded Edge Database ] (Local SQLite / WAL mode)      |
+|                  │                                          |
+|                  ▼                                          |
+|   [ Opportunistic Sync Daemon ]                             |
+|     └── Syncs securely to central cloud when connected      |
+|                                                             |
++-------------------------------------------------------------+
+\`\`\`
+
+### 1. Zero-Copy Sensor Ingestion
+Livestock are rarely cooperative subjects. Video feeds and camera frames suffer from motion blur, sudden occlusions, and severe lighting variation. We implemented a lightweight preprocessing pipeline in C++ and Python using optimized OpenCV bindings:
+- Real-time frame quality scoring (discarding blurred frames before they waste inference compute).
+- Adaptive histogram equalization to normalize harsh sunlight and deep barn shadows.
+- Zero-copy memory buffers passing raw tensors straight to the edge runtime without duplicate memory allocations.
+
+### 2. Quantized Local Inference Engine
+Running unquantized 32-bit floating-point neural networks on resource-constrained edge hardware causes severe thermal throttling and battery drain. 
+
+We quantized our vision models down to **INT8 precision** using post-training calibration datasets reflecting real farm imagery:
+\`\`\`python
+# Edge Inference Runner with Quantized Runtime
+import onnxruntime as ort
+import numpy as np
+
+class PashuDrishtiEdgeEngine:
+    def __init__(self, model_path: str):
+        # Configure hardware execution provider (NPU / GPU / CPU)
+        opts = ort.SessionOptions()
+        opts.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
+        opts.intra_op_num_threads = 4
+        
+        self.session = ort.InferenceSession(
+            model_path, 
+            sess_options=opts, 
+            providers=['CPUExecutionProvider']
+        )
+        self.input_name = self.session.get_inputs()[0].name
+        
+    def evaluate_livestock_frame(self, preprocessed_frame: np.ndarray) -> dict:
+        # Zero-latency local execution - under 45ms per frame
+        raw_outputs = self.session.run(None, {self.input_name: preprocessed_frame})
+        confidence, diagnosis_code = self.parse_telemetry(raw_outputs)
+        
+        return {
+            "status": "HEALTHY" if confidence > 0.85 else "ANOMALY_DETECTED",
+            "confidence": float(confidence),
+            "code": diagnosis_code,
+            "processed_locally": True
+        }
+\`\`\`
+
+By optimizing memory locality and using hardware-accelerated vector instructions, we sustained inference latency under **45 milliseconds per frame** on compact, fanless hardware.
+
+### 3. Local-First Embedded Persistence
+Instead of failing when HTTP requests time out, all diagnostic results, timestamps, and model logs are written immediately to a local embedded database operating in **Write-Ahead Logging (WAL) mode**. 
+
+An opportunistic background daemon monitors network interfaces. When the device returns to a base station or detects Wi-Fi/cellular connectivity, it performs an authenticated, atomic sync transaction to Novabion's central analytics backend.
+
+---
+
+## Field Deployment in Chitradurga: Where Theory Meets Dirt
+
+The real validation of Pashu Drishti didn't happen in a notebook — it happened on the ground in **Chitradurga**.
+
+Deploying AI in rural agricultural conditions tests variables that academic papers never discuss:
+1. **Dust and Moisture Ingress:** Farm environments are punishing. Enclosures had to be sealed and passively cooled because active cooling fans quickly choke on particulate matter.
+2. **Dynamic Animal Stance:** Unlike humans who can be instructed to hold still for a scan, cattle shift weight, turn away, and interact with the herd. We had to implement multi-frame temporal voting so that momentary bad angles didn't trigger false positives.
+3. **Veterinary Usability:** A user interface for rural field workers must be uncluttered, high-contrast (readable under direct sunlight), and provide immediate color-coded alerts (Green: Normal, Amber: Monitor, Red: Immediate Veterinary Attention).
+
+Seeing the physical system successfully identify early diagnostic indicators on real animals in Chitradurga — with zero internet connection and instant feedback — was one of the most rewarding engineering milestones of my career.
+
+---
+
+## Key Engineering Lessons from the Novabion Sprint
+
+1. **Edge AI is a Systems Discipline, Not Just a Modeling Discipline:** The best model architecture is useless if your memory footprint exceeds device RAM or if thermal throttling cuts your clock speed in half after 10 minutes of continuous operation.
+2. **Offline-First is a Core Requirement:** Building software for developing markets demands designing for the worst-case connectivity environment from Day 1.
+3. **Milestone Velocity Matters:** In a 30-day tactical execution sprint, there is no time for architectural bloat. You write clean, modular code, establish strict testing benchmarks, and iterate rapidly based on real physical deployments.
+
+Working with **Novabion Pvt. Ltd.** proved that modern AI can step out of the cloud and solve foundational agricultural problems right where it matters most.
+    `,
+  },
+  {
+    slug: 'scaling-generative-ai-systems-llm-pipelines-aatonovaz',
+    path: '/blogs/scaling-generative-ai-systems-llm-pipelines-aatonovaz',
+    title: 'Inside AatonovaZ: Architecting Production Generative AI Systems and Enterprise LLM Pipelines',
+    description:
+      'Reflections on my Gen AI Engineering internship at AatonovaZ Technologies — engineering multi-stage LLM data pipelines, prompt evaluation benchmarks, and hardware-software AI integration directly with executive leadership.',
+    date: '2026-09-05',
+    displayDate: 'September 5, 2026',
+    readTime: '9 min read',
+    category: 'Multi-Agent AI',
+    featured: false,
+    spotlight: true,
+    gradientTheme: 'cyan',
+    keywords: [
+      'AatonovaZ Technologies',
+      'Generative AI',
+      'LLM Pipelines',
+      'Adaptive Intelligence',
+      'Prompt Engineering',
+      'Model Evaluation',
+      'Enterprise AI',
+      'Balaraj R',
+    ],
+    author: BLOG_AUTHOR,
+    content: `
+# Inside AatonovaZ: Architecting Production Generative AI Systems and Enterprise LLM Pipelines
+
+The internet is flooded with tutorials showing how to call \`openai.ChatCompletion.create()\` or wrap a Gemini prompt in a simple script. But taking Generative AI into **production software** — where latency, API cost, non-deterministic hallucinations, schema drift, and hardware-software integration actually matter — is a fundamentally different discipline.
+
+In August 2026, I joined **AatonovaZ Technologies Private Limited** as a **Gen AI Intern**, reporting directly to Founder & CEO Kosinepalli Arjun Sai. AatonovaZ operates around a bold thesis: *Adaptive Intelligence | Infinite Possibilities* — building next-generation AI systems that dynamically reason, adapt, and integrate across enterprise software and hardware infrastructures.
+
+Here is an architectural look at the systems I helped engineer, the technical challenges we navigated, and what it truly takes to make Large Language Models robust in real-world applications.
+
+---
+
+## The Gap Between "AI Demos" and "Production AI"
+
+When companies experiment with Generative AI, they often start with an interactive playground. Prompts look great on five cherry-picked examples. But when you plug that prompt into a production data pipeline handling thousands of requests, reality hits:
+- **Output Schema Non-Determinism:** Even with \`response_format: json\`, models occasionally generate malformed JSON, subtle key renaming, or markdown code blocks wrapped around payloads.
+- **Latency Spikes:** A 15-second upstream LLM response in a synchronous pipeline blocks your server worker pool and crashes user satisfaction.
+- **Prompt Regression:** Modifying a system prompt to fix one edge case frequently degrades accuracy across three previously working categories.
+- **Cost Scaling:** Running expensive reasoning models on every minor task burns cloud budgets with zero incremental business value.
+
+At AatonovaZ, my responsibility was to eliminate this fragility by designing disciplined software architectures around our generative models.
+
+---
+
+## Architectural Deep Dive: Resilient Multi-Tier Gen AI Pipelines
+
+To ensure stability across AatonovaZ's technical tools and products, we established an enterprise-grade pipeline architecture:
+
+\`\`\`
++-------------------------------------------------------------+
+|               AATONOVAZ GEN AI PIPELINE ARCHITECTURE         |
++-------------------------------------------------------------+
+|                                                             |
+|   [ Client Application / Technical Tools ]                  |
+|                  │                                          |
+|                  ▼                                          |
+|   [ Intent Classifier & Routing Controller ]                |
+|     ├── Fast Tier: Lightweight Flash / On-Device Models    |
+|     └── Reasoning Tier: Advanced Multimodal LLMs            |
+|                  │                                          |
+|                  ▼                                          |
+|   [ Dynamic Context Assembly & RAG Layer ]                  |
+|     ├── Vector Store Retrieval (Hybrid Dense + Sparse)     |
+|     └── Structured State Injection                          |
+|                  │                                          |
+|                  ▼                                          |
+|   [ Guardrailed Model Invocation with Auto-Fallback ]        |
+|     ├── Rate-Limit Backoff & Multi-Provider Redundancy      |
+|     └── Token Budget & Temperature Clamping                 |
+|                  │                                          |
+|                  ▼                                          |
+|   [ Strict Schema Validation & Self-Correction Node ]       |
+|     ├── Pydantic V2 Structural Verification                 |
+|     └── Automated Delta Correction Loop                     |
+|                  │                                          |
+|                  ▼                                          |
+|   [ Telemetry, Tracing & Experiment Logs ]                  |
+|                                                             |
++-------------------------------------------------------------+
+\`\`\`
+
+### 1. Tiered Model Routing
+Not every question requires an expensive large reasoning model. We created a dynamic routing controller that classifies query complexity:
+- **Level 1 (Fast Classification & Parsing):** Routed to compact, high-throughput models (Gemini Flash, quantized local models). Typical latency: <300ms.
+- **Level 2 (Deep Reasoning & Code Synthesis):** Routed to flagship reasoning models with extended thinking budgets.
+- This tiered approach slashed our average latency by over **60%** while cutting API consumption dramatically.
+
+### 2. Deterministic Schema Enforcement with Self-Healing Loops
+In production, your frontend and downstream database schemas cannot tolerate guesswork. We built an automated validation and repair pipeline using **Pydantic V2**:
+
+\`\`\`python
+# Schema Verification and Automatic Self-Healing Engine
+from pydantic import BaseModel, ValidationError
+from typing import Optional, List
+
+class EnterpriseAIArtifact(BaseModel):
+    task_id: str
+    confidence_score: float
+    reasoning_steps: List[str]
+    executable_action: str
+    safety_flags: List[str]
+
+async def execute_verified_llm_step(prompt: str, max_retries: int = 2) -> EnterpriseAIArtifact:
+    for attempt in range(max_retries):
+        raw_text = await llm_client.generate(prompt)
+        try:
+            # Enforce strict parsing
+            clean_json = extract_json_payload(raw_text)
+            artifact = EnterpriseAIArtifact.model_validate_json(clean_json)
+            return artifact
+        except ValidationError as err:
+            # Self-healing feedback prompt injecting exact schema error
+            prompt = (
+                f"{prompt}\\n\\n"
+                f"CRITICAL ERROR: Your previous response violated the schema: {err.errors()}. "
+                f"Return ONLY valid JSON matching the exact contract."
+            )
+    raise SystemError("Exceeded maximum schema self-correction attempts.")
+\`\`\`
+
+If a model produces a malformed field, the pipeline intercepts it, feeds the exact validator error trace back into a sub-second correction prompt, and repairs the payload before any client ever sees it.
+
+### 3. Hardware-Software Integration
+A core differentiator at AatonovaZ is connecting adaptive intelligence directly with physical software/hardware interfaces. During my work, this involved:
+- Developing custom scripts and API bridges that allow generative models to control technical toolings safely.
+- Sandboxing script execution to prevent unintended state mutations.
+- Implementing real-time telemetry streaming over WebSockets so users and engineers can watch generation reasoning step-by-step.
+
+---
+
+## Systematic Evaluation: Combating Prompt Regressions
+
+One of the most important practices I championed at AatonovaZ was **version-controlled experiment logs and automated model evaluation**.
+
+In traditional software, you write unit tests. In Gen AI, you must write **evaluation benchmark suites**:
+1. We curated a regression dataset of golden inputs and expected outputs.
+2. Whenever an engineer adjusted a system prompt or swapped model versions, an automated script scored the candidate against the golden set measuring:
+   - Schema pass rate (target: 100%).
+   - Semantic similarity against benchmark answers.
+   - Average token cost and latency drift.
+3. If an edit caused a 5% drop in diagnostic precision, the pull request was blocked.
+
+---
+
+## Working Directly with Leadership
+
+Reporting directly to Founder & CEO Kosinepalli Arjun Sai gave me profound insight into how fast-moving AI ventures operate. When you work directly with executive leadership:
+- There is zero room for vague hand-waving. Every architectural decision must be defended with empirical data, latency benchmarks, and cost trade-offs.
+- Technical documentation is not an afterthought — it is the bridge that keeps cross-functional teams aligned when requirements evolve quickly.
+- Speed of execution is everything. Being able to take a whiteboard concept, design the schema, write the Python/TypeScript bridge, test it against edge cases, and push a working PR in 48 hours is what separates top engineers from theorists.
+
+---
+
+## The Road Ahead
+
+My time at **AatonovaZ Technologies** solidified my conviction that the future of Artificial Intelligence belongs to engineers who can bridge the gap between cutting-edge foundational models and reliable, scalable production systems.
+
+Whether optimizing data pipelines, integrating hardware sensors, or enforcing strict schema contracts, the goal is always the same: **building AI that is robust, transparent, and ready to ship to production.**
+    `,
+  },
+  {
     slug: 'agrisence-ai-agricultural-operating-system',
     path: '/blogs/agrisence-ai-agricultural-operating-system',
     title: "AgriSence: The AI Operating System for India's 140M Smallholder Farmers",

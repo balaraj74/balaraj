@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
 export type EasingTuple = [number, number, number, number];
@@ -8,7 +7,7 @@ export const EASE_OUT_EXPO: EasingTuple = [0.16, 1, 0.3, 1];
 
 export const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE_OUT_EXPO } },
+  visible: (delay = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.8, delay, ease: EASE_OUT_EXPO } }),
 };
 
 export const fadeInLeft = {
@@ -82,50 +81,6 @@ export function useMouseParallax(strength = 0.02) {
 }
 
 // ─── Visual Components ────────────────────────────────────────────────────────
-/**
- * Renders a glowing cursor follow dot on desktop screens.
- */
-export function CursorDot() {
-  const [pos, setPos] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });
-    const hoverIn = () => setIsHovering(true);
-    const hoverOut = () => setIsHovering(false);
-
-    window.addEventListener('mousemove', handleMouseMove);
-    const elements = document.querySelectorAll('a, button');
-    elements.forEach(el => {
-      el.addEventListener('mouseenter', hoverIn);
-      el.addEventListener('mouseleave', hoverOut);
-    });
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      elements.forEach(el => {
-        el.removeEventListener('mouseenter', hoverIn);
-        el.removeEventListener('mouseleave', hoverOut);
-      });
-    };
-  }, []);
-
-  return (
-    <motion.div
-      className="fixed pointer-events-none z-[9999] mix-blend-difference hidden md:block"
-      animate={{
-        left: pos.x - (isHovering ? 20 : 6),
-        top: pos.y - (isHovering ? 20 : 6),
-        width: isHovering ? 40 : 12,
-        height: isHovering ? 40 : 12,
-        backgroundColor: isHovering ? 'rgba(6,182,212,0.5)' : '#00d4ff',
-      }}
-      transition={{ type: 'spring', stiffness: 800, damping: 35 }}
-      style={{ borderRadius: '50%' }}
-    />
-  );
-}
-
 /**
  * Floating background particle effect field (disabled for clean dark aesthetic).
  */

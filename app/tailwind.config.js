@@ -8,10 +8,13 @@ const config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter Tight', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-outfit)', 'system-ui', 'sans-serif'],
         serif: ['var(--font-playfair)', 'serif'],
       },
       colors: {
+        brand: { 50: '#fff6ed', 100: '#ffead5', 200: '#fdd0aa', 300: '#fbad74', 400: '#f9853c', 500: '#f76616', 600: '#d9480f', 700: '#b23a0b', 800: '#8e300e', 900: '#732a10', 950: '#3e1206' },
+        gold: { 200: '#fde68a', 300: '#fcd34d', 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706', 700: '#a95f06', 800: '#854d0e', 900: '#713f12', 950: '#422006' },
+        ember: { 300: '#fdba74', 400: '#fb923c', 500: '#ea580c', 600: '#c2410c', 700: '#9a3412', 800: '#7c2d12', 900: '#65230f', 950: '#431407' },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

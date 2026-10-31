@@ -1,29 +1,37 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import Link from "next/link";
 import "./globals.css";
 import {
   buildMetadata,
-  personSchema,
   safeJsonLd,
+  siteGraph,
   staticSeo,
-  websiteSchema,
 } from "@/lib/seo";
 import SuppressThreeWarnings from "@/components/SuppressThreeWarnings";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { CommandPalette } from "@/components/CommandPalette";
 
-import { Playfair_Display } from "next/font/google";
+import { Outfit, Playfair_Display } from "next/font/google";
+import { Cursor } from "@/components/motion/Cursor";
+import { MotionRoot } from "@/components/motion/SmoothScroll";
 
 const geistSans = localFont({
   src: "./fonts/geist-sans.woff2",
   variable: "--font-geist-sans",
   display: "swap",
+  preload: false,
 });
 
 const geistMono = localFont({
   src: "./fonts/geist-mono.woff2",
   variable: "--font-geist-mono",
+  display: "swap",
+  preload: false,
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
   display: "swap",
 });
 
@@ -36,6 +44,13 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = buildMetadata(staticSeo.home);
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#F7F4EE" },
+    { media: "(prefers-color-scheme: dark)", color: "#0c0a09" },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -45,13 +60,9 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} ${playfair.variable} h-full antialiased`}
     >
       <head>
-        <meta
-          name="google-site-verification"
-          content="SueXZDG7fZDSeJhiJ8uIcHmZ2Nrjs4FB64QQe8bB4Kk"
-        />
         <link
           rel="alternate"
           type="application/rss+xml"
@@ -60,9 +71,12 @@ export default function RootLayout({
         />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark');}else{document.documentElement.classList.remove('dark');}}catch(e){}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark');}else{document.documentElement.classList.remove('dark');}if(sessionStorage.getItem('intro')){document.documentElement.dataset.seen='1';}else{sessionStorage.setItem('intro','1');}}catch(e){}})();`,
           }}
         />
+        <noscript>
+          <style>{`main [style*="opacity:0"],.roadmap-card,.reveal-word>span{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
       </head>
       <body className="min-h-full flex flex-col">
         <script
@@ -70,24 +84,17 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: safeJsonLd({
               "@context": "https://schema.org",
-              "@graph": [personSchema(), websiteSchema()],
+              "@graph": siteGraph(),
             }),
           }}
         />
-        <nav aria-label="Portfolio internal links" className="sr-only">
-          <Link href="/">Home</Link>
-          <Link href="/about">About Balaraj R</Link>
-          <Link href="/projects">Projects</Link>
-          <Link href="/projects/vaidyos">VaidyaOS</Link>
-          <Link href="/projects/agrisence">AgriSence</Link>
-          <Link href="/projects/career-lens">Career Lens</Link>
-          <Link href="/blogs">AI Engineering Blog</Link>
-          <Link href="/contact">Contact Balaraj R</Link>
-        </nav>
         <SuppressThreeWarnings />
         <ThemeProvider>
-          <CommandPalette />
-          {children}
+          <MotionRoot>
+            <Cursor />
+            <CommandPalette />
+            {children}
+          </MotionRoot>
         </ThemeProvider>
       </body>
     </html>

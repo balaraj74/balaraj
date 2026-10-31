@@ -1,224 +1,150 @@
 "use client";
-import { useRef } from 'react';
-import { motion, useInView as useFramerInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Trophy, Cpu } from 'lucide-react';
-import { AuroraBackground, fadeInUp, staggerContainer, scaleIn } from './shared';
-import { SKILL_CATEGORIES, TECH_LOGOS, SkillCategory } from '../constants/skills';
+import { AuroraBackground, EASE_OUT_EXPO, fadeInUp } from './shared';
+import { CapabilityPanels } from './CapabilityPanels';
+import { Marquee, Reveal, RevealText, SpotlightCard, VIEWPORT } from './motion/primitives';
+import { TECH_LOGOS } from '../constants/skills';
 
-function TechLogoGrid({ isInView }: { isInView: boolean }) {
+function TechTile({ name, icon }: { name: string; icon: string }) {
   return (
-    <motion.div
-      className="mb-20 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-3 sm:gap-4"
-      initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
-      variants={staggerContainer}
-    >
-      {TECH_LOGOS.map((tech) => (
-        <motion.div
-          key={tech.name}
-          variants={scaleIn}
-          whileHover={{ y: -6, scale: 1.05 }}
-          transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-          className="flex flex-col items-center justify-center gap-3 p-4 glass rounded-2xl border border-white/80 dark:border-white/10 cursor-default transition-all duration-300 group shadow-sm hover:border-cyan-500/40"
-        >
-          {tech.icon === 'langchain' ? (
-            <svg
-              role="img"
-              viewBox="0 0 24 24"
-              className="w-8 h-8 opacity-60 group-hover:opacity-100 transition-all duration-300 fill-slate-800 dark:fill-slate-200 group-hover:fill-cyan-600 dark:group-hover:fill-cyan-400"
-              aria-label={tech.name}
-            >
-              <path d="M13.796 0a6.93 6.93 0 0 0-4.91 2.019L5.451 5.455l3.273 3.27 3.432-3.432a2.284 2.284 0 0 1 3.277 0 2.28 2.28 0 0 1 0 3.275L12 12.001l3.273 3.273 3.433-3.435c2.692-2.692 2.692-7.127 0-9.82A6.92 6.92 0 0 0 13.796 0m-5.07 8.728-3.433 3.434c-2.692 2.693-2.692 7.126 0 9.819A6.92 6.92 0 0 0 10.203 24a6.93 6.93 0 0 0 4.911-2.02l3.432-3.432-3.271-3.272-3.433 3.433a2.284 2.284 0 0 1-3.277 0 2.28 2.28 0 0 1 0-3.276L12 12z" />
-            </svg>
-          ) : (
-            <span
-              role="img"
-              aria-label={tech.name}
-              className="w-8 h-8 opacity-60 group-hover:opacity-100 transition-all duration-300 bg-slate-800 dark:bg-slate-200 group-hover:bg-cyan-600 dark:group-hover:bg-cyan-400"
-              style={{
-                mask: `url('https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${tech.icon}.svg') center / contain no-repeat`,
-                WebkitMask: `url('https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${tech.icon}.svg') center / contain no-repeat`,
-              }}
-            />
-          )}
-          <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 group-hover:text-cyan-700 dark:group-hover:text-cyan-400 transition-colors tracking-wider uppercase text-center">
-            {tech.name}
-          </span>
-        </motion.div>
-      ))}
-    </motion.div>
+    <div className="flex items-center gap-3 mx-2 px-5 py-3 glass rounded-2xl border border-white/80 dark:border-white/10 transition-colors duration-300 group shadow-sm hover:border-brand-500/40">
+      {icon === 'langchain' ? (
+        <svg role="img" viewBox="0 0 24 24" className="w-6 h-6 opacity-70 group-hover:opacity-100 transition-all duration-300 fill-stone-800 dark:fill-stone-200 group-hover:fill-brand-600 dark:group-hover:fill-brand-400" aria-label={name}>
+          <path d="M13.796 0a6.93 6.93 0 0 0-4.91 2.019L5.451 5.455l3.273 3.27 3.432-3.432a2.284 2.284 0 0 1 3.277 0 2.28 2.28 0 0 1 0 3.275L12 12.001l3.273 3.273 3.433-3.435c2.692-2.692 2.692-7.127 0-9.82A6.92 6.92 0 0 0 13.796 0m-5.07 8.728-3.433 3.434c-2.692 2.693-2.692 7.126 0 9.819A6.92 6.92 0 0 0 10.203 24a6.93 6.93 0 0 0 4.911-2.02l3.432-3.432-3.271-3.272-3.433 3.433a2.284 2.284 0 0 1-3.277 0 2.28 2.28 0 0 1 0-3.276L12 12z" />
+        </svg>
+      ) : (
+        <span
+          aria-hidden="true"
+          className="w-6 h-6 block opacity-70 group-hover:opacity-100 transition-all duration-300 bg-stone-800 dark:bg-stone-200 group-hover:bg-brand-600 dark:group-hover:bg-brand-400"
+          style={{ mask: `url('/icons/${icon}.svg') center / contain no-repeat`, WebkitMask: `url('/icons/${icon}.svg') center / contain no-repeat` }}
+        />
+      )}
+      <span className="text-xs font-bold text-stone-700 dark:text-stone-300 group-hover:text-brand-700 dark:group-hover:text-brand-400 transition-colors tracking-wider uppercase whitespace-nowrap">
+        {name}
+      </span>
+    </div>
   );
 }
 
-function CapabilityCard({ category, catIndex, isInView }: { category: SkillCategory; catIndex: number; isInView: boolean }) {
-  const Icon = category.icon;
+function TechMarquee() {
+  const half = Math.ceil(TECH_LOGOS.length / 2);
   return (
-    <motion.div
-      initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
-      variants={fadeInUp}
-      transition={{ delay: catIndex * 0.15 + 0.2 }}
-      whileHover={{ y: -6 }}
-      className={`relative overflow-hidden glass-card rounded-3xl p-8 sm:p-10 border border-white/85 dark:border-white/10 transition-all duration-500 group ${category.glow} flex flex-col justify-between shadow-md`}
-    >
-      <div className="relative z-10">
-        <div className="flex items-center gap-4 mb-6">
-          <motion.div
-            className="w-14 h-14 bg-white/90 dark:bg-slate-900/90 glass rounded-2xl flex items-center justify-center border border-slate-200/80 dark:border-slate-700/80 shadow-sm"
-            whileHover={{ rotate: 5, scale: 1.1 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-          >
-            <Icon className={`w-7 h-7 ${category.color}`} />
-          </motion.div>
-          <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight transition-colors">{category.title}</h3>
-        </div>
+    <div className="mb-14 space-y-3 [mask-image:linear-gradient(90deg,transparent,black_8%,black_92%,transparent)]">
+      <Marquee speed={1.2}>
+        {TECH_LOGOS.slice(0, half).map((tech) => <TechTile key={tech.name} name={tech.name} icon={tech.icon} />)}
+      </Marquee>
+      <Marquee speed={1.2} reverse>
+        {TECH_LOGOS.slice(half).map((tech) => <TechTile key={tech.name} name={tech.name} icon={tech.icon} />)}
+      </Marquee>
+    </div>
+  );
+}
 
-        <ul className="space-y-4 mb-10">
-          {category.bullets.map((bullet, idx) => (
-            <li key={idx} className="flex items-start gap-4">
-              <div className={`w-1.5 h-1.5 rounded-full mt-2.5 shrink-0 ${category.color.replace('text-', 'bg-')} shadow-[0_0_8px_currentColor]`} />
-              <span className="text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed font-medium transition-colors">{bullet}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+const PROOF = [
+  { name: 'CareerLens', value: '32', unit: 'Microservices', desc: 'Scalable AI-powered backend of 40K+ lines, processing real-time generation queues and embedding pipelines.' },
+  { name: 'AgriSence', value: 'GCP', unit: 'Deployed', desc: 'End-to-end ML architecture handling image segmentation models on scalable cloud functions.' },
+];
 
-      <div className="relative z-10 pt-6 border-t border-slate-200/80 dark:border-slate-800">
-        <span className="text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-widest block mb-3">Core Stack</span>
-        <div className="flex flex-wrap gap-2">
-          {category.techStack.map((tech, idx) => (
-            <span
-              key={idx}
-              className="text-xs font-semibold px-3 py-1 rounded-full border border-slate-300/80 dark:border-slate-700/80 bg-white/90 dark:bg-slate-900/90 text-slate-800 dark:text-slate-200 backdrop-blur-sm whitespace-nowrap shadow-sm"
-            >
-              {tech}
-            </span>
+const ARSENAL = [
+  { label: 'AI & Data', value: ['Vertex AI', 'Gemini', 'LangChain', 'PyTorch'] },
+  { label: 'Frontend', value: ['Next.js 16', 'React', 'Tailwind CSS', 'Framer'] },
+  { label: 'Backend', value: ['Node.js', 'TypeScript', 'FastAPI', 'Firebase'] },
+  { label: 'Cloud & DevOps', value: ['GCP', 'Docker', 'GitHub Actions', 'Vercel'] },
+];
+
+function ProofCard() {
+  return (
+    <Reveal className="h-full">
+      <SpotlightCard tilt={3} className="glass-card h-full rounded-3xl p-7 sm:p-10 border border-white/85 dark:border-white/10 hover:border-brand-500/40 overflow-hidden shadow-md transition-colors duration-500">
+        <h3 className="relative flex items-center gap-3 text-2xl font-bold text-stone-900 dark:text-white">
+          <Trophy className="w-6 h-6 text-brand-600 dark:text-brand-400" /> Production Experience
+        </h3>
+        <div className="relative mt-8 divide-y divide-stone-200/80 dark:divide-white/10">
+          {PROOF.map((item) => (
+            <div key={item.name} className="py-6 first:pt-0 last:pb-0 grid grid-cols-[auto_1fr] gap-x-6 items-start">
+              <div className="min-w-[96px]">
+                <div className="font-black leading-none tracking-tighter text-[clamp(2.75rem,5vw,4rem)] gradient-text-cyan w-fit">{item.value}</div>
+                <div className="mt-2 text-[10px] font-bold uppercase tracking-widest text-stone-600 dark:text-stone-400">{item.unit}</div>
+              </div>
+              <div>
+                <h4 className="font-bold text-lg text-stone-900 dark:text-white">{item.name}</h4>
+                <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">{item.desc}</p>
+              </div>
+            </div>
           ))}
         </div>
-      </div>
-    </motion.div>
+      </SpotlightCard>
+    </Reveal>
   );
 }
 
-function ExperienceCard({ isInView }: { isInView: boolean }) {
-  const experiences = [
-    { name: 'CareerLens', tag: '32 Microservices', desc: 'Built scalable AI-powered backend (40K+ LOC) processing real-time generation queues and embedding pipelines.' },
-    { name: 'AgriSence', tag: 'GCP Deployed', desc: 'Deployed end-to-end ML architectures handling image segmentation models on scalable cloud functions.' },
-  ];
-
+function ArsenalCard() {
   return (
-    <motion.div
-      initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
-      variants={fadeInUp}
-      transition={{ delay: 0.8 }}
-      whileHover={{ y: -4 }}
-      className="glass-card rounded-3xl p-8 sm:p-10 border border-white/85 dark:border-white/10 hover:border-cyan-500/40 transition-all duration-500 group relative overflow-hidden shadow-md"
-    >
-      <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/8 rounded-full blur-[80px] transform -translate-y-1/2 translate-x-1/2 group-hover:bg-cyan-500/15 transition-colors duration-700 pointer-events-none" />
-      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3 relative z-10 transition-colors">
-        <Trophy className="w-6 h-6 text-cyan-600 dark:text-cyan-400" />
-        Production Experience
-        <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 bg-cyan-500/10 dark:bg-cyan-500/20 text-cyan-800 dark:text-cyan-300 rounded-lg ml-2 border border-cyan-500/20">Highly Unique</span>
-      </h3>
-      <p className="text-slate-500 dark:text-slate-400 text-sm mb-6 relative z-10 tracking-wide uppercase font-semibold">Where I&apos;ve Applied These Skills:</p>
-      <div className="space-y-4 relative z-10">
-        {experiences.map((item) => (
-          <motion.div
-            key={item.name}
-            className="bg-white/80 dark:bg-slate-900/80 border border-white/90 dark:border-slate-800 rounded-2xl p-5 hover:bg-white dark:hover:bg-slate-900 transition-all duration-300 shadow-sm"
-            whileHover={{ x: 4 }}
-          >
-            <h4 className="text-slate-900 dark:text-white font-bold mb-2 flex items-center justify-between transition-colors">
-              {item.name}
-              <span className="text-cyan-700 dark:text-cyan-400 text-xs font-mono font-bold">{item.tag}</span>
-            </h4>
-            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed transition-colors">{item.desc}</p>
-          </motion.div>
-        ))}
-      </div>
-    </motion.div>
-  );
-}
-
-function ArsenalCard({ isInView }: { isInView: boolean }) {
-  const arsenal = [
-    { label: 'AI & Data', value: 'Vertex AI, Gemini, LangChain, PyTorch' },
-    { label: 'Frontend', value: 'Next.js 16, React, Tailwind CSS, Framer' },
-    { label: 'Backend', value: 'Node.js, TypeScript, FastAPI, Firebase' },
-    { label: 'Cloud & DevOps', value: 'GCP, Docker, GitHub Actions, Vercel' },
-  ];
-
-  return (
-    <motion.div
-      initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
-      variants={fadeInUp}
-      transition={{ delay: 0.9 }}
-      whileHover={{ y: -4 }}
-      className="glass-card rounded-3xl p-8 sm:p-10 border border-white/85 dark:border-white/10 hover:border-emerald-500/40 transition-all duration-500 group relative shadow-md"
-    >
-      <div className="absolute bottom-0 right-0 w-64 h-64 bg-emerald-500/8 rounded-full blur-[80px] translate-y-1/2 translate-x-1/2 group-hover:bg-emerald-500/15 transition-colors duration-700 pointer-events-none" />
-      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center gap-3 relative z-10 transition-colors">
-        <Cpu className="w-6 h-6 text-emerald-600 dark:text-emerald-400" /> Complete Arsenal
-      </h3>
-      <div className="space-y-5 text-sm relative z-10">
-        {arsenal.map((row) => (
-          <motion.div
-            key={row.label}
-            className="flex justify-between items-end border-b border-slate-200/80 dark:border-slate-800 pb-2 hover:border-emerald-500/40 transition-colors"
-            whileHover={{ x: 4 }}
-          >
-            <span className="text-slate-500 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold">{row.label}</span>
-            <span className="text-slate-900 dark:text-white font-semibold text-right max-w-[55%] transition-colors">{row.value}</span>
-          </motion.div>
-        ))}
-      </div>
-    </motion.div>
+    <Reveal className="h-full" delay={0.1}>
+      <SpotlightCard tilt={3} className="glass-card h-full rounded-3xl p-7 sm:p-10 border border-white/85 dark:border-white/10 hover:border-brand-500/40 overflow-hidden shadow-md transition-colors duration-500">
+        <h3 className="relative flex items-center gap-3 text-2xl font-bold text-stone-900 dark:text-white">
+          <Cpu className="w-6 h-6 text-brand-600 dark:text-brand-400" /> Complete Arsenal
+        </h3>
+        <div className="relative mt-8 space-y-5">
+          {ARSENAL.map((row, i) => (
+            <motion.div
+              key={row.label}
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.7, delay: i * 0.08, ease: EASE_OUT_EXPO }}
+            >
+              <p className="text-[10px] font-bold uppercase tracking-widest text-stone-600 dark:text-stone-400 mb-2">{row.label}</p>
+              <div className="flex flex-wrap gap-2">
+                {row.value.map((tool) => (
+                  <span key={tool} className="px-3 py-1 rounded-full text-sm font-semibold border border-stone-300/80 dark:border-white/15 text-stone-800 dark:text-stone-200 hover:border-brand-500 hover:text-brand-700 dark:hover:text-brand-300 transition-colors">
+                    {tool}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </SpotlightCard>
+    </Reveal>
   );
 }
 
 export default function SkillsSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useFramerInView(sectionRef, { once: true, margin: '-100px' });
 
   return (
-    <section id="skills" ref={sectionRef} className="py-24 sm:py-32 relative bg-transparent overflow-hidden">
+    <section id="skills" className="py-24 sm:py-32 relative bg-transparent overflow-hidden">
       <AuroraBackground />
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-indigo-500/4 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-ember-500/4 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="relative z-10 max-w-[1700px] w-full mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         <motion.div
           initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
+          whileInView="visible"
+      viewport={VIEWPORT}
           variants={fadeInUp}
-          className="text-center mb-20"
+          className="text-center mb-14"
         >
           <p className="section-label mx-auto w-fit">Capabilities</p>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-serif italic font-medium text-slate-900 dark:text-white tracking-tight transition-colors">
-            Skills & <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-sky-600 to-blue-600 dark:from-cyan-400 dark:via-sky-400 dark:to-blue-400">Capabilities</span>
-          </h2>
-          <p className="text-slate-700 dark:text-slate-300 mt-6 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed transition-colors">
+          <RevealText
+            className="text-[clamp(2.75rem,7.5vw,7rem)] leading-[1.02] font-serif italic font-medium text-stone-900 dark:text-white tracking-tight transition-colors"
+            segments={[{ text: 'Skills &' }, { text: 'Capabilities', className: 'gradient-text-cyan' }]}
+          />
+          <p className="text-stone-700 dark:text-stone-300 mt-6 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed transition-colors">
             I design, build, and deploy production-grade AI systems — from model development to scalable cloud infrastructure.
           </p>
         </motion.div>
 
-        <TechLogoGrid isInView={isInView} />
+        <TechMarquee />
 
-        <div className="grid lg:grid-cols-2 gap-8 xl:gap-10">
-          {SKILL_CATEGORIES.map((category, catIndex) => (
-            <CapabilityCard
-              key={category.title}
-              category={category}
-              catIndex={catIndex}
-              isInView={isInView}
-            />
-          ))}
-        </div>
+        <Reveal>
+          <CapabilityPanels />
+        </Reveal>
 
-        <div className="grid md:grid-cols-2 gap-8 xl:gap-10 mt-10">
-          <ExperienceCard isInView={isInView} />
-          <ArsenalCard isInView={isInView} />
+        <div className="grid md:grid-cols-2 gap-5 xl:gap-6 mt-5 xl:mt-6">
+          <ProofCard />
+          <ArsenalCard />
         </div>
       </div>
     </section>

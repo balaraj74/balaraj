@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { CursorDot } from './shared';
+import { scrollToId } from './motion/SmoothScroll';
 import { Navigation } from './Navigation';
 import HeroSection from './HeroSection';
 import AboutSection from './AboutSection';
@@ -24,7 +24,7 @@ export default function HomeClient() {
       const tryScroll = () => {
         const el = document.getElementById(hash);
         if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
+          scrollToId(hash);
         } else if (attempts < 10) {
           attempts++;
           setTimeout(tryScroll, 120);
@@ -39,10 +39,16 @@ export default function HomeClient() {
   }, [pathname]);
 
   return (
-    <div className="min-h-screen bg-[#F7F4EE] dark:bg-[#030712] text-slate-900 dark:text-slate-100 relative transition-colors duration-300">
+    <div className="min-h-screen bg-[#F7F4EE] dark:bg-[#0c0a09] text-stone-900 dark:text-stone-100 relative transition-colors duration-300">
       {/* Content wrapper */}
       <div className="relative z-10">
-        <CursorDot />
+        <div aria-hidden="true" className="intro-curtain">
+          <p>
+            {'Balaraj R'.split('').map((letter, i) => (
+              <span key={i} style={{ animationDelay: `${i * 0.04}s` }}>{letter === ' ' ? '\u00a0' : letter}</span>
+            ))}
+          </p>
+        </div>
         <Navigation />
         <main id="main-content">
           <HeroSection />

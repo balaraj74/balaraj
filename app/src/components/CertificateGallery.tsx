@@ -2,6 +2,8 @@
 import Image from 'next/image';
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useInView as useFramerInView } from 'framer-motion';
+import { RevealText } from './motion/primitives';
+import { CertificateCoverflow } from './CertificateCoverflow';
 import { X, ZoomIn, ChevronLeft, ChevronRight, Award, Cloud, Code, Cpu, Trophy } from 'lucide-react';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -30,157 +32,133 @@ const CERTS: Cert[] = [
     date: 'Feb 2026',
     category: 'Google Cloud',
     image: '/certificates/winner-career-advisor.jpg',
-    badge: '🏆 Winner',
+    badge: 'Winner',
     badgeColor: 'text-yellow-300 border-yellow-400/40',
     borderColor: 'border-yellow-500/40 hover:border-yellow-400/70',
-    glowColor: 'rgba(250,204,21,0.3)',
+    glowColor: 'rgba(250, 204, 21,0.3)',
   },
   {
     id: 2,
-    title: 'Gen AI Academy APAC 2026',
+    title: 'Google Cloud Gen AI Academy APAC 2026 — Cohort 1',
     issuer: 'Google Cloud × Hack2skill',
     date: 'May 2026',
     category: 'Google Cloud',
-    image: '/certificates/genai-apac.jpg',
+    image: '/certificates/google-genai-apac-cohort-1.jpg',
     badge: 'Participation',
     badgeColor: 'text-green-400 border-green-400/30',
     borderColor: 'border-green-500/30 hover:border-green-400/60',
-    glowColor: 'rgba(74,222,128,0.2)',
+    glowColor: 'rgba(74, 222, 128,0.2)',
   },
   {
     id: 3,
+    title: 'Google Cloud Gen AI Academy APAC 2026 — Cohort 2',
+    issuer: 'Google Cloud × Hack2skill',
+    date: 'Jul 2026',
+    category: 'Google Cloud',
+    image: '/certificates/google-genai-apac-cohort-2.jpg',
+    badge: 'Completion',
+    badgeColor: 'text-emerald-400 border-emerald-400/30',
+    borderColor: 'border-emerald-500/30 hover:border-emerald-400/60',
+    glowColor: 'rgba(52, 211, 153,0.2)',
+  },
+  {
+    id: 4,
+    title: 'Google Cloud Gen AI Academy APAC 2026 — Cohort 3 (Cloud Run)',
+    issuer: 'Google Cloud × Hack2skill',
+    date: 'Sep 2026',
+    category: 'Google Cloud',
+    image: '/certificates/google-genai-apac-cohort-3.jpg',
+    badge: 'Completion',
+    badgeColor: 'text-gold-400 border-gold-400/30',
+    borderColor: 'border-gold-500/30 hover:border-gold-400/60',
+    glowColor: 'rgba(168, 85, 247,0.2)',
+  },
+  {
+    id: 5,
+    title: 'Gen AI Academy 2.0 — Cloud Technologies',
+    issuer: 'Google Cloud × Hack2skill',
+    date: 'Jan 2026',
+    category: 'Google Cloud',
+    image: '/certificates/genai-cloud.jpg',
+    badge: 'Completion',
+    badgeColor: 'text-gold-400 border-gold-400/30',
+    borderColor: 'border-gold-500/30 hover:border-gold-400/60',
+    glowColor: 'rgba(251, 191, 36,0.2)',
+  },
+  {
+    id: 6,
     title: 'Gen AI Academy 2.0 — AI/ML Track',
     issuer: 'Google Cloud × Hack2skill',
     date: 'Jan 2026',
     category: 'Google Cloud',
-    image: '/certificates/genai-aiml2.jpg',
+    image: '/certificates/genai-aiml.jpg',
     badge: 'Completion',
     badgeColor: 'text-emerald-400 border-emerald-400/30',
     borderColor: 'border-emerald-500/30 hover:border-emerald-400/60',
-    glowColor: 'rgba(52,211,153,0.2)',
+    glowColor: 'rgba(52, 211, 153,0.2)',
   },
   {
-    id: 4,
+    id: 7,
     title: 'Gen AI Academy 2.0 — Networking Track',
     issuer: 'Google Cloud × Hack2skill',
     date: 'Jan 2026',
     category: 'Google Cloud',
-    image: '/certificates/genai-ne.jpg',
+    image: '/certificates/genai-networking.jpg',
     badge: 'Completion',
-    badgeColor: 'text-cyan-400 border-cyan-400/30',
-    borderColor: 'border-cyan-500/30 hover:border-cyan-400/60',
-    glowColor: 'rgba(6,182,212,0.2)',
+    badgeColor: 'text-brand-400 border-brand-400/30',
+    borderColor: 'border-brand-500/30 hover:border-brand-400/60',
+    glowColor: 'rgba(247, 102, 22,0.2)',
   },
   {
-    id: 5,
-    title: 'Gen AI Academy 2.0 — Cloud Architecture',
+    id: 8,
+    title: 'Gen AI Academy 2.0 — Data Track',
     issuer: 'Google Cloud × Hack2skill',
     date: 'Jan 2026',
     category: 'Google Cloud',
-    image: '/certificates/genai-cloud2.jpg',
+    image: '/certificates/genai-data.jpg',
     badge: 'Completion',
-    badgeColor: 'text-sky-400 border-sky-400/30',
-    borderColor: 'border-sky-500/30 hover:border-sky-400/60',
-    glowColor: 'rgba(56,189,248,0.2)',
+    badgeColor: 'text-gold-400 border-gold-400/30',
+    borderColor: 'border-gold-500/30 hover:border-gold-400/60',
+    glowColor: 'rgba(244, 114, 182,0.2)',
   },
   {
-    id: 6,
-    title: 'Gen AI Academy 2.0 — Data Analytics Track',
-    issuer: 'Google Cloud × Hack2skill',
-    date: 'Jan 2026',
-    category: 'Google Cloud',
-    image: '/certificates/genai-data2.jpg',
-    badge: 'Completion',
-    badgeColor: 'text-pink-400 border-pink-400/30',
-    borderColor: 'border-pink-500/30 hover:border-pink-400/60',
-    glowColor: 'rgba(244,114,182,0.2)',
-  },
-  {
-    id: 7,
+    id: 9,
     title: 'Gen AI Academy 2.0 — DevOps Track',
     issuer: 'Google Cloud × Hack2skill',
     date: 'Dec 2025',
     category: 'Google Cloud',
     image: '/certificates/genai-devops.png',
     badge: 'Completion',
-    badgeColor: 'text-cyan-400 border-cyan-400/30',
-    borderColor: 'border-cyan-500/30 hover:border-cyan-400/60',
-    glowColor: 'rgba(6,182,212,0.2)',
+    badgeColor: 'text-brand-400 border-brand-400/30',
+    borderColor: 'border-brand-500/30 hover:border-brand-400/60',
+    glowColor: 'rgba(247, 102, 22,0.2)',
   },
   {
-    id: 8,
+    id: 10,
     title: 'Gen AI Academy 2.0 — Serverless Track',
     issuer: 'Google Cloud × Hack2skill',
     date: 'Dec 2025',
     category: 'Google Cloud',
     image: '/certificates/genai-serverless.png',
     badge: 'Completion',
-    badgeColor: 'text-blue-400 border-blue-400/30',
-    borderColor: 'border-blue-500/30 hover:border-blue-400/60',
-    glowColor: 'rgba(96,165,250,0.2)',
+    badgeColor: 'text-ember-400 border-ember-400/30',
+    borderColor: 'border-ember-500/30 hover:border-ember-400/60',
+    glowColor: 'rgba(251, 146, 60,0.2)',
   },
   {
-    id: 9,
+    id: 11,
     title: 'Gen AI Academy 2.0 — Security Track',
     issuer: 'Google Cloud × Hack2skill',
     date: 'Dec 2025',
     category: 'Google Cloud',
     image: '/certificates/genai-security.png',
     badge: 'Completion',
-    badgeColor: 'text-purple-400 border-purple-400/30',
-    borderColor: 'border-purple-500/30 hover:border-purple-400/60',
-    glowColor: 'rgba(167,139,250,0.2)',
-  },
-  {
-    id: 10,
-    title: 'Gen AI Academy 2.0 — Networking (Hack2skill)',
-    issuer: 'Google Cloud × Hack2skill',
-    date: 'Dec 2025',
-    category: 'Google Cloud',
-    image: '/certificates/genai-networking.jpg',
-    badge: 'Completion',
-    badgeColor: 'text-indigo-400 border-indigo-400/30',
-    borderColor: 'border-indigo-500/30 hover:border-indigo-400/60',
-    glowColor: 'rgba(129,140,248,0.2)',
-  },
-  {
-    id: 11,
-    title: 'Gen AI Academy 2.0 — Cloud Track (Hack2skill)',
-    issuer: 'Google Cloud × Hack2skill',
-    date: 'Dec 2025',
-    category: 'Google Cloud',
-    image: '/certificates/genai-cloud.jpg',
-    badge: 'Completion',
-    badgeColor: 'text-sky-400 border-sky-400/30',
-    borderColor: 'border-sky-500/30 hover:border-sky-400/60',
-    glowColor: 'rgba(56,189,248,0.2)',
+    badgeColor: 'text-gold-400 border-gold-400/30',
+    borderColor: 'border-gold-500/30 hover:border-gold-400/60',
+    glowColor: 'rgba(167, 139, 250,0.2)',
   },
   {
     id: 12,
-    title: 'Gen AI Academy 2.0 — Data Analytics (Hack2skill)',
-    issuer: 'Google Cloud × Hack2skill',
-    date: 'Dec 2025',
-    category: 'Google Cloud',
-    image: '/certificates/genai-data.jpg',
-    badge: 'Completion',
-    badgeColor: 'text-pink-400 border-pink-400/30',
-    borderColor: 'border-pink-500/30 hover:border-pink-400/60',
-    glowColor: 'rgba(244,114,182,0.2)',
-  },
-  {
-    id: 13,
-    title: 'Gen AI Academy 2.0 — AI/ML (Hack2skill)',
-    issuer: 'Google Cloud × Hack2skill',
-    date: 'Dec 2025',
-    category: 'Google Cloud',
-    image: '/certificates/genai-aiml.jpg',
-    badge: 'Completion',
-    badgeColor: 'text-emerald-400 border-emerald-400/30',
-    borderColor: 'border-emerald-500/30 hover:border-emerald-400/60',
-    glowColor: 'rgba(52,211,153,0.2)',
-  },
-  {
-    id: 14,
     title: '5-Day AI Agents Intensive Course',
     issuer: 'Kaggle × Google',
     date: 'Dec 2025',
@@ -189,10 +167,10 @@ const CERTS: Cert[] = [
     badge: 'Badge Earned',
     badgeColor: 'text-yellow-400 border-yellow-400/30',
     borderColor: 'border-yellow-500/30 hover:border-yellow-400/60',
-    glowColor: 'rgba(250,204,21,0.2)',
+    glowColor: 'rgba(250, 204, 21,0.2)',
   },
   {
-    id: 15,
+    id: 13,
     title: 'Gemini Certified Educator',
     issuer: 'Google for Education',
     date: 'Jun 2025',
@@ -201,44 +179,69 @@ const CERTS: Cert[] = [
     badge: 'Certified',
     badgeColor: 'text-emerald-400 border-emerald-400/30',
     borderColor: 'border-emerald-500/30 hover:border-emerald-400/60',
-    glowColor: 'rgba(52,211,153,0.2)',
+    glowColor: 'rgba(52, 211, 153,0.2)',
   },
   {
-    id: 16,
+    id: 14,
     title: 'Agentic AI Day',
     issuer: 'Google Cloud × Hack2skill',
     date: '2025',
     category: 'Google Cloud',
     image: '/certificates/cert-8.jpg',
     badge: 'Participation',
-    badgeColor: 'text-blue-400 border-blue-400/30',
-    borderColor: 'border-blue-500/30 hover:border-blue-400/60',
-    glowColor: 'rgba(96,165,250,0.2)',
+    badgeColor: 'text-ember-400 border-ember-400/30',
+    borderColor: 'border-ember-500/30 hover:border-ember-400/60',
+    glowColor: 'rgba(251, 146, 60,0.2)',
   },
-  // ── Hackathon ──────────────────────────────────────────────────────────────
+
+  // ── Hackathons ─────────────────────────────────────────────────────────────
   {
-    id: 17,
+    id: 15,
     title: 'Inferentia 2.0 — 1st Place',
     issuer: 'PES University · AURA · AI&ML Dept',
     date: 'Sep 2025',
     category: 'Hackathon',
     image: '/certificates/cert-7.jpg',
-    badge: '🥇 1st Place',
+    badge: '1st Place',
     badgeColor: 'text-amber-400 border-amber-400/30',
     borderColor: 'border-amber-500/30 hover:border-amber-400/60',
-    glowColor: 'rgba(251,191,36,0.25)',
+    glowColor: 'rgba(251, 191, 36,0.25)',
   },
   {
-    id: 18,
+    id: 16,
     title: 'Meta PyTorch OpenEnv Hackathon — Round 1',
     issuer: 'Meta × OpenEnv × Scaler',
     date: 'Apr 2026',
     category: 'Hackathon',
     image: '/certificates/finalist-card.jpg',
     badge: 'Round 1 Qualified',
-    badgeColor: 'text-cyan-400 border-cyan-400/30',
-    borderColor: 'border-cyan-500/30 hover:border-cyan-400/60',
-    glowColor: 'rgba(6,182,212,0.25)',
+    badgeColor: 'text-brand-400 border-brand-400/30',
+    borderColor: 'border-brand-500/30 hover:border-brand-400/60',
+    glowColor: 'rgba(247, 102, 22,0.25)',
+  },
+  {
+    id: 17,
+    title: 'Build with Gemma: Bengaluru AI Sprint',
+    issuer: 'Google Build with Gemma × RIT / IEEE CIS',
+    date: '2025',
+    category: 'Hackathon',
+    image: '/certificates/gemma-bengaluru-ai-sprint.jpg',
+    badge: 'Participation',
+    badgeColor: 'text-ember-400 border-ember-400/30',
+    borderColor: 'border-ember-500/30 hover:border-ember-400/60',
+    glowColor: 'rgba(217, 72, 15,0.25)',
+  },
+  {
+    id: 18,
+    title: 'Adobe University Hackathon',
+    issuer: 'Adobe × Unstop',
+    date: 'Aug 2026',
+    category: 'Hackathon',
+    image: '/certificates/adobe-university-hackathon.jpg',
+    badge: 'Participation',
+    badgeColor: 'text-red-400 border-red-400/30',
+    borderColor: 'border-red-500/30 hover:border-red-400/60',
+    glowColor: 'rgba(239, 68, 68,0.25)',
   },
   {
     id: 19,
@@ -248,10 +251,11 @@ const CERTS: Cert[] = [
     category: 'Hackathon',
     image: '/certificates/cert-99d5.jpg',
     badge: 'Participation',
-    badgeColor: 'text-cyan-400 border-cyan-400/30',
-    borderColor: 'border-cyan-500/30 hover:border-cyan-400/60',
-    glowColor: 'rgba(6,182,212,0.2)',
+    badgeColor: 'text-brand-400 border-brand-400/30',
+    borderColor: 'border-brand-500/30 hover:border-brand-400/60',
+    glowColor: 'rgba(247, 102, 22,0.2)',
   },
+
   // ── AWS ────────────────────────────────────────────────────────────────────
   {
     id: 20,
@@ -263,11 +267,11 @@ const CERTS: Cert[] = [
     badge: 'Completion',
     badgeColor: 'text-orange-400 border-orange-400/30',
     borderColor: 'border-orange-500/30 hover:border-orange-400/60',
-    glowColor: 'rgba(251,146,60,0.2)',
+    glowColor: 'rgba(251, 146, 60,0.2)',
   },
   {
     id: 21,
-    title: 'AWS Cloud Practitioner Essentials',
+    title: 'AWS Certified Cloud Practitioner (CLF-C02) — Practice Question Set',
     issuer: 'Amazon Web Services',
     date: 'Nov 2025',
     category: 'AWS',
@@ -275,8 +279,9 @@ const CERTS: Cert[] = [
     badge: 'Completion',
     badgeColor: 'text-orange-400 border-orange-400/30',
     borderColor: 'border-orange-500/30 hover:border-orange-400/60',
-    glowColor: 'rgba(251,146,60,0.2)',
+    glowColor: 'rgba(251, 146, 60,0.2)',
   },
+
   // ── HackerRank ─────────────────────────────────────────────────────────────
   {
     id: 22,
@@ -288,7 +293,7 @@ const CERTS: Cert[] = [
     badge: 'Certified',
     badgeColor: 'text-green-400 border-green-400/30',
     borderColor: 'border-green-500/30 hover:border-green-400/60',
-    glowColor: 'rgba(74,222,128,0.2)',
+    glowColor: 'rgba(74, 222, 128,0.2)',
   },
   {
     id: 23,
@@ -300,12 +305,13 @@ const CERTS: Cert[] = [
     badge: 'Certified',
     badgeColor: 'text-yellow-400 border-yellow-400/30',
     borderColor: 'border-yellow-500/30 hover:border-yellow-400/60',
-    glowColor: 'rgba(250,204,21,0.2)',
+    glowColor: 'rgba(250, 204, 21,0.2)',
   },
+
   // ── Other ──────────────────────────────────────────────────────────────────
   {
     id: 24,
-    title: 'Oracle Cloud Infrastructure — Gen AI Professional',
+    title: 'Oracle Cloud Infrastructure — Generative AI Professional',
     issuer: 'Oracle',
     date: '2025',
     category: 'Other',
@@ -313,7 +319,7 @@ const CERTS: Cert[] = [
     badge: 'Professional',
     badgeColor: 'text-red-400 border-red-400/30',
     borderColor: 'border-red-500/30 hover:border-red-400/60',
-    glowColor: 'rgba(248,113,113,0.2)',
+    glowColor: 'rgba(248, 113, 113,0.2)',
   },
   {
     id: 25,
@@ -323,45 +329,9 @@ const CERTS: Cert[] = [
     category: 'Other',
     image: '/certificates/cert-50366.jpg',
     badge: 'Completion',
-    badgeColor: 'text-blue-400 border-blue-400/30',
-    borderColor: 'border-blue-500/30 hover:border-blue-400/60',
-    glowColor: 'rgba(96,165,250,0.2)',
-  },
-  {
-    id: 26,
-    title: 'Responsible AI with GitHub Copilot',
-    issuer: 'GitHub',
-    date: 'Dec 2025',
-    category: 'Other',
-    image: '/certificates/cert-github.jpg',
-    badge: 'Certified',
-    badgeColor: 'text-indigo-400 border-indigo-400/30',
-    borderColor: 'border-indigo-500/30 hover:border-indigo-400/60',
-    glowColor: 'rgba(129,140,248,0.2)',
-  },
-  {
-    id: 27,
-    title: 'NVIDIA Cloud & Community',
-    issuer: 'NVIDIA',
-    date: 'Dec 2025',
-    category: 'Other',
-    image: '/certificates/cert-nvidia.jpg',
-    badge: 'Completion',
-    badgeColor: 'text-green-400 border-green-400/30',
-    borderColor: 'border-green-500/30 hover:border-green-400/60',
-    glowColor: 'rgba(74,222,128,0.2)',
-  },
-  {
-    id: 28,
-    title: 'GDG Discovery Certification',
-    issuer: 'Google Developer Groups',
-    date: '2025',
-    category: 'Google Cloud',
-    image: '/certificates/cert-extra.jpg',
-    badge: 'Participant',
-    badgeColor: 'text-sky-400 border-sky-400/30',
-    borderColor: 'border-sky-500/30 hover:border-sky-400/60',
-    glowColor: 'rgba(56,189,248,0.2)',
+    badgeColor: 'text-ember-400 border-ember-400/30',
+    borderColor: 'border-ember-500/30 hover:border-ember-400/60',
+    glowColor: 'rgba(251, 146, 60,0.2)',
   },
 ];
 
@@ -406,6 +376,7 @@ function Lightbox({ cert, certs, onClose, onPrev, onNext }: {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2 }}
+      data-lenis-prevent
       className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-8"
       onClick={onClose}
     >
@@ -452,7 +423,7 @@ function Lightbox({ cert, certs, onClose, onPrev, onNext }: {
       >
         <div
           className="rounded-2xl overflow-hidden border border-white/10"
-          style={{ boxShadow: `0 0 80px ${cert.glowColor}` }}
+          style={{ boxShadow: '0 0 90px rgba(247, 102, 22, 0.28)' }}
         >
           <Image
             src={cert.image}
@@ -498,13 +469,13 @@ function CertCard({ cert, index, isInView, onClick }: {
       }}
       whileHover={{ y: -8, scale: 1.025 }}
       onClick={onClick}
-      className="relative group rounded-2xl border border-white/90 dark:border-white/10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md overflow-hidden cursor-pointer transition-all duration-300 shadow-sm hover:shadow-lg hover:border-cyan-500/40"
+      className="relative group rounded-2xl border border-white/90 dark:border-white/10 bg-white/80 dark:bg-stone-900/80 backdrop-blur-md overflow-hidden cursor-pointer transition-all duration-300 shadow-sm hover:shadow-lg hover:border-brand-500/40"
     >
       {/* Shimmer sweep */}
-      <div className="absolute top-0 left-0 w-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent group-hover:w-full transition-all duration-500 z-10 rounded-t-2xl" />
+      <div className="absolute top-0 left-0 w-0 h-[2px] bg-gradient-to-r from-transparent via-brand-400 to-transparent group-hover:w-full transition-all duration-500 z-10 rounded-t-2xl" />
 
       {/* Thumbnail */}
-      <div className="relative overflow-hidden bg-slate-50 dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800" style={{ aspectRatio: '4/3' }}>
+      <div className="relative overflow-hidden bg-stone-50 dark:bg-stone-950 border-b border-stone-100 dark:border-stone-800" style={{ aspectRatio: '4/3' }}>
         <Image
           src={cert.image}
           alt={cert.title}
@@ -513,209 +484,25 @@ function CertCard({ cert, index, isInView, onClick }: {
           className="w-full h-full object-contain p-1.5 transition-transform duration-500 group-hover:scale-105"
         />
         {/* Zoom overlay */}
-        <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/30 flex items-center justify-center transition-all duration-300">
-          <div className="w-11 h-11 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-white dark:border-slate-700 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md">
-            <ZoomIn className="w-5 h-5 text-slate-800 dark:text-slate-200" />
+        <div className="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/30 flex items-center justify-center transition-all duration-300">
+          <div className="w-11 h-11 rounded-full bg-white/80 dark:bg-stone-900/80 backdrop-blur-sm border border-white dark:border-stone-700 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md">
+            <ZoomIn className="w-5 h-5 text-stone-800 dark:text-stone-200" />
           </div>
         </div>
       </div>
 
       {/* Info */}
       <div className="p-3.5">
-        <h3 className="text-slate-900 dark:text-white font-bold text-sm leading-tight mb-1 line-clamp-2 transition-colors">{cert.title}</h3>
-        <p className="text-slate-600 dark:text-slate-400 text-xs mb-3 truncate font-medium transition-colors">{cert.issuer}</p>
+        <h3 className="text-stone-900 dark:text-white font-bold text-sm leading-tight mb-1 line-clamp-2 transition-colors">{cert.title}</h3>
+        <p className="text-stone-600 dark:text-stone-400 text-xs mb-3 truncate font-medium transition-colors">{cert.issuer}</p>
         <div className="flex items-center justify-between">
-          <span className="px-2 py-0.5 rounded-full border border-slate-200 dark:border-slate-700 text-[10px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 shadow-xs">
+          <span className="px-2 py-0.5 rounded-full border border-stone-200 dark:border-stone-700 text-[10px] font-bold uppercase tracking-wider text-stone-700 dark:text-stone-300 bg-white dark:bg-stone-800 shadow-xs">
             {cert.badge}
           </span>
-          <span className="text-slate-500 dark:text-slate-400 text-[10px] font-medium">{cert.date}</span>
+          <span className="text-stone-600 dark:text-stone-400 text-[10px] font-medium">{cert.date}</span>
         </div>
       </div>
     </motion.div>
-  );
-}
-
-// ─── Interactive 3D Deck Explorer ─────────────────────────────────────────────
-interface InteractiveDeckProps {
-  certs: Cert[];
-  onCardClick: (cert: Cert) => void;
-}
-
-function InteractiveDeck({ certs, onCardClick }: InteractiveDeckProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [draggedId, setDraggedId] = useState<number | null>(null);
-
-  const nextCard = useCallback(() => {
-    if (certs.length === 0) return;
-    setCurrentIndex((prev) => (prev + 1) % certs.length);
-  }, [certs.length]);
-
-  const prevCard = useCallback(() => {
-    if (certs.length === 0) return;
-    setCurrentIndex((prev) => (prev - 1 + certs.length) % certs.length);
-  }, [certs.length]);
-
-  const [isHovered, setIsHovered] = useState(false);
-
-  useEffect(() => {
-    if (isHovered || certs.length === 0) return;
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % certs.length);
-    }, 2800);
-    return () => clearInterval(timer);
-  }, [isHovered, certs.length]);
-
-  if (certs.length === 0) {
-    return <div className="text-center py-20 text-slate-400">No certificates in this category.</div>;
-  }
-
-  // Determine cards to show in the 3D stack (max visible: 4)
-  const visibleCards = [];
-  const maxVisible = Math.min(certs.length, 4);
-  for (let i = 0; i < maxVisible; i++) {
-    const idx = (currentIndex + i) % certs.length;
-    visibleCards.push({ cert: certs[idx]!, stackIndex: i });
-  }
-  
-  // Render cards in reverse order so the active/top card is on top (higher HTML stack order)
-  visibleCards.reverse();
-
-  return (
-    <div className="flex flex-col items-center select-none pt-4">
-      {/* 3D Stack Area */}
-      <div 
-        className="relative w-full max-w-[850px] h-[480px] sm:h-[580px] flex items-center justify-center mb-10"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onTouchStart={() => setIsHovered(true)}
-        onTouchEnd={() => setIsHovered(false)}
-      >
-        <AnimatePresence mode="popLayout">
-          {visibleCards.map(({ cert, stackIndex }) => {
-            const isTop = stackIndex === 0;
-            return (
-              <motion.div
-                key={cert.id}
-                style={{
-                  zIndex: visibleCards.length - stackIndex,
-                  transformOrigin: "bottom center",
-                  cursor: isTop ? "grab" : "default",
-                }}
-                className="absolute w-[95%] sm:w-full max-w-[560px] md:max-w-[640px] aspect-[4/3] rounded-3xl border border-white/95 dark:border-white/10 bg-white/90 dark:bg-slate-900/95 backdrop-blur-xl overflow-hidden p-4 md:p-5 shadow-xl flex flex-col justify-between"
-                initial={{
-                  scale: 0.82 + (3 - stackIndex) * 0.04,
-                  y: -stackIndex * 16,
-                  rotate: isTop ? 0 : (stackIndex % 2 === 0 ? 1.5 : -1.5) * stackIndex,
-                  opacity: 0,
-                }}
-                animate={{
-                  scale: 1 - stackIndex * 0.04,
-                  y: -stackIndex * 12,
-                  rotate: isTop ? 0 : (stackIndex % 2 === 0 ? 1.5 : -1.5) * stackIndex,
-                  opacity: 1,
-                  boxShadow: isTop 
-                    ? `0 20px 50px rgba(15,23,42,0.15)` 
-                    : `0 4px 12px rgba(15, 23, 42, 0.06)`,
-                }}
-                exit={{
-                  y: draggedId ? (draggedId === cert.id ? 0 : 0) : -120,
-                  x: draggedId === cert.id ? 280 : (draggedId ? -280 : 0),
-                  opacity: 0,
-                  scale: draggedId ? 0.88 : 1.15,
-                  rotate: draggedId === cert.id ? 15 : (draggedId ? -15 : 0),
-                  transition: { duration: 0.4, ease: "easeOut" }
-                }}
-                drag={isTop ? "x" : false}
-                dragConstraints={{ left: 0, right: 0 }}
-                onDragEnd={(event, info) => {
-                  if (!isTop) return;
-                  const swipeThreshold = 80;
-                  if (info.offset.x > swipeThreshold) {
-                    setDraggedId(cert.id);
-                    setTimeout(() => {
-                      nextCard();
-                      setDraggedId(null);
-                    }, 50);
-                  } else if (info.offset.x < -swipeThreshold) {
-                    setDraggedId(cert.id);
-                    setTimeout(() => {
-                      prevCard();
-                      setDraggedId(null);
-                    }, 50);
-                  }
-                }}
-                whileHover={isTop ? { 
-                  y: -6, 
-                  scale: 1.015,
-                  transition: { duration: 0.2 } 
-                } : {}}
-                onClick={() => {
-                  if (isTop) onCardClick(cert);
-                }}
-              >
-                {/* Image Area */}
-                <div className="relative w-full aspect-[4/3] bg-slate-50 dark:bg-slate-950 rounded-2xl overflow-hidden mb-3.5 group border border-slate-200 dark:border-slate-800">
-                  <Image
-                    src={cert.image}
-                    alt={cert.title}
-                    fill
-                    sizes="(min-width: 640px) 580px, 95vw"
-                    className="w-full h-full object-contain p-2"
-                    draggable={false}
-                  />
-                  {isTop && (
-                    <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/30 transition-all duration-300 flex items-center justify-center">
-                      <div className="w-10 h-10 rounded-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border border-white dark:border-slate-700 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md">
-                        <ZoomIn className="w-4 h-4 text-slate-800 dark:text-slate-200" />
-                      </div>
-                    </div>
-                  )}
-                </div>
-                {/* Text Area */}
-                <div className="px-1 flex flex-col justify-between flex-grow">
-                  <div>
-                    <h4 className="text-slate-900 dark:text-white font-bold text-sm line-clamp-1 mb-0.5 leading-tight transition-colors">{cert.title}</h4>
-                    <p className="text-slate-600 dark:text-slate-400 text-xs truncate leading-none font-medium transition-colors">{cert.issuer}</p>
-                  </div>
-                  <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-slate-200 dark:border-slate-800">
-                    <span className="px-2 py-0.5 rounded-full border border-slate-200 dark:border-slate-700 text-[10px] font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-800 shadow-xs">
-                      {cert.badge}
-                    </span>
-                    <span className="text-slate-500 dark:text-slate-400 text-[10px] font-medium">{cert.date}</span>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
-      </div>
-
-      {/* Control Panel */}
-      <div className="flex items-center gap-5 mt-2">
-        <button
-          onClick={prevCard}
-          aria-label="Previous certificate"
-          className="w-10 h-10 rounded-full bg-white/90 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 hover:border-cyan-500 hover:bg-cyan-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-cyan-700 dark:hover:text-cyan-400 flex items-center justify-center transition-all duration-300 shadow-sm active:scale-95"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-        <span className="text-slate-700 dark:text-slate-300 text-xs sm:text-sm font-bold tracking-widest min-w-[70px] text-center">
-          {currentIndex + 1} / {certs.length}
-        </span>
-        <button
-          onClick={nextCard}
-          aria-label="Next certificate"
-          className="w-10 h-10 rounded-full bg-white/90 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 hover:border-cyan-500 hover:bg-cyan-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-cyan-700 dark:hover:text-cyan-400 flex items-center justify-center transition-all duration-300 shadow-sm active:scale-95"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
-      </div>
-      
-      <p className="text-slate-500 dark:text-slate-400 text-[10px] mt-4 uppercase tracking-widest flex items-center gap-1.5 font-bold">
-        <span className="w-1.5 h-1.5 rounded-full bg-cyan-600 animate-pulse" />
-        Swipe card or use controls to browse · click to zoom
-      </p>
-    </div>
   );
 }
 
@@ -755,11 +542,13 @@ export default function CertificateGallery() {
         className="text-center mb-10"
       >
         <p className="section-label mx-auto w-fit mb-4">Verified Credentials</p>
-        <h3 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white mb-3 transition-colors">
-          Certifications <span className="gradient-text-cyan">Gallery</span>
-        </h3>
-        <p className="text-slate-600 dark:text-slate-400 max-w-xl mx-auto text-sm font-medium transition-colors">
-          {CERTS.length} certifications across AI, Cloud, Security, and Development. Click any to view full resolution.
+        <RevealText
+          as="h3"
+          className="text-[clamp(2.25rem,5.5vw,4.5rem)] leading-[1.04] font-serif italic font-medium text-stone-900 dark:text-white tracking-tight mb-4"
+          segments={[{ text: 'Certifications' }, { text: 'Gallery', className: 'gradient-text-cyan' }]}
+        />
+        <p className="text-stone-600 dark:text-stone-400 max-w-xl mx-auto text-sm font-medium transition-colors">
+          {CERTS.length} certifications across AI, Cloud, Security, and Development. Swipe through them, or open any one at full size.
         </p>
       </motion.div>
 
@@ -776,15 +565,20 @@ export default function CertificateGallery() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-full border text-sm font-semibold transition-all duration-300 ${
+              className={`relative flex items-center gap-1.5 px-4 py-2 rounded-full border text-sm font-semibold transition-colors duration-300 ${
                 activeCategory === cat
-                  ? 'bg-cyan-500/20 border-cyan-500/50 text-cyan-800 dark:text-cyan-300 shadow-sm'
-                  : 'bg-white/80 dark:bg-slate-900/80 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800'
+                  ? 'border-brand-500/50 text-brand-800 dark:text-brand-300 shadow-sm'
+                  : 'bg-white/80 dark:bg-stone-900/80 border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:text-stone-950 dark:hover:text-white hover:bg-white dark:hover:bg-stone-800'
               }`}
             >
+              {activeCategory === cat && (
+                <motion.span layoutId="cert-filter" className="absolute inset-0 rounded-full bg-brand-500/20" transition={{ type: 'spring', stiffness: 380, damping: 32 }} />
+              )}
+              <span className="relative flex items-center gap-1.5">
               {CATEGORY_ICONS[cat]}
               {cat}
-              <span className={`ml-0.5 text-xs rounded-full px-1.5 py-0.5 ${activeCategory === cat ? 'bg-cyan-500/30 text-cyan-900 dark:text-cyan-200' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'}`}>
+              </span>
+              <span className={`relative ml-0.5 text-xs rounded-full px-1.5 py-0.5 ${activeCategory === cat ? 'bg-brand-500/30 text-brand-900 dark:text-brand-200' : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400'}`}>
                 {count}
               </span>
             </button>
@@ -799,13 +593,13 @@ export default function CertificateGallery() {
         transition={{ duration: 0.5, delay: 0.15 }}
         className="flex justify-center mb-10"
       >
-        <div className="bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 p-1 rounded-2xl flex items-center gap-1 shadow-sm">
+        <div className="bg-white/80 dark:bg-stone-900/80 border border-stone-200 dark:border-stone-700 p-1 rounded-2xl flex items-center gap-1 shadow-sm">
           <button
             onClick={() => setViewMode('grid')}
             className={`px-4 py-2 rounded-xl text-xs font-bold tracking-widest uppercase transition-all duration-300 ${
               viewMode === 'grid'
-                ? 'bg-cyan-500 text-slate-950 font-black shadow-sm'
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
+                ? 'bg-brand-500 text-stone-950 font-black shadow-sm'
+                : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-stone-800'
             }`}
           >
             Grid View
@@ -814,11 +608,11 @@ export default function CertificateGallery() {
             onClick={() => setViewMode('deck')}
             className={`px-4 py-2 rounded-xl text-xs font-bold tracking-widest uppercase transition-all duration-300 ${
               viewMode === 'deck'
-                ? 'bg-cyan-500 text-slate-950 font-black shadow-sm'
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
+                ? 'bg-brand-500 text-stone-950 font-black shadow-sm'
+                : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-stone-800'
             }`}
           >
-            3D Stack Explorer
+            3D Showcase
           </button>
         </div>
       </motion.div>
@@ -852,13 +646,14 @@ export default function CertificateGallery() {
             exit={{ opacity: 0, scale: 0.96 }}
             transition={{ duration: 0.25 }}
           >
-            <InteractiveDeck
-              certs={filtered}
-              onCardClick={openLightbox}
-            />
+            <CertificateCoverflow key={activeCategory} items={filtered} onOpen={openLightbox} />
           </motion.div>
         )}
       </AnimatePresence>
+
+      <ul className="sr-only">
+        {CERTS.map((cert) => <li key={cert.id}>{cert.title}, {cert.issuer}, {cert.date}</li>)}
+      </ul>
 
       {/* Empty state */}
       {filtered.length === 0 && (

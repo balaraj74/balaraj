@@ -6,9 +6,16 @@ export const OWNER_NAME = "Balaraj R";
 export const OWNER_ALT_NAME = "Balu";
 export const DEFAULT_OG_IMAGE = "/og-image.png";
 
+export const PERSON_ID = `${SITE_URL}/#person`;
+export const WEBSITE_ID = `${SITE_URL}/#website`;
+export const OWNER_IMAGE = "/balaraj_portrait.png";
+
 export const ownerSameAs = [
   "https://github.com/balaraj74",
-  "https://linkedin.com/in/balaraj-r-209a67330",
+  "https://www.linkedin.com/in/balaraj-r-209a67330/",
+  "https://x.com/Balaraj__r",
+  "https://www.instagram.com/balaraj.__r/",
+  "https://www.skills.google/public_profiles/7e29917e-8bd6-41e6-8149-0795ae63c97b",
 ];
 
 export const globalKeywords = [
@@ -109,7 +116,7 @@ export const projectSeo = {
       "VaidyaOS is my flagship healthcare project. It uses optimized GGUF models to run directly on-device, ensuring patient privacy and zero-latency inference for critical triage workflows. It features multilingual support and integrates seamlessly with local hospital networks.",
     github: "https://github.com/balaraj74/VaidyaOS",
     demo: "https://roaring-valkyrie-042963.netlify.app/VaidyaOS.apk",
-    image: "/projects/vaidyaos_banner.png",
+    image: "/projects/new/vaidyaos.png",
     category: "HealthcareApplication",
     details: {
       problem:
@@ -136,7 +143,7 @@ export const projectSeo = {
       ],
       visuals: [
         {
-          src: "/projects/vaidyaos_banner.png",
+          src: "/projects/new/vaidyaos.png",
           alt: "VaidyaOS offline healthcare AI platform preview",
           caption: "VaidyaOS product preview",
         },
@@ -164,7 +171,7 @@ export const projectSeo = {
       "AgriSence was built to solve critical delays in crop disease identification. By leveraging GCP serverless functions and Gemini AI, it analyzes crop imagery and provides real-time, localized actionable advice to farmers across India.",
     github: "https://github.com/balaraj74/AgriSence",
     demo: "https://agrisence--agrisence-1dc30.us-central1.hosted.app/",
-    image: "/projects/agrisence_bg_1776501022187.png",
+    image: "/projects/new/agrisence.png",
     category: "AgricultureApplication",
     details: {
       problem:
@@ -191,7 +198,7 @@ export const projectSeo = {
       ],
       visuals: [
         {
-          src: "/projects/agrisence_bg_1776501022187.png",
+          src: "/projects/new/agrisence.png",
           alt: "AgriSence crop disease detection dashboard",
           caption: "AgriSence crop intelligence workflow",
         },
@@ -219,7 +226,7 @@ export const projectSeo = {
       "CareerLens is a sophisticated 32-microservice platform that deeply analyzes professional profiles. It uses semantic search and multi-agent reasoning to build 5-year optimized career trajectories, earning a National Hackathon victory.",
     github: "https://github.com/balaraj74/careerlens",
     demo: "https://careerlens--careerlens-1.us-central1.hosted.app",
-    image: "/projects/career_lens_bg_1776501008387.png",
+    image: "/projects/new/careerlens.png",
     category: "BusinessApplication",
     details: {
       problem:
@@ -246,7 +253,7 @@ export const projectSeo = {
       ],
       visuals: [
         {
-          src: "/projects/career_lens_bg_1776501008387.png",
+          src: "/projects/new/careerlens.png",
           alt: "Career Lens AI career intelligence platform preview",
           caption: "Career Lens recommendation engine preview",
         },
@@ -274,7 +281,7 @@ export const projectSeo = {
       "Darwin is a full-stack multi-agent AI system designed to act as an executive board for startup founders. It simulates rigorous boardroom debate across 5 specialized AI personas to stress-test business models, financial models, and go-to-market strategies.",
     github: "https://github.com/balaraj74/darwin",
     demo: "https://darwin-5dleehg6la-el.a.run.app",
-    image: "/projects/darwin_showcase.png",
+    image: "/projects/new/darwin.png",
     category: "BusinessApplication",
     details: {
       problem:
@@ -301,7 +308,7 @@ export const projectSeo = {
       ],
       visuals: [
         {
-          src: "/projects/darwin_showcase.png",
+          src: "/projects/new/darwin.png",
           alt: "Darwin AI Executive Board interface preview",
           caption: "Darwin multi-agent debate dashboard",
         },
@@ -329,7 +336,7 @@ export const projectSeo = {
       "OmniSence is a high-throughput multimodal intelligence engine that fuses real-time computer vision with audio stream comprehension to perceive and structure complex ambient environments.",
     github: "https://github.com/balaraj74/omnisence",
     demo: "https://omnisence-demo.vercel.app",
-    image: "/projects/omnisence_bg_1776501035325.png",
+    image: "/projects/new/omnisence.png",
     category: "MultimediaApplication",
     details: {
       problem:
@@ -356,7 +363,7 @@ export const projectSeo = {
       ],
       visuals: [
         {
-          src: "/projects/omnisence_bg_1776501035325.png",
+          src: "/projects/new/omnisence.png",
           alt: "OmniSence Multimodal Perception Preview",
           caption: "OmniSence spatial intelligence preview",
         },
@@ -383,7 +390,7 @@ export const projectSeo = {
       "TaskForze delivers enterprise-grade workflow orchestration by coordinating distributed autonomous agents that dynamically plan, execute, verify, and iterate on complex multi-step technical workflows.",
     github: "https://github.com/balaraj74/taskforze",
     demo: "https://taskforze.vercel.app",
-    image: "/projects/taskforze_bg_1776501047462.png",
+    image: "/projects/new/taskforze.png",
     category: "BusinessApplication",
     details: {
       problem:
@@ -410,7 +417,7 @@ export const projectSeo = {
       ],
       visuals: [
         {
-          src: "/projects/taskforze_bg_1776501047462.png",
+          src: "/projects/new/taskforze.png",
           alt: "TaskForze Autonomous Agent Swarm Preview",
           caption: "TaskForze dynamic agent orchestration workflow",
         },
@@ -437,7 +444,7 @@ export const projectSeo = {
       "HealthMesh v2.0 is a distributed medical telemetry network delivering zero-trust patient monitoring, continuous edge vital analysis, and low-latency critical event alerting across clinical facilities.",
     github: "https://github.com/balaraj74/healthmesh",
     demo: "https://healthmesh.vercel.app",
-    image: "/projects/healthmesh_bg_1776501063141.png",
+    image: "/projects/new/healthmesh.png",
     category: "HealthcareApplication",
     details: {
       problem:
@@ -464,7 +471,7 @@ export const projectSeo = {
       ],
       visuals: [
         {
-          src: "/projects/healthmesh_bg_1776501063141.png",
+          src: "/projects/new/healthmesh.png",
           alt: "HealthMesh Clinical Telemetry Preview",
           caption: "HealthMesh distributed patient monitoring grid",
         },
@@ -491,7 +498,7 @@ export const projectSeo = {
       "CyberShield AI is an intelligent defensive cybersecurity platform that continuously ingests network telemetry and applies real-time behavioural anomaly classifiers to neutralize threat vectors before escalation.",
     github: "https://github.com/balaraj74/cybershield",
     demo: "https://cybershield.vercel.app",
-    image: "/projects/cybershield_bg_1776501077227.png",
+    image: "/projects/new/cybershield.png",
     category: "SecurityApplication",
     details: {
       problem:
@@ -518,7 +525,7 @@ export const projectSeo = {
       ],
       visuals: [
         {
-          src: "/projects/cybershield_bg_1776501077227.png",
+          src: "/projects/new/cybershield.png",
           alt: "CyberShield Threat Intelligence Preview",
           caption: "CyberShield AI threat detection dashboard",
         },
@@ -528,6 +535,46 @@ export const projectSeo = {
 };
 
 export const blogPosts = {
+  "engineering-pashu-drishti-offline-first-edge-ai-novabion": {
+    slug: "engineering-pashu-drishti-offline-first-edge-ai-novabion",
+    path: "/blogs/engineering-pashu-drishti-offline-first-edge-ai-novabion",
+    title: "Engineering Pashu Drishti: Deploying an Offline-First Edge AI System in the Field at Novabion",
+    description:
+      "How I architected and physically deployed the Phase 1 MVP for Pashu Drishti at Novabion Pvt. Ltd. — an edge-native, zero-cloud AI system for livestock diagnostics built for the remote farming landscapes of Chitradurga.",
+    date: "2026-10-08",
+    displayDate: "October 8, 2026",
+    readTime: "8 min read",
+    keywords: [
+      "Pashu Drishti",
+      "Novabion",
+      "Edge AI",
+      "Offline-First AI",
+      "Livestock Diagnostics",
+      "Embedded ML",
+      "Chitradurga Deployment",
+      "Balaraj R",
+    ],
+  },
+  "scaling-generative-ai-systems-llm-pipelines-aatonovaz": {
+    slug: "scaling-generative-ai-systems-llm-pipelines-aatonovaz",
+    path: "/blogs/scaling-generative-ai-systems-llm-pipelines-aatonovaz",
+    title: "Inside AatonovaZ: Architecting Production Generative AI Systems and Enterprise LLM Pipelines",
+    description:
+      "Reflections on my Gen AI Engineering internship at AatonovaZ Technologies — engineering multi-stage LLM data pipelines, prompt evaluation benchmarks, and hardware-software AI integration directly with executive leadership.",
+    date: "2026-09-05",
+    displayDate: "September 5, 2026",
+    readTime: "9 min read",
+    keywords: [
+      "AatonovaZ Technologies",
+      "Generative AI",
+      "LLM Pipelines",
+      "Adaptive Intelligence",
+      "Prompt Engineering",
+      "Model Evaluation",
+      "Enterprise AI",
+      "Balaraj R",
+    ],
+  },
   "building-darwin-ai-executive-board": {
     slug: "building-darwin-ai-executive-board",
     path: "/blogs/building-darwin-ai-executive-board",
@@ -738,6 +785,12 @@ export function safeJsonLd(data: unknown) {
   return JSON.stringify(data).replace(/</g, "\\u003c");
 }
 
+/** Trims to a search-result snippet length without cutting a word. */
+function clipDescription(text: string, limit = 158) {
+  if (text.length <= limit) return text;
+  return `${text.slice(0, text.lastIndexOf(" ", limit - 1)).replace(/[,;:]$/, "")}…`;
+}
+
 export function buildMetadata({
   title,
   description,
@@ -759,11 +812,13 @@ export function buildMetadata({
 }): Metadata {
   const url = absoluteUrl(path);
   const imageUrl = absoluteUrl(image);
+  const summary = clipDescription(description);
 
   return {
     metadataBase: new URL(SITE_URL),
     title: { absolute: title },
-    description,
+    description: summary,
+    applicationName: OWNER_NAME,
     keywords: keywords ? [...keywords] : [...globalKeywords],
     authors: [{ name: OWNER_NAME, url: SITE_URL }],
     creator: OWNER_NAME,
@@ -784,7 +839,7 @@ export function buildMetadata({
     },
     openGraph: {
       title,
-      description,
+      description: summary,
       url,
       siteName: SITE_NAME,
       images: [
@@ -808,7 +863,7 @@ export function buildMetadata({
     twitter: {
       card: "summary_large_image",
       title,
-      description,
+      description: summary,
       images: [imageUrl],
       creator: "@Balaraj__r",
     },
@@ -827,17 +882,30 @@ export function buildMetadata({
 
 export function personSchema() {
   return {
-    "@context": "https://schema.org",
     "@type": "Person",
+    "@id": PERSON_ID,
     name: OWNER_NAME,
-    alternateName: OWNER_ALT_NAME,
+    alternateName: [OWNER_ALT_NAME, "balaraj74"],
     url: SITE_URL,
+    image: absoluteUrl(OWNER_IMAGE),
+    email: "mailto:balarajr483@gmail.com",
     jobTitle: "AI/ML Engineer",
-    alumniOf: "PES University",
+    description: staticSeo.home.description,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Bengaluru",
+      addressRegion: "Karnataka",
+      addressCountry: "IN",
+    },
+    affiliation: {
+      "@type": "CollegeOrUniversity",
+      name: "PES University",
+    },
     sameAs: ownerSameAs,
     knowsAbout: [
       "Artificial Intelligence",
       "Machine Learning",
+      "Multi-Agent Systems",
       "Healthcare AI",
       "Agriculture AI",
       "Edge AI",
@@ -849,22 +917,36 @@ export function personSchema() {
 
 export function websiteSchema() {
   return {
-    "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": WEBSITE_ID,
     name: SITE_NAME,
     alternateName: ["Balaraj R Portfolio", "Balu Portfolio"],
     url: SITE_URL,
-    author: {
-      "@type": "Person",
-      name: OWNER_NAME,
-    },
+    author: { "@id": PERSON_ID },
+    publisher: { "@id": PERSON_ID },
     inLanguage: "en-US",
+  };
+}
+
+export function siteGraph() {
+  return [personSchema(), websiteSchema()];
+}
+
+export function profilePageSchema() {
+  return {
+    "@type": "ProfilePage",
+    "@id": `${SITE_URL}/#profile`,
+    url: SITE_URL,
+    name: staticSeo.home.title,
+    description: staticSeo.home.description,
+    isPartOf: { "@id": WEBSITE_ID },
+    mainEntity: { "@id": PERSON_ID },
+    primaryImageOfPage: absoluteUrl(OWNER_IMAGE),
   };
 }
 
 export function breadcrumbSchema(items: Array<{ name: string; path: string }>) {
   return {
-    "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
@@ -877,12 +959,12 @@ export function breadcrumbSchema(items: Array<{ name: string; path: string }>) {
 
 export function softwareApplicationSchema(project: (typeof projectSeo)[ProjectId]) {
   return {
-    "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: project.title.split("|")[0].trim(),
     alternateName: project.displayTitle,
     url: absoluteUrl(project.path),
     image: absoluteUrl(project.image),
+    sameAs: project.github,
     operatingSystem: "Web, Android",
     applicationCategory: project.category,
     description: project.description,
@@ -891,36 +973,24 @@ export function softwareApplicationSchema(project: (typeof projectSeo)[ProjectId
       price: "0",
       priceCurrency: "USD",
     },
-    author: {
-      "@type": "Person",
-      name: OWNER_NAME,
-      url: SITE_URL,
-    },
+    author: { "@id": PERSON_ID },
   };
 }
 
 export function blogSchema() {
   return {
-    "@context": "https://schema.org",
     "@type": "Blog",
     name: staticSeo.blogs.title,
     url: absoluteUrl(staticSeo.blogs.path),
     description: staticSeo.blogs.description,
-    author: {
-      "@type": "Person",
-      name: OWNER_NAME,
-      url: SITE_URL,
-    },
+    author: { "@id": PERSON_ID },
     blogPost: Object.values(blogPosts).map((post) => ({
       "@type": "BlogPosting",
       headline: post.title,
       description: post.description,
       url: absoluteUrl(post.path),
       datePublished: post.date,
-      author: {
-        "@type": "Person",
-        name: OWNER_NAME,
-      },
+      author: { "@id": PERSON_ID },
     })),
   };
 }
@@ -932,89 +1002,18 @@ export function blogPostingSchema(post: {
   date: string;
 }) {
   return {
-    "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
     description: post.description,
     url: absoluteUrl(post.path),
     datePublished: post.date,
     dateModified: post.date,
-    image: absoluteUrl(DEFAULT_OG_IMAGE),
-    author: {
-      "@type": "Person",
-      name: OWNER_NAME,
-      url: SITE_URL,
-    },
-    publisher: {
-      "@type": "Person",
-      name: OWNER_NAME,
-      url: SITE_URL,
-    },
+    image: absoluteUrl(`${post.path}/opengraph-image`),
+    author: { "@id": PERSON_ID },
+    publisher: { "@id": PERSON_ID },
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": absoluteUrl(post.path),
     },
   };
 }
-
-export const sitemapRoutes = [
-  { path: "/", changeFrequency: "weekly", priority: 1 },
-  { path: "/about", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/projects", changeFrequency: "weekly", priority: 0.9 },
-  { path: "/projects/vaidyos", changeFrequency: "monthly", priority: 0.85 },
-  { path: "/projects/agrisence", changeFrequency: "monthly", priority: 0.85 },
-  { path: "/projects/career-lens", changeFrequency: "monthly", priority: 0.85 },
-  { path: "/projects/darwin", changeFrequency: "monthly", priority: 0.85 },
-  { path: "/projects/omnisence", changeFrequency: "monthly", priority: 0.85 },
-  { path: "/projects/taskforze", changeFrequency: "monthly", priority: 0.85 },
-  { path: "/projects/healthmesh", changeFrequency: "monthly", priority: 0.85 },
-  { path: "/projects/cybershield", changeFrequency: "monthly", priority: 0.85 },
-  { path: "/blogs", changeFrequency: "weekly", priority: 0.8 },
-  {
-    path: "/blogs/agrisence-ai-agricultural-operating-system",
-    changeFrequency: "weekly",
-    priority: 0.85,
-  },
-  {
-    path: "/blogs/taskforze-autonomous-agent-swarm-orchestration",
-    changeFrequency: "weekly",
-    priority: 0.85,
-  },
-  {
-    path: "/blogs/building-darwin-ai-executive-board",
-    changeFrequency: "weekly",
-    priority: 0.85,
-  },
-  {
-    path: "/blogs/building-vaidyaos-offline-healthcare-ai-edge-ai",
-    changeFrequency: "monthly",
-    priority: 0.8,
-  },
-  {
-    path: "/blogs/how-agrisence-uses-ai-for-crop-disease-detection",
-    changeFrequency: "monthly",
-    priority: 0.8,
-  },
-  {
-    path: "/blogs/deploying-gguf-models-for-on-device-inference",
-    changeFrequency: "monthly",
-    priority: 0.78,
-  },
-  {
-    path: "/blogs/architecture-of-a-multi-agent-ai-platform",
-    changeFrequency: "monthly",
-    priority: 0.78,
-  },
-  {
-    path: "/blogs/my-journey-building-ai-systems-at-pes-university",
-    changeFrequency: "monthly",
-    priority: 0.78,
-  },
-  { path: "/blogs/edge-ai-healthcare", changeFrequency: "monthly", priority: 0.75 },
-  {
-    path: "/blogs/event-driven-microservices-ai",
-    changeFrequency: "monthly",
-    priority: 0.75,
-  },
-  { path: "/contact", changeFrequency: "monthly", priority: 0.7 },
-] as const;

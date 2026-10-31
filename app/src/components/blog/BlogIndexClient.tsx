@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { BlogHeroFeatured } from './BlogHeroFeatured';
 import { BlogFilterBar } from './BlogFilterBar';
 import { BlogCard } from './BlogCard';
@@ -74,38 +75,40 @@ export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPostData[]
       {/* Grid of Articles */}
       {filteredPosts.length > 0 ? (
         <div>
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-serif font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-6">
+            <h3 className="text-xl font-serif font-bold text-stone-900 dark:text-white flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-brand-600 dark:text-brand-400" />
               {activeCategory === 'All'
                 ? searchQuery
                   ? `Search Results (${filteredPosts.length})`
                   : 'Latest Articles'
                 : `${activeCategory} (${filteredPosts.length})`}
             </h3>
-            <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+            <span className="text-xs font-mono text-stone-600 dark:text-stone-400">
               Showing {filteredPosts.length} of {initialPosts.length} articles
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
-            {gridPosts.map((post) => (
-              <BlogCard key={post.slug} post={post} />
-            ))}
-          </div>
+          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            <AnimatePresence mode="popLayout">
+              {gridPosts.map((post, index) => (
+                <BlogCard key={post.slug} post={post} index={index} wide={index === 0 && gridPosts.length > 2} />
+              ))}
+            </AnimatePresence>
+          </motion.div>
         </div>
       ) : (
         /* Empty State */
-        <div className="text-center py-16 px-4 rounded-3xl glass-card border border-white/60 dark:border-white/10 bg-white/50 dark:bg-slate-900/50 max-w-lg mx-auto my-12">
-          <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mx-auto mb-4 border border-cyan-500/20">
+        <div className="text-center py-16 px-4 rounded-3xl glass-card border border-white/60 dark:border-white/10 bg-white/50 dark:bg-stone-900/50 max-w-lg mx-auto my-12">
+          <div className="w-14 h-14 rounded-2xl bg-brand-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center mx-auto mb-4 border border-brand-500/20">
             <Inbox className="w-7 h-7" />
           </div>
-          <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+          <h4 className="text-xl font-bold text-stone-900 dark:text-white mb-2">
             No articles found
           </h4>
-          <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">
+          <p className="text-sm text-stone-600 dark:text-stone-400 mb-6">
             No articles matched &ldquo;{searchQuery}&rdquo; in {activeCategory}. Try searching for{' '}
-            <span className="text-cyan-600 dark:text-cyan-400 font-mono">
+            <span className="text-brand-600 dark:text-brand-400 font-mono">
               &apos;Gemini&apos;, &apos;GGUF&apos;, &apos;Darwin&apos;, or &apos;FastAPI&apos;
             </span>
             .
@@ -115,7 +118,7 @@ export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPostData[]
               setSearchQuery('');
               setActiveCategory('All');
             }}
-            className="px-5 py-2 rounded-xl text-sm font-semibold bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:opacity-90 transition-opacity"
+            className="px-5 py-2 rounded-xl text-sm font-semibold bg-stone-900 text-white dark:bg-white dark:text-stone-900 hover:opacity-90 transition-opacity"
           >
             Reset Filters
           </button>

@@ -23,9 +23,9 @@ function TimelineCard({ item, index, isInView }: TimelineCardProps) {
       className={`relative flex flex-col lg:flex-row gap-8 items-start ${isEven ? 'lg:flex-row-reverse text-left lg:text-right' : 'text-left'}`}
     >
       {/* Center Dot */}
-      <div className="hidden lg:block absolute left-1/2 top-8 -mt-1 -ml-3 w-6 h-6 rounded-full bg-[#040010] border-2 border-cyan-500/50 z-10">
+      <div className="hidden lg:block absolute left-1/2 top-8 -mt-1 -ml-3 w-6 h-6 rounded-full bg-[#040010] border-2 border-brand-500/50 z-10">
         <motion.div
-          className="w-full h-full rounded-full bg-cyan-400"
+          className="w-full h-full rounded-full bg-brand-400"
           animate={{ scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         />
@@ -55,7 +55,7 @@ function TimelineCard({ item, index, isInView }: TimelineCardProps) {
           <ul className="space-y-4 mb-8">
             {item.points.map((point, pi) => (
               <li key={pi} className={`flex items-start gap-4 text-white/60 text-sm leading-relaxed ${isEven ? 'lg:flex-row-reverse' : ''}`}>
-                <Zap className="w-4 h-4 text-cyan-400 flex-shrink-0 mt-0.5" />
+                <Zap className="w-4 h-4 text-brand-400 flex-shrink-0 mt-0.5" />
                 <span>{point}</span>
               </li>
             ))}
@@ -130,7 +130,7 @@ export default function ExperienceSection() {
           animate={isInView ? 'visible' : 'hidden'}
           variants={scaleIn}
           transition={{ delay: 0.8 }}
-          className="mt-32 max-w-3xl mx-auto text-center glass-card rounded-3xl p-10 border border-cyan-500/20 hover:border-cyan-500/40 hover:shadow-[0_0_60px_rgba(6,182,212,0.1)] transition-all duration-700"
+          className="mt-32 max-w-3xl mx-auto text-center glass-card rounded-3xl p-10 border border-brand-500/20 hover:border-brand-500/40 hover:shadow-[0_0_60px_rgba(247,102,22,0.1)] transition-all duration-700"
         >
           <h3 className="text-xl sm:text-2xl font-black text-white mb-4">What This Journey Reflects</h3>
           <p className="text-white/55 leading-relaxed text-sm sm:text-base">

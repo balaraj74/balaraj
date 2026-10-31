@@ -15,10 +15,10 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
   {
     title: 'AI Systems Engineering',
     icon: Brain,
-    color: 'text-cyan-400',
-    badgeBg: 'bg-cyan-500/10 border-cyan-500/20 text-cyan-300',
-    glow: 'hover:shadow-[0_0_50px_rgba(6,182,212,0.2)] hover:border-cyan-500/40',
-    image: '/ai_systems.png',
+    color: 'text-brand-400',
+    badgeBg: 'bg-brand-500/10 border-brand-500/20 text-brand-300',
+    glow: 'hover:shadow-[0_0_50px_rgba(247,102,22,0.2)] hover:border-brand-500/40',
+    image: '/projects/new/skill-ai.png',
     bullets: [
       'Design and build LLM-powered applications using RAG, tool-calling, and multi-agent workflows',
       'Deploy models using Vertex AI / Gemini APIs with real-time inference pipelines',
@@ -29,10 +29,10 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
   {
     title: 'Full-Stack AI Development',
     icon: Code2,
-    color: 'text-sky-400',
-    badgeBg: 'bg-sky-500/10 border-sky-500/20 text-sky-300',
-    glow: 'hover:shadow-[0_0_50px_rgba(56,189,248,0.2)] hover:border-sky-500/40',
-    image: '/full_stack.png',
+    color: 'text-gold-400',
+    badgeBg: 'bg-gold-500/10 border-gold-500/20 text-gold-300',
+    glow: 'hover:shadow-[0_0_50px_rgba(251,191,36,0.2)] hover:border-gold-500/40',
+    image: '/projects/new/skill-fullstack.png',
     bullets: [
       'Build end-to-end AI products with seamless frontend–backend integration',
       'Develop scalable APIs for ML services and real-time applications',
@@ -46,7 +46,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     color: 'text-emerald-400',
     badgeBg: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-300',
     glow: 'hover:shadow-[0_0_50px_rgba(52,211,153,0.2)] hover:border-emerald-500/40',
-    image: '/cloud_mlops.png',
+    image: '/projects/new/skill-cloud.png',
     bullets: [
       'Deploy and manage applications on GCP (Cloud Run, Firestore, Functions)',
       'Containerize services using Docker and design microservice architectures',
@@ -60,7 +60,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     color: 'text-amber-400',
     badgeBg: 'bg-amber-500/10 border-amber-500/20 text-amber-300',
     glow: 'hover:shadow-[0_0_50px_rgba(251,191,36,0.2)] hover:border-amber-500/40',
-    image: '/security.png',
+    image: '/projects/new/skill-security.png',
     bullets: [
       'Implement secure architectures for AI systems and APIs',
       'Work with encryption, network analysis, and system-level debugging',

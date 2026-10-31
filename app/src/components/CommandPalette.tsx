@@ -90,7 +90,7 @@ export function CommandPalette() {
     [...FEATURED_PROJECTS, ...OTHER_PROJECTS].forEach((p) => {
       list.push({
         id: `proj-${p.title}`,
-        title: `${p.emoji} ${p.title}`,
+        title: p.title,
         subtitle: p.badge || p.thinking || p.description.slice(0, 70) + '...',
         category: 'Flagship Systems',
         badge: p.badge,
@@ -237,7 +237,7 @@ export function CommandPalette() {
     <AnimatePresence>
       {isOpen && (
         <div
-          className="fixed inset-0 z-[100] flex items-start justify-center pt-16 sm:pt-24 px-4 bg-slate-950/70 backdrop-blur-md"
+          className="fixed inset-0 z-[100] flex items-start justify-center pt-16 sm:pt-24 px-4 bg-stone-950/70 backdrop-blur-md"
           onClick={() => setIsOpen(false)}
         >
           <motion.div
@@ -246,11 +246,11 @@ export function CommandPalette() {
             exit={{ opacity: 0, scale: 0.95, y: -12 }}
             transition={{ duration: 0.16, ease: 'easeOut' }}
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-2xl rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl shadow-2xl overflow-hidden flex flex-col max-h-[82vh]"
+            className="w-full max-w-2xl rounded-2xl border border-stone-200/90 dark:border-stone-800 bg-white/95 dark:bg-stone-900/95 backdrop-blur-2xl shadow-2xl overflow-hidden flex flex-col max-h-[82vh]"
           >
             {/* Search Input Bar */}
-            <div className="flex items-center gap-3 px-5 py-4 border-b border-slate-200/80 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-950/30">
-              <Search className="w-5 h-5 text-cyan-600 dark:text-cyan-400 shrink-0 animate-pulse" />
+            <div className="flex items-center gap-3 px-5 py-4 border-b border-stone-200/80 dark:border-stone-800/80 bg-stone-50/50 dark:bg-stone-950/30">
+              <Search className="w-5 h-5 text-brand-600 dark:text-brand-400 shrink-0 animate-pulse" />
               <input
                 type="text"
                 autoFocus
@@ -258,28 +258,28 @@ export function CommandPalette() {
                 value={query}
                 onChange={(e) => handleQueryChange(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className="flex-1 bg-transparent border-none outline-none text-base text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 font-sans"
+                className="flex-1 bg-transparent border-none outline-none text-base text-stone-900 dark:text-white placeholder-stone-400 dark:placeholder-stone-500 font-sans"
               />
               {query && (
                 <button
                   onClick={() => handleQueryChange('')}
-                  className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-md transition-colors"
+                  className="p-1 text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 rounded-md transition-colors"
                   aria-label="Clear Search"
                 >
                   <X className="w-4 h-4" />
                 </button>
               )}
-              <kbd className="hidden sm:inline-flex items-center gap-0.5 px-2 py-1 rounded-md bg-slate-200/80 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-[11px] font-mono font-medium text-slate-600 dark:text-slate-400">
+              <kbd className="hidden sm:inline-flex items-center gap-0.5 px-2 py-1 rounded-md bg-stone-200/80 dark:bg-stone-800 border border-stone-300 dark:border-stone-700 text-[11px] font-mono font-medium text-stone-600 dark:text-stone-400">
                 ESC
               </kbd>
             </div>
 
             {/* Scrollable Results List */}
-            <div className="flex-1 overflow-y-auto p-2 sm:p-3 divide-y divide-slate-100 dark:divide-slate-800/50">
+            <div data-lenis-prevent className="flex-1 overflow-y-auto p-2 sm:p-3 divide-y divide-stone-100 dark:divide-stone-800/50">
               {filtered.length === 0 ? (
-                <div className="py-12 text-center text-slate-400 dark:text-slate-500 text-sm">
-                  <p className="font-semibold text-slate-600 dark:text-slate-400">No results found for &ldquo;{query}&rdquo;</p>
-                  <p className="text-xs mt-1 text-slate-400">Try searching for &ldquo;Darwin&rdquo;, &ldquo;VaidyaOS&rdquo;, &ldquo;AgriSence&rdquo;, or &ldquo;Microservices&rdquo;</p>
+                <div className="py-12 text-center text-stone-400 dark:text-stone-500 text-sm">
+                  <p className="font-semibold text-stone-600 dark:text-stone-400">No results found for &ldquo;{query}&rdquo;</p>
+                  <p className="text-xs mt-1 text-stone-400">Try searching for &ldquo;Darwin&rdquo;, &ldquo;VaidyaOS&rdquo;, &ldquo;AgriSence&rdquo;, or &ldquo;Microservices&rdquo;</p>
                 </div>
               ) : (
                 filtered.map((item, idx) => {
@@ -292,26 +292,26 @@ export function CommandPalette() {
                       onMouseEnter={() => setSelectedIndex(idx)}
                       className={`flex items-center justify-between gap-3 px-3.5 py-3 rounded-xl cursor-pointer text-xs transition-all ${
                         isSelected
-                          ? 'bg-cyan-500/10 dark:bg-cyan-500/15 border border-cyan-500/40 text-cyan-950 dark:text-cyan-200'
-                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100/70 dark:hover:bg-slate-800/50 border border-transparent'
+                          ? 'bg-brand-500/10 dark:bg-brand-500/15 border border-brand-500/40 text-brand-950 dark:text-brand-200'
+                          : 'text-stone-700 dark:text-stone-300 hover:bg-stone-100/70 dark:hover:bg-stone-800/50 border border-transparent'
                       }`}
                     >
                       <div className="flex items-center gap-3.5 min-w-0">
                         <div
                           className={`p-2 rounded-xl shrink-0 transition-colors ${
                             isSelected
-                              ? 'bg-cyan-500 text-white shadow-md shadow-cyan-500/30'
-                              : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
+                              ? 'bg-brand-500 text-white shadow-md shadow-brand-500/30'
+                              : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400'
                           }`}
                         >
                           <Icon className="w-4 h-4" />
                         </div>
                         <div className="min-w-0">
-                          <div className="font-semibold text-sm truncate text-slate-900 dark:text-slate-100">
+                          <div className="font-semibold text-sm truncate text-stone-900 dark:text-stone-100">
                             {item.title}
                           </div>
                           {item.subtitle && (
-                            <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                            <div className="text-[11px] text-stone-600 dark:text-stone-400 truncate mt-0.5">
                               {item.subtitle}
                             </div>
                           )}
@@ -320,15 +320,15 @@ export function CommandPalette() {
 
                       <div className="flex items-center gap-2 shrink-0">
                         {item.badge && (
-                          <span className="hidden sm:inline-block text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700/60">
+                          <span className="hidden sm:inline-block text-[10px] font-mono px-2 py-0.5 rounded-full bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400 border border-stone-200 dark:border-stone-700/60">
                             {item.badge}
                           </span>
                         )}
-                        <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-slate-200/60 dark:bg-slate-800/80 text-slate-500 dark:text-slate-400">
+                        <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-stone-200/60 dark:bg-stone-800/80 text-stone-600 dark:text-stone-400">
                           {item.category}
                         </span>
                         {isSelected && (
-                          <CornerDownLeft className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 animate-pulse ml-1" />
+                          <CornerDownLeft className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400 animate-pulse ml-1" />
                         )}
                       </div>
                     </div>
@@ -338,19 +338,19 @@ export function CommandPalette() {
             </div>
 
             {/* Footer keyboard hints */}
-            <div className="flex items-center justify-between px-5 py-2.5 border-t border-slate-200/80 dark:border-slate-800/80 text-[11px] text-slate-500 dark:text-slate-400 font-mono bg-slate-50/70 dark:bg-slate-950/50">
+            <div className="flex items-center justify-between px-5 py-2.5 border-t border-stone-200/80 dark:border-stone-800/80 text-[11px] text-stone-600 dark:text-stone-400 font-mono bg-stone-50/70 dark:bg-stone-950/50">
               <div className="flex items-center gap-4">
                 <span className="inline-flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-[10px]">↑↓</kbd> navigate
+                  <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 text-[10px]">↑↓</kbd> navigate
                 </span>
                 <span className="inline-flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-[10px]">↵</kbd> select
+                  <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 text-[10px]">↵</kbd> select
                 </span>
                 <span className="inline-flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-[10px]">esc</kbd> close
+                  <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 text-[10px]">esc</kbd> close
                 </span>
               </div>
-              <span className="text-cyan-600 dark:text-cyan-400 font-medium">balaraj.me</span>
+              <span className="text-brand-600 dark:text-brand-400 font-medium">balaraj.me</span>
             </div>
           </motion.div>
         </div>
@@ -367,11 +367,11 @@ export function CommandPaletteTrigger() {
     <button
       onClick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}
       type="button"
-      className="inline-flex items-center gap-2 px-2.5 py-1.5 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-900/80 text-slate-500 dark:text-slate-400 hover:border-cyan-500/40 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all shadow-sm hover:scale-[1.02]"
+      className="inline-flex items-center gap-2 px-2.5 py-1.5 text-xs font-mono rounded-lg border border-stone-200 dark:border-stone-800 bg-stone-100/80 dark:bg-stone-900/80 text-stone-600 dark:text-stone-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-all shadow-sm hover:scale-[1.02]"
     >
-      <Search className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" aria-hidden="true" />
+      <Search className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" aria-hidden="true" />
       <span className="hidden sm:inline">Search...</span>
-      <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-[10px] font-sans font-semibold">
+      <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 text-[10px] font-sans font-semibold">
         ⌘K
       </kbd>
     </button>
