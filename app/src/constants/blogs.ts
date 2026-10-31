@@ -5,7 +5,7 @@ export const BLOG_AUTHOR = {
   role: 'AI Systems Architect & PES University',
   avatar: '/balaraj_hero.png',
   github: 'https://github.com/balaraj74',
-  linkedin: 'https://www.linkedin.com/in/balaraj-r-209a67330/',
+  linkedin: 'https://www.linkedin.com/in/balarajr/',
   twitter: 'https://x.com/Balaraj__r',
 };
 

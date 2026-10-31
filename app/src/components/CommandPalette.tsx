@@ -165,7 +165,7 @@ export function CommandPalette() {
         category: 'External Profiles',
         badge: 'LinkedIn',
         icon: Linkedin,
-        onSelect: () => window.open('https://www.linkedin.com/in/balaraj-r-209a67330/', '_blank'),
+        onSelect: () => window.open('https://www.linkedin.com/in/balarajr/', '_blank'),
       },
       {
         id: 'ext-gs',

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import { ArrowRight, FileText, ExternalLink } from 'lucide-react';
+import { RESUME_URL } from '../constants/contacts';
 import { Magnetic } from './motion/primitives';
 import { scrollToId } from './motion/SmoothScroll';
 
@@ -155,7 +156,7 @@ export default function HeroSection() {
 
               <Magnetic className="w-full sm:w-auto">
                 <a
-                  href="/resume.pdf"
+                  href={RESUME_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex items-center justify-center gap-2.5 bg-white dark:bg-stone-900 hover:bg-stone-50 dark:hover:bg-stone-800 border border-stone-300 dark:border-stone-700 hover:border-brand-500/40 text-stone-900 dark:text-stone-100 font-bold px-6 py-3.5 rounded-xl shadow-sm transition-colors duration-300 uppercase tracking-wider text-xs sm:text-sm w-full sm:w-auto"

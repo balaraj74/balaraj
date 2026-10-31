@@ -4,9 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { AlertTriangle, ArrowUpRight, Check, Copy, FileText, Send } from 'lucide-react';
 import { EASE_OUT_EXPO } from './shared';
 import { Magnetic, Reveal, RevealText, VIEWPORT } from './motion/primitives';
-import { CONTACT_LINKS, ContactInfo } from '../constants/contacts';
+import { CONTACT_LINKS, ContactInfo, RESUME_URL } from '../constants/contacts';
 
-const EMAIL = 'balarajr483@gmail.com';
+const EMAIL = 'balu.balarajr@gmail.com';
 const LIVE_LINKS = CONTACT_LINKS.filter((link) => link.label !== 'Email');
 
 function BengaluruClock() {
@@ -163,11 +163,11 @@ function ContactForm() {
       } else {
         throw new Error(
           failureReason ||
-            'Unable to deliver message right now. Please reach out directly via email at balarajr483@gmail.com.'
+            'Unable to deliver message right now. Please reach out directly via email at balu.balarajr@gmail.com.'
         );
       }
     } catch (err: unknown) {
-      let msg = 'Unable to deliver message right now. Please reach out directly via email at balarajr483@gmail.com.';
+      let msg = 'Unable to deliver message right now. Please reach out directly via email at balu.balarajr@gmail.com.';
       if (err instanceof Error && err.message && !err.message.includes('<!DOCTYPE') && !err.message.includes('JSON')) {
         msg = err.message;
       }
@@ -320,14 +320,13 @@ export default function ContactSection({ headingLevel = 'h2' }: { headingLevel?:
             <Reveal delay={0.1}>
               <Magnetic>
                 <a
-                  href="/resume.pdf"
+                  href={RESUME_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  download="Balaraj_resume.pdf"
                   className="group inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/25 hover:border-brand-400 font-bold text-sm transition-colors"
                 >
                   <FileText className="w-4 h-4 text-brand-400 group-hover:-translate-y-0.5 transition-transform" />
-                  Download Resume
+                  View Resume
                 </a>
               </Magnetic>
             </Reveal>

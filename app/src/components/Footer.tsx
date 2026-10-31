@@ -23,10 +23,10 @@ const PROJECT_LINKS = [
 export default function Footer() {
   const socialLinks = [
     { name: 'GitHub profile', icon: Github, href: 'https://github.com/balaraj74' },
-    { name: 'LinkedIn profile', icon: Linkedin, href: 'https://www.linkedin.com/in/balaraj-r-209a67330/' },
+    { name: 'LinkedIn profile', icon: Linkedin, href: 'https://www.linkedin.com/in/balarajr/' },
     { name: 'X / Twitter profile', icon: Twitter, href: 'https://x.com/Balaraj__r' },
     { name: 'Instagram profile', icon: Instagram, href: 'https://www.instagram.com/balaraj.__r/' },
-    { name: 'Email Balaraj', icon: Mail, href: 'mailto:balarajr483@gmail.com' },
+    { name: 'Email Balaraj', icon: Mail, href: 'mailto:balu.balarajr@gmail.com' },
   ];
 
   return (

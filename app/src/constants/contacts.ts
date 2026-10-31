@@ -1,5 +1,7 @@
 import { Mail, Linkedin, Github, Twitter, Database, Brain, Code2, Award, Instagram } from 'lucide-react';
 
+export const RESUME_URL = 'https://drive.google.com/file/d/1eHgU1BzPQ1m0DxUQqf0EbmLVZ-jRKAYk/view?usp=sharing';
+
 export interface ContactInfo {
   icon: React.ComponentType<{ className?: string }>;
   label: string;
@@ -9,8 +11,8 @@ export interface ContactInfo {
 }
 
 export const CONTACT_LINKS: ContactInfo[] = [
-  { icon: Mail, label: 'Email', value: 'balarajr483@gmail.com', href: 'mailto:balarajr483@gmail.com', subtext: 'Within 24 hrs' },
-  { icon: Linkedin, label: 'LinkedIn', value: 'linkedin.com/in/balaraj-r-209a67330', href: 'https://www.linkedin.com/in/balaraj-r-209a67330/', subtext: 'Experience' },
+  { icon: Mail, label: 'Email', value: 'balu.balarajr@gmail.com', href: 'mailto:balu.balarajr@gmail.com', subtext: 'Within 24 hrs' },
+  { icon: Linkedin, label: 'LinkedIn', value: 'linkedin.com/in/balarajr', href: 'https://www.linkedin.com/in/balarajr/', subtext: 'Experience' },
   { icon: Github, label: 'GitHub', value: 'github.com/balaraj74', href: 'https://github.com/balaraj74', subtext: 'Code & PRs' },
   { icon: Twitter, label: 'X (Twitter)', value: 'x.com/Balaraj__r', href: 'https://x.com/Balaraj__r', subtext: 'Tech Updates' },
   { icon: Database, label: 'Kaggle', value: 'kaggle.com/balarajr', href: 'https://www.kaggle.com/balarajr', subtext: 'Data Science' },

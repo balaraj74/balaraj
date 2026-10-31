@@ -158,7 +158,7 @@ function MobileMenu({ isOpen, activeSection, onLinkClick }: MobileMenuProps) {
                 <span>GitHub</span>
               </a>
               <a
-                href="https://www.linkedin.com/in/balaraj-r-209a67330/"
+                href="https://www.linkedin.com/in/balarajr/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-white/80 dark:bg-stone-900/80 text-xs font-semibold text-stone-800 dark:text-stone-200"
@@ -264,7 +264,7 @@ export function Navigation() {
                 <span>GitHub</span>
               </motion.a>
               <motion.a
-                href="https://www.linkedin.com/in/balaraj-r-209a67330/"
+                href="https://www.linkedin.com/in/balarajr/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/90 dark:bg-stone-900/90 border border-stone-300 dark:border-stone-700 text-stone-800 dark:text-stone-200 text-xs font-semibold hover:bg-stone-100 dark:hover:bg-stone-800 hover:border-[#0A66C2]/40 transition-all duration-300 shadow-sm"

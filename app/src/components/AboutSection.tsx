@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import { Mail, Github, FileText, Brain, Code2, Cloud, Shield } from 'lucide-react';
 import { AuroraBackground, fadeInLeft, staggerContainer, fadeInUp, scaleIn } from './shared';
+import { RESUME_URL } from '../constants/contacts';
 import { Magnetic, RevealText, ScrollWords, SpotlightCard, VIEWPORT } from './motion/primitives';
 
 interface Highlight {
@@ -201,7 +202,7 @@ export default function AboutSection() {
             <motion.div className="flex flex-wrap gap-4 mt-8" variants={fadeInUp}>
               <Magnetic>
               <motion.a
-                href="mailto:balarajr483@gmail.com"
+                href="mailto:balu.balarajr@gmail.com"
                 className="btn-primary group"
                 whileTap={{ scale: 0.97 }}
               >
@@ -225,7 +226,7 @@ export default function AboutSection() {
 
               <Magnetic>
               <motion.a
-                href="/resume.pdf"
+                href={RESUME_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-6 py-3 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 hover:bg-stone-50 dark:hover:bg-stone-800 text-stone-800 dark:text-stone-200 font-semibold text-sm transition-all shadow-sm"

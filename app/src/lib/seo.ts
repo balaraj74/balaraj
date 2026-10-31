@@ -12,7 +12,7 @@ export const OWNER_IMAGE = "/balaraj_portrait.png";
 
 export const ownerSameAs = [
   "https://github.com/balaraj74",
-  "https://www.linkedin.com/in/balaraj-r-209a67330/",
+  "https://www.linkedin.com/in/balarajr/",
   "https://x.com/Balaraj__r",
   "https://www.instagram.com/balaraj.__r/",
   "https://www.skills.google/public_profiles/7e29917e-8bd6-41e6-8149-0795ae63c97b",
@@ -888,7 +888,7 @@ export function personSchema() {
     alternateName: [OWNER_ALT_NAME, "balaraj74"],
     url: SITE_URL,
     image: absoluteUrl(OWNER_IMAGE),
-    email: "mailto:balarajr483@gmail.com",
+    email: "mailto:balu.balarajr@gmail.com",
     jobTitle: "AI/ML Engineer",
     description: staticSeo.home.description,
     address: {
