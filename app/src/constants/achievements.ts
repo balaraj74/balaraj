@@ -45,7 +45,7 @@ export const MAJOR_AWARDS: MajorAward[] = [
     title: 'Google Gen AI Exchange',
     badge: 'NATIONAL WINNER',
     badgeColor: 'text-ember-400 border-ember-400/30',
-    desc: 'Built an AI-driven clinical orchestration system. Selected among top teams nationwide for innovation, robust technical architecture, and real-world applicability.',
+    desc: 'Built CareerLens, a personalized AI career and skills advisor. Selected as a national winner for innovation, robust technical architecture, and real-world applicability.',
   },
   {
     borderColor: 'border-brand-500/30 hover:border-brand-400',
