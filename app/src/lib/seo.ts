@@ -170,7 +170,7 @@ export const projectSeo = {
     content:
       "AgriSence was built to solve critical delays in crop disease identification. By leveraging GCP serverless functions and Gemini AI, it analyzes crop imagery and provides real-time, localized actionable advice to farmers across India.",
     github: "https://github.com/balaraj74/AgriSence",
-    demo: "https://agrisence--agrisence-1dc30.us-central1.hosted.app/",
+    demo: "",
     image: "/projects/new/agrisence.png",
     category: "AgricultureApplication",
     details: {
@@ -225,7 +225,7 @@ export const projectSeo = {
     content:
       "CareerLens is a sophisticated 32-microservice platform that deeply analyzes professional profiles. It uses semantic search and multi-agent reasoning to build 5-year optimized career trajectories, earning a National Hackathon victory.",
     github: "https://github.com/balaraj74/careerlens",
-    demo: "https://careerlens--careerlens-1.us-central1.hosted.app",
+    demo: "",
     image: "/projects/new/careerlens.png",
     category: "BusinessApplication",
     details: {
@@ -280,7 +280,7 @@ export const projectSeo = {
     content:
       "Darwin is a full-stack multi-agent AI system designed to act as an executive board for startup founders. It simulates rigorous boardroom debate across 5 specialized AI personas to stress-test business models, financial models, and go-to-market strategies.",
     github: "https://github.com/balaraj74/darwin",
-    demo: "https://darwin-5dleehg6la-el.a.run.app",
+    demo: "",
     image: "/projects/new/darwin.png",
     category: "BusinessApplication",
     details: {
@@ -335,7 +335,7 @@ export const projectSeo = {
     content:
       "OmniSence is a high-throughput multimodal intelligence engine that fuses real-time computer vision with audio stream comprehension to perceive and structure complex ambient environments.",
     github: "https://github.com/balaraj74/omnisence",
-    demo: "https://omnisence-demo.vercel.app",
+    demo: "",
     image: "/projects/new/omnisence.png",
     category: "MultimediaApplication",
     details: {
@@ -389,7 +389,7 @@ export const projectSeo = {
     content:
       "TaskForze delivers enterprise-grade workflow orchestration by coordinating distributed autonomous agents that dynamically plan, execute, verify, and iterate on complex multi-step technical workflows.",
     github: "https://github.com/balaraj74/taskforze",
-    demo: "https://taskforze.vercel.app",
+    demo: "",
     image: "/projects/new/taskforze.png",
     category: "BusinessApplication",
     details: {
@@ -443,7 +443,7 @@ export const projectSeo = {
     content:
       "HealthMesh v2.0 is a distributed medical telemetry network delivering zero-trust patient monitoring, continuous edge vital analysis, and low-latency critical event alerting across clinical facilities.",
     github: "https://github.com/balaraj74/healthmesh",
-    demo: "https://healthmesh.vercel.app",
+    demo: "",
     image: "/projects/new/healthmesh.png",
     category: "HealthcareApplication",
     details: {
@@ -497,7 +497,7 @@ export const projectSeo = {
     content:
       "CyberShield AI is an intelligent defensive cybersecurity platform that continuously ingests network telemetry and applies real-time behavioural anomaly classifiers to neutralize threat vectors before escalation.",
     github: "https://github.com/balaraj74/cybershield",
-    demo: "https://cybershield.vercel.app",
+    demo: "https://cybershield-inky.vercel.app/",
     image: "/projects/new/cybershield.png",
     category: "SecurityApplication",
     details: {
